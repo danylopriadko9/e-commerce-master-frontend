@@ -1,11 +1,11 @@
-import React from 'react';
 import styles from './Header.module.scss';
 import logo from '../../assets/logo.png';
 import { Link } from 'react-router-dom';
 import { FaFacebookSquare } from 'react-icons/fa';
-import { BiCategoryAlt } from 'react-icons/bi';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { RiAccountCircleLine } from 'react-icons/ri';
+import DropDown from '../DropDown/DropDown';
+import NumberPopup from '../NumberPopup/NumberPopup';
 
 const Header = () => {
   return (
@@ -37,9 +37,7 @@ const Header = () => {
           <Link to='/warranty'>Гарантия</Link>
         </div>
         <div className={styles.phoneNumber}>
-          <span className={styles.number}>
-            496 20 08 <div className={styles.triangle}></div>
-          </span>
+          <NumberPopup />
           <Link to='https://www.facebook.com/'>
             <FaFacebookSquare style={{ color: '#0058CF', fontSize: '20px' }} />
           </Link>
@@ -47,8 +45,7 @@ const Header = () => {
       </div>
       <div className={styles.footer}>
         <div className={styles.catalogMenu}>
-          <BiCategoryAlt />
-          <span>КАТАЛОГ</span>
+          <DropDown />
         </div>
         <div className={styles.cartAndLogin}>
           <div className={`${styles.card} ${styles.cartAndLoginItems}`}>

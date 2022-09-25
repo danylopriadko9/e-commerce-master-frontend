@@ -1,13 +1,17 @@
 import Header from './components/Header/Header';
+import Footer from './components/Footer/Footer';
 import './App.scss';
 import PagesComposing from './pages/PagesComposing';
 
 function App() {
   return (
-    <div className='mainContainer'>
+    <>
       <Header />
-      <PagesComposing />
-    </div>
+      <div className='mainContainer'>
+        <PagesComposing />
+      </div>
+      <Footer />
+    </>
   );
 }
 

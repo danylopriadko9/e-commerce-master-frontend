@@ -1,0 +1,40 @@
+.infoContainer {
+  width: 100vw;
+  background-color: #f7f8f9;
+  padding: 60px 0;
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  color: #c6c7c8;
+
+  .container {
+    width: 960px;
+
+    h1 {
+      font-size: 30px;
+      line-height: 30px;
+      color: #cccccc;
+      font-weight: 300;
+      width: 80%;
+    }
+
+    .descriptionContainer {
+      width: 100%;
+      display: flex;
+      margin-top: 10px;
+      justify-content: space-between;
+    }
+
+    .descriptinBlock {
+      width: 48%;
+
+      p {
+        margin: 25px 0 20px;
+        font-size: 12px;
+        line-height: 20px;
+        color: #999999;
+        font-weight: 300;
+      }
+    }
+  }
+}

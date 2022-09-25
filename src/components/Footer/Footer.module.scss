@@ -1,0 +1,142 @@
+.footerContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+
+  .container {
+    width: 960px;
+    padding: 100px 0 20px;
+    background-color: white;
+
+    position: relative;
+
+    .phoneButton {
+      position: absolute;
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      background-color: #00adf6;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 35px;
+      color: white;
+      right: 0;
+      top: -35px;
+    }
+
+    .logoContainer {
+      position: relative;
+
+      .logoRedLine {
+        width: 45px;
+        height: 3px;
+        position: absolute;
+        background-color: red;
+        top: -25px;
+        left: 0;
+      }
+    }
+  }
+}
+
+.leftContainer {
+  p {
+    font-size: 13px;
+    line-height: 20px;
+    color: #999999;
+    font-weight: 400;
+  }
+}
+
+.left {
+  display: flex;
+  .footerLinks {
+    margin-top: 10px;
+    margin-left: 50px;
+    font-size: 15px;
+    font-weight: 400;
+
+    a {
+      text-decoration: none;
+      margin-right: 20px;
+
+      font-size: 13px;
+      line-height: 30px;
+
+      font-weight: 400;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+
+    .firstLinks a {
+      color: black;
+    }
+
+    .secoundLinks {
+      margin-top: 15px;
+      a {
+        color: #b8b5b8;
+      }
+    }
+
+    .thirdLinks {
+      margin-top: 25px;
+      a {
+        color: #b8b5b8;
+      }
+    }
+
+    .payments {
+      display: flex;
+      margin-top: 25px;
+
+      img {
+        width: 115px;
+      }
+    }
+  }
+}
+
+.right {
+  padding: 15px 0;
+
+  .firstNumberContainer {
+    margin-bottom: 20px;
+  }
+  .firstNumber {
+    font-size: 30px;
+    line-height: 30px;
+    color: #0066cc;
+    font-weight: 400;
+  }
+
+  p {
+    color: #b8b5b8;
+    margin-top: 10px;
+
+    span {
+      color: red;
+      font-size: inherit;
+      font-weight: 300;
+    }
+  }
+}
+.footerContentContainer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.bottomLine {
+  width: 100%;
+  border-top: 2px solid #e0e1e2;
+  margin-top: 30px;
+  padding-top: 15px;
+  text-align: center;
+  font-size: 13px;
+  line-height: 30px;
+  color: #999999;
+  font-weight: 400;
+}

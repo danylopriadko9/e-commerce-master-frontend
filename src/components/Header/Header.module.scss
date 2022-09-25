@@ -3,7 +3,6 @@
   margin: 0 auto;
   border-top: 3px solid #005bcd;
   display: flex;
-  height: 205px;
   position: relative;
   z-index: 100;
 
@@ -24,6 +23,10 @@
         font-size: 13px;
         color: #1f1f1f;
         line-height: 25px;
+
+        &:hover {
+          text-decoration: underline;
+        }
       }
     }
 
@@ -78,50 +81,26 @@
       a {
         margin: 0;
       }
-
-      .number {
-        font-weight: 100;
-        font-size: 25px;
-        color: #0058cf;
-        position: relative;
-
-        .triangle {
-          position: absolute;
-          border: 6px solid transparent;
-          border-top: 6px solid #0058cf;
-          right: -20px;
-          top: calc(50% - 2px);
-        }
-      }
     }
+  }
+
+  .footer {
+    position: absolute;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    bottom: -110px;
   }
 
   .catalogMenu {
     width: 50px;
     height: 50px;
     position: absolute;
-    background-color: #eaebec;
+
     left: -50px;
     bottom: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-direction: column;
-    color: #b8b5b8;
-    font-size: 20px;
-    transition: 0.2s all;
 
-    span {
-      font-size: 9px;
-      font-weight: bold;
-      margin-top: 2px;
-    }
-
-    &:hover {
-      background-color: #d4d6d8;
-      color: #8d8d8d;
-      cursor: pointer;
-    }
+    ///
   }
 
   .cartAndLogin {

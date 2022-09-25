@@ -30,7 +30,7 @@ const Slider = () => {
   }, [index]);
 
   return (
-    <div className={styles.continer}>
+    <div className={styles.container}>
       <div className={styles.counterOfSliders}>
         {index + 1} / {data.length}
       </div>

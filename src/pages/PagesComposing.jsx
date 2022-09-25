@@ -4,11 +4,13 @@ import Main from './Main/Main';
 
 const MainPage = () => {
   return (
-    <div className='container'>
-      <Routes>
-        <Route path='/' element={<Main />} />
-      </Routes>
-    </div>
+    <>
+      <div className='container'>
+        <Routes>
+          <Route path='/' element={<Main />} />
+        </Routes>
+      </div>
+    </>
   );
 };
 

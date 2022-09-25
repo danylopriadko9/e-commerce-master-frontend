@@ -1,0 +1,37 @@
+.number {
+  font-weight: 400;
+  font-size: 25px;
+  color: #0058cf;
+  position: relative;
+  cursor: pointer;
+
+  .triangle {
+    position: absolute;
+    border: 6px solid transparent;
+    border-top: 6px solid #0058cf;
+    right: -20px;
+    top: calc(50% - 2px);
+  }
+}
+
+.numberPopupContainer {
+  position: absolute;
+  bottom: -200px;
+  left: -70px;
+  width: 170px;
+  padding: 10px;
+  background-color: white;
+  border: 1px solid #e0e1e2;
+
+  p {
+    color: #b8b5b8;
+    margin-bottom: 10px;
+    font-size: 13px;
+
+    span {
+      color: red;
+      font-size: inherit;
+      font-weight: 300;
+    }
+  }
+}
