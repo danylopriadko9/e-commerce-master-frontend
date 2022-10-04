@@ -20,6 +20,7 @@
     border: 1px solid #ecedee64;
     right: -802px;
     top: 0;
+    display: none;
 
     h3 {
       padding: 10px;
@@ -55,8 +56,8 @@
       }
     }
 
-    &:hover .dropdown {
-      display: flex;
+    &:hover {
+      display: block;
     }
   }
 
@@ -66,10 +67,10 @@
     right: -301px;
     width: 300px;
     border: 1px solid #ecedee64;
+    display: none;
 
     background-color: white;
     display: none;
-    opacity: 0;
     transition: 1s all;
 
     a {
@@ -115,5 +116,11 @@
     flex-direction: column;
     justify-content: space-around;
     opacity: 1;
+  }
+}
+
+.dropdownContent {
+  &:hover .categoryItems {
+    display: block;
   }
 }

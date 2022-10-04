@@ -1,39 +1,36 @@
-const express = require('express');
-const cors = require('cors');
-const mysql = require('mysql2');
-require('dotenv').config();
+import express from 'express';
+import dotenv from 'dotenv';
+dotenv.config();
+import cors from 'cors';
+import mysql from 'mysql2';
+import {
+  categoriesController,
+  productController,
+  newsController,
+} from './controllers/index.js';
+import path from 'path';
 
-const port = process.env.PORT || 3002;
+const port = process.env.PORT || 3001;
+const app = express();
+app.use(cors());
 
-// create the connection to database
-const dbConnection = mysql.createConnection({
+const __dirname = path.resolve();
+
+export const db = mysql.createConnection({
   host: process.env.DB_HOST,
   user: process.env.DB_LOGIN,
   password: process.env.DB_PASSWORD,
+  database: process.env.DB_NAME,
 });
 
-const app = express();
-app.use(express.json());
+app.get('/categories', categoriesController.getAllCategories);
+app.get('/discount', productController.getProductsWithDiscountQuery);
+app.get('/news', newsController.getAllNews);
+app.get('/getProductImage/:id', productController.getProductImage);
+app.get('/newProducts', productController.getNewProducts);
 
-// check the connection db
-dbConnection.connect((err) => {
-  if (err) throw new Error(err);
-  console.log('db connected success');
+app.use('/static', express.static(path.join(__dirname + '/static')));
+
+app.listen(port, () => {
+  console.log(`Server is running on ${port} PORT!`);
 });
-
-const start = () => {
-  try {
-    app.listen(port, () => console.log(`Server is running on ${port} PORT!`));
-  } catch (error) {
-    console.log(error);
-  }
-};
-
-start();
-
-// b3BlbnNzaC1rZXktdjEAAAAACmFlczI1Ni1jdHIAAAAGYmNyeXB0AAAAGAAAABBkzltw6Q
-// 1Jdamwq1EF8ZvDAAAAEAAAAAEAAAAzAAAAC3NzaC1lZDI1NTE5AAAAIGh3I8G1TpV9ZdWi
-// LBg7Ytjmd5WKk1cYSoJefngUJFYyAAAAoM5gaJlVQEZ8eAlClBzIR8hSlfctZIldxLWKbf
-// 8KrKXyfS8cbgH1svxI0bQBohgZGWZDclHXXNaqG3E84PJnesBMlML9UCYbMnuKdkbauU1/
-// WA34I8R1N3k7b+cSqrxMgWWj1qbSu1WH9bGO/N3arwNSXc+AjztFqFk17Wai1JwPO8w7kB
-// uxql1Ywa3j07TD+yTfJpOvL4XcGBTtg1sB1U8=

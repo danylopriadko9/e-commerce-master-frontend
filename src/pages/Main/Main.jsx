@@ -1,10 +1,17 @@
+import ItemsSlider from '../../components/ItemsSlider';
 import InfoBlock from '../../components/InfoBlock/InfoBlock';
 import Slider from '../../components/Slider/Slider';
 
 const Main = () => {
   return (
     <>
-      <Slider /> <InfoBlock />
+      <div className='mainContentContainer'>
+        <Slider />
+        <ItemsSlider title={'Акции'} />
+        <ItemsSlider title={'Новинки'} />
+        <ItemsSlider title={'Новости'} />
+      </div>
+      <InfoBlock />
     </>
   );
 };

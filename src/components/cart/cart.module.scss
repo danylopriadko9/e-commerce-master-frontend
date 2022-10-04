@@ -1,0 +1,99 @@
+.main_container {
+  position: absolute;
+  width: 960px;
+  background-color: white;
+  left: calc(50% - 480px);
+  display: flex;
+  margin: 80px 0;
+
+  header {
+    position: relative;
+    width: 960px;
+
+    h1 {
+      color: #cbccce;
+      margin: 35px 0 10px 30px;
+    }
+
+    .indikator {
+      width: 45px;
+      height: 4px;
+      background-color: red;
+      margin-left: 30px;
+    }
+
+    button {
+      position: absolute;
+      right: 0;
+      top: -35px;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15px;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.itemsContainer {
+  width: 100%;
+
+  h2 {
+    margin: 20px 0 0 30px;
+    color: #cbccce;
+  }
+}
+
+footer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 30px 0 50px 0;
+
+  .left {
+    display: flex;
+    align-items: center;
+    color: #999999;
+    transition: 0.2s all;
+    margin-left: 20px;
+
+    span {
+      margin-left: 10px;
+      text-decoration: underline;
+    }
+    &:hover {
+      cursor: pointer;
+      color: black;
+    }
+  }
+
+  .right {
+    margin-right: 20px;
+    .totalSumBlock {
+      display: flex;
+      justify-content: space-around;
+      margin-bottom: 20px;
+
+      span {
+        font-size: 20px;
+        font-weight: 300;
+        color: #999999;
+      }
+    }
+
+    button {
+      padding: 15px 100px;
+      border: none;
+      background-color: #91c0ec;
+      color: white;
+
+      span {
+        margin-left: 5px;
+      }
+    }
+  }
+}

@@ -1,0 +1,32 @@
+.container {
+  margin-right: 10px;
+
+  .imageContainer {
+    height: 80px;
+    width: 100%;
+    overflow: hidden;
+    background-color: #005bcf;
+    margin-bottom: 10px;
+
+    img {
+      width: 100%;
+    }
+  }
+
+  .date {
+    margin-bottom: 5px;
+    color: #5c5d5e;
+    font-weight: bold;
+  }
+
+  .description {
+    margin-bottom: 10px;
+    color: #68696a;
+    font-weight: 300;
+  }
+
+  a {
+    color: red;
+    font-weight: 400;
+  }
+}
