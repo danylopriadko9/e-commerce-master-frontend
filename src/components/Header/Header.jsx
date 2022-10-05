@@ -6,10 +6,17 @@ import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { RiAccountCircleLine } from 'react-icons/ri';
 import DropDown from '../DropDown/DropDown';
 import NumberPopup from '../NumberPopup/NumberPopup';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { handelShowStatus } from '../../redux/slices/cartSlice';
 
 const Header = () => {
+  const dispatch = useDispatch();
+
   const { totalPrice } = useSelector((state) => state.cart);
+
+  const handleCartOpen = () => {
+    dispatch(handelShowStatus());
+  };
   return (
     <div className={styles.header}>
       <div className={styles.logoContainer}>
@@ -50,7 +57,10 @@ const Header = () => {
           <DropDown />
         </div>
         <div className={styles.cartAndLogin}>
-          <div className={`${styles.card} ${styles.cartAndLoginItems}`}>
+          <div
+            className={`${styles.card} ${styles.cartAndLoginItems}`}
+            onClick={handleCartOpen}
+          >
             <AiOutlineShoppingCart className={styles.icon} />
             <div className={styles.barrier}></div>
             <span>{totalPrice.toFixed()} грн</span>

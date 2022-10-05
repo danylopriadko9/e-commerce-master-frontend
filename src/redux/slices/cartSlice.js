@@ -1,11 +1,11 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { useDispatch } from 'react-redux';
 import { calcTotalPrice } from '../../utils/countTotalPrice';
 
 const initialState = {
   cartItems: [],
   showStatus: false,
   totalPrice: 0,
+  popupStatus: 'cart',
 };
 
 export const cartSlice = createSlice({
@@ -49,14 +49,11 @@ export const cartSlice = createSlice({
       );
       state.totalPrice = calcTotalPrice(state.cartItems);
     },
-    totalPriceCounter: (state, action) => {
-      state.totalPrice = state.cartItems.reduce((acc, item) => {
-        acc += item.base_price * item.qty;
-        return acc;
-      }, 0);
-    },
     handelShowStatus: (state, action) => {
       state.showStatus = !state.showStatus;
+    },
+    handlePopupStatus: (state, action) => {
+      state.popupStatus = action.payload; // cart | ofer
     },
   },
 });
@@ -66,8 +63,8 @@ export const {
   addQtyFromItem,
   subtractQuantityFromItem,
   removeItemFromCart,
-  totalPriceCounter,
   handelShowStatus,
+  handlePopupStatus,
 } = cartSlice.actions;
 
 export default cartSlice.reducer;

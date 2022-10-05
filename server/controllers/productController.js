@@ -65,3 +65,32 @@ export const getNewProducts = (req, res) => {
     return res.json(data);
   });
 };
+
+export const getOneProductByUrl = (req, res) => {
+  const url = req.params.url;
+  console.log(url);
+  const q = `
+    SELECT distinct
+      pl.name as product_name, 
+      cl.name as category_name, 
+      pl.url, 
+      pp.base_price, 
+      pp.discount_percent, 
+      pc.product_id,
+      pl.description,
+      pl.meta_description,
+      pl.meta_title
+    FROM product_category pc
+    JOIN product_lang pl ON pc.product_id = pl.product_id
+    JOIN category_lang cl ON pc.category_id = cl.category_id
+    JOIN product_price pp ON pc.product_id = pp.product_id
+    JOIN product p ON pc.product_id = p.id
+    WHERE pl.url = '${url}'
+    AND cl.language_id = 1
+  `;
+
+  db.query(q, (err, data) => {
+    if (err) console.log(err);
+    return res.json(data);
+  });
+};

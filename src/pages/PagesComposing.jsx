@@ -1,17 +1,14 @@
 import React from 'react';
-import { Routes, Route } from 'react-router-dom';
-import Main from './Main/Main';
+import { useParams } from 'react-router-dom';
+import { determinantFunction } from '../utils/pagesDeterminant';
+import styles from './PagesComposing.module.scss';
 
-const MainPage = () => {
-  return (
-    <>
-      <div className='container'>
-        <Routes>
-          <Route path='/' element={<Main />} />
-        </Routes>
-      </div>
-    </>
-  );
+const PagesComposing = () => {
+  const { url } = useParams();
+  const pageType = determinantFunction(url);
+  console.log(pageType);
+
+  return <div className={styles.container}>PagesComposing</div>;
 };
 
-export default MainPage;
+export default PagesComposing;

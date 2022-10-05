@@ -1,12 +1,11 @@
 import React from 'react';
 import styles from './CartItem.module.scss';
 import { AiOutlinePlus, AiOutlineMinus } from 'react-icons/ai';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import {
   addQtyFromItem,
   removeItemFromCart,
   subtractQuantityFromItem,
-  totalPriceCounter,
 } from '../../../redux/slices/cartSlice';
 
 const CartItem = (item) => {
@@ -25,13 +24,11 @@ const CartItem = (item) => {
 
   const handleAddQtyFromItem = (product_id) => {
     dispatch(addQtyFromItem(product_id));
-    //dispatch(totalPriceCounter());
   };
 
   const handleSubtractQuantityFromItem = (product_id) => {
     if (qty - 1 === 0) dispatch(removeItemFromCart(product_id));
     dispatch(subtractQuantityFromItem(product_id));
-    //dispatch(totalPriceCounter());
   };
 
   return (

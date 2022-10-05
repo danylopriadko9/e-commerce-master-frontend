@@ -4,6 +4,7 @@ import productReducer from './slices/discountProductsSlice';
 import newProductReducer from './slices/newProductsSlice';
 import newsReducer from './slices/newsSlice';
 import cartReducer from './slices/cartSlice';
+import productPageReducer from './slices/productPageSlice';
 
 export const store = configureStore({
   reducer: {
@@ -12,5 +13,8 @@ export const store = configureStore({
     newProducts: newProductReducer,
     news: newsReducer,
     cart: cartReducer,
+    actualProduct: productPageReducer,
   },
 });
+
+export default store;

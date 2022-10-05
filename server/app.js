@@ -28,6 +28,7 @@ app.get('/discount', productController.getProductsWithDiscountQuery);
 app.get('/news', newsController.getAllNews);
 app.get('/getProductImage/:id', productController.getProductImage);
 app.get('/newProducts', productController.getNewProducts);
+app.get('/product/:url', productController.getOneProductByUrl);
 
 app.use('/static', express.static(path.join(__dirname + '/static')));
 

@@ -13,6 +13,8 @@ const initialState = {
   discountProducts: [],
   discountProductsStatus: null,
   error: null,
+  viewedProducts: [],
+  comparisonProducts: [],
 };
 
 export const productsSlice = createSlice({

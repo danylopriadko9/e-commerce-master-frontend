@@ -1,0 +1,218 @@
+.totalBlock {
+  width: 100%;
+  background-color: #e3effb;
+  margin-top: 30px;
+  padding: 20px 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.totalInformationContainer {
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  padding-left: 25px;
+  color: #68696a;
+
+  h3 {
+    font-weight: 500;
+    margin-bottom: 15px;
+  }
+
+  p {
+    font-weight: 300;
+    line-height: 20px;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  span {
+    font-size: 18px;
+  }
+
+  .priceWithDelivery {
+    margin-top: 15px;
+    span {
+      font-weight: bold;
+    }
+  }
+
+  .totalPrice {
+    margin-bottom: 5px;
+  }
+
+  .deliveryPrice {
+    padding-bottom: 20px;
+    border-bottom: 2px solid #cbccce;
+  }
+}
+
+.buttonBlock {
+  padding-right: 25px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  button {
+    background-color: #80b6ea;
+    padding: 15px 35px;
+    border: none;
+    color: white;
+    margin-bottom: 10px;
+    transition: 0.2s all;
+  }
+
+  a {
+    text-align: center;
+    color: #5c5d5e;
+    font-size: 12px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  button:hover {
+    background-color: #55a0e6;
+    cursor: pointer;
+  }
+}
+
+.clientInfo {
+  width: 100%;
+  position: relative;
+
+  hr {
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: -25px;
+    border: 1px solid #eaebec;
+  }
+
+  .formBlock {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    .left {
+      width: 48%;
+    }
+
+    .right {
+      width: 48%;
+    }
+
+    input {
+      width: 90%;
+      border: 1px solid #cbccce;
+      padding: 15px 20px;
+      margin-bottom: 10px;
+    }
+  }
+}
+
+.title {
+  width: 100%;
+  margin-top: 45px;
+  margin-bottom: 50px;
+
+  h2 {
+    color: #cbccce;
+    position: relative;
+
+    .indikator {
+      position: absolute;
+      bottom: -20px;
+      width: 45px;
+      height: 4px;
+      background-color: red;
+      left: 0;
+    }
+  }
+}
+
+.radioDeviveryContainer {
+  .radioTopContainer {
+    display: flex;
+    .left {
+      width: 48%;
+    }
+
+    .right {
+      width: 48%;
+    }
+    input {
+      margin-bottom: 20px;
+    }
+    label {
+      margin-left: 25px;
+      color: #5c5d5e;
+      font-size: 16px;
+      line-height: 25px;
+      font-weight: 300;
+    }
+  }
+  .adresDelivery {
+    margin-left: 20px;
+    margin-top: 10px;
+    width: 90%;
+    border: 1px solid #cbccce;
+    padding: 15px 20px;
+    margin-bottom: 20px;
+  }
+}
+
+.feeContainer {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  //   border-top: 1px solid #cbccce;
+  //   border-bottom: 1px solid #cbccce;
+
+  label {
+    margin-left: 25px;
+    color: #5c5d5e;
+    font-size: 16px;
+    line-height: 25px;
+    font-weight: 300;
+  }
+}
+
+.confirmation {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 100px;
+  border-top: 2px solid #eaebec;
+  align-items: center;
+
+  button {
+    width: 200px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px;
+    margin-bottom: 20px;
+    background-color: #80b6ea;
+    color: white;
+    border: none;
+    transition: 0.2s all;
+
+    &:hover {
+      background-color: #55a0e6;
+      cursor: pointer;
+    }
+  }
+
+  a {
+    text-align: center;
+    color: #5c5d5e;
+    font-size: 12px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
