@@ -12,7 +12,9 @@ const DropDown = () => {
   );
 
   useEffect(() => {
-    dispatch(fetchCategories());
+    if (!categories.length) {
+      dispatch(fetchCategories());
+    }
   }, []);
 
   const categoryMouseEnter = (id) => {
@@ -32,7 +34,7 @@ const DropDown = () => {
                 <Link
                   to={`group_${el.url}`}
                   onMouseEnter={() => categoryMouseEnter(el.id)}
-                  key={el.id}
+                  key={el.url}
                 >
                   <div className={styles.indikator}></div>
                   {el.name}
@@ -46,13 +48,11 @@ const DropDown = () => {
               <div className={styles.itemsIndikator}></div>
             </h3>
             {actualSubcategories.map((el) => (
-              <>
-                <div className={styles.itemsContainer} key={el.url}>
-                  <Link className={styles.item} to={`group_${el.url}`}>
-                    {el.name}
-                  </Link>
-                </div>
-              </>
+              <div className={styles.itemsContainer} key={el.url}>
+                <Link className={styles.item} to={`group_${el.url}`}>
+                  {el.name}
+                </Link>
+              </div>
             ))}
           </div>
         </div>

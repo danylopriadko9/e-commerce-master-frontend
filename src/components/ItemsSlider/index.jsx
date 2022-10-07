@@ -21,9 +21,11 @@ const ItemsSlider = ({ title }) => {
   const { news, newsStatus } = useSelector((state) => state.news);
 
   React.useEffect(() => {
-    if (title === 'Акции') dispatch(fetchDiscountProducts());
-    if (title === 'Новинки') dispatch(fetchNewProducts());
-    if (title === 'Новости') dispatch(fetchNews());
+    if (title === 'Акции' && !discountProducts.length)
+      dispatch(fetchDiscountProducts());
+    if (title === 'Новинки' && !newProducts.length)
+      dispatch(fetchNewProducts());
+    if (title === 'Новости' && !news.length) dispatch(fetchNews());
   }, []);
 
   return (

@@ -68,7 +68,6 @@ export const getNewProducts = (req, res) => {
 
 export const getOneProductByUrl = (req, res) => {
   const url = req.params.url;
-  console.log(url);
   const q = `
     SELECT distinct
       pl.name as product_name, 
@@ -89,6 +88,21 @@ export const getOneProductByUrl = (req, res) => {
     AND cl.language_id = 1
   `;
 
+  db.query(q, (err, data) => {
+    if (err) console.log(err);
+    return res.json(data);
+  });
+};
+
+export const getAffPhotoForOneProduct = (req, res) => {
+  const id = req.params.id;
+
+  const q = `
+    SELECT filename
+    FROM product p
+    JOIN product_image pi ON p.id = pi.product_id
+    WHERE p.id = ${id}
+  `;
   db.query(q, (err, data) => {
     if (err) console.log(err);
     return res.json(data);

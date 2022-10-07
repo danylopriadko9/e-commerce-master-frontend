@@ -29,6 +29,7 @@ app.get('/news', newsController.getAllNews);
 app.get('/getProductImage/:id', productController.getProductImage);
 app.get('/newProducts', productController.getNewProducts);
 app.get('/product/:url', productController.getOneProductByUrl);
+app.get('/product/photos/:id', productController.getAffPhotoForOneProduct);
 
 app.use('/static', express.static(path.join(__dirname + '/static')));
 
