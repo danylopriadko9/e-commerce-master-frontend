@@ -108,3 +108,54 @@ export const getAffPhotoForOneProduct = (req, res) => {
     return res.json(data);
   });
 };
+
+export const getCharacteristics = (req, res) => {
+  const id = req.params.id;
+  const q = `
+    SELECT DISTINCT 
+	    prpv.product_id, 
+      pl.name AS characteristic, 
+      pvl.name AS value
+    FROM product_rel_property_value prpv
+    JOIN property_value_lang pvl ON pvl.property_value_id = prpv.property_value_id
+    JOIN property_lang pl ON pl.property_id = prpv.property_id
+    WHERE pl.language_id = pvl.language_id = 1
+    AND prpv.status LIKE 'enabled'
+    AND prpv.product_id = ${id}
+  `;
+
+  db.query(q, (err, data) => {
+    if (err) console.log(err);
+    return res.json(data);
+  });
+};
+
+export const getPropertiesProducts = (req, res) => {
+  const id = req.params.id;
+  const q = `
+  SELECT DISTINCT 
+		relation_product_id AS product_id, 
+        pl.name AS product_name, 
+        pl.description, 
+        pl.url, 
+        cl.name AS category_name,
+        pp.base_price,
+        pp.discount_percent
+    FROM product_rel_product prp
+    JOIN product_lang pl 
+	    ON pl.product_id = prp.relation_product_id
+    JOIN product_category pc 
+	    ON pc.product_id = prp.relation_product_id
+    JOIN product_price pp 
+	    ON pp.product_id = prp.relation_product_id
+    JOIN category_lang cl 
+	    ON cl.category_id = pc.category_id
+    WHERE prp.product_id = ${id}
+    AND pl.language_id = cl.language_id = 1
+  `;
+
+  db.query(q, (err, data) => {
+    if (err) console.log(err);
+    return res.json(data);
+  });
+};

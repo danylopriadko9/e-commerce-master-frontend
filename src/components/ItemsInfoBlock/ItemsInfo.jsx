@@ -52,8 +52,6 @@ const ItemsInfo = ({ product }) => {
             )}
           </span>
         </div>
-
-        {/* <span ref={descriptionBlock}></span> */}
         <div className={styles.buttons_container}>
           <button onClick={() => handleAddItemToCart(product)}>
             <BsCartFill />

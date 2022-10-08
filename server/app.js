@@ -30,6 +30,8 @@ app.get('/getProductImage/:id', productController.getProductImage);
 app.get('/newProducts', productController.getNewProducts);
 app.get('/product/:url', productController.getOneProductByUrl);
 app.get('/product/photos/:id', productController.getAffPhotoForOneProduct);
+app.get('/product/characteristics/:id', productController.getCharacteristics);
+app.get('/product/properties/:id', productController.getPropertiesProducts);
 
 app.use('/static', express.static(path.join(__dirname + '/static')));
 

@@ -29,9 +29,9 @@ const DiscountItem = (item) => {
   };
 
   return (
-    <Link className={styles.productContainer} to={`tovar_${url}`}>
+    <Link className={styles.productContainer} to={`/tovar_${url}`}>
       <div className={styles.overlow}>
-        <Link className={styles.overlowButton} to={`tovar_${url}`}>
+        <Link className={styles.overlowButton} to={`/tovar_${url}`}>
           <FaInfo />
         </Link>
         <Link

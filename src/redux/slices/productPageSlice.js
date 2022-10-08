@@ -5,7 +5,13 @@ export const fetchActualProduct = createAsyncThunk(
   'product/fetchProduct',
   async (url) => {
     const { data } = await axios(`/product/${url}`);
-    return data;
+
+    return [
+      {
+        ...data[0],
+        description: data[0].description.replace('<p>&nbsp;</p>', ''),
+      },
+    ];
   }
 );
 
@@ -20,17 +26,29 @@ export const fetchPhotos = createAsyncThunk(
 export const fetchReationProducts = createAsyncThunk(
   'product/fetchReationProducts',
   async (id) => {
-    const { data } = await axios(`/product/relation_products/${id}`);
+    const { data } = await axios(`/product/properties/${id}`);
+    return data;
+  }
+);
+
+export const fetchProductCharacteristics = createAsyncThunk(
+  'product/fetchProductCharacteristics',
+  async (id) => {
+    const { data } = await axios(`/product/characteristics/${id}`);
     return data;
   }
 );
 
 const initialState = {
   actualProduct: [],
+  characteristics: [],
   photos: [],
+  reationProducts: [],
   error: null,
   status: null,
   photoStatus: null,
+  characteristicsStatus: null,
+  reationStatus: null,
 };
 
 export const productPageSlice = createSlice({
@@ -60,6 +78,30 @@ export const productPageSlice = createSlice({
     },
     [fetchPhotos.rejected]: (state, action) => {
       state.photoStatus = 'error';
+    },
+    // Харастеристики продукта
+    [fetchProductCharacteristics.pending]: (state, action) => {
+      state.characteristicsStatus = 'loading';
+      state.error = null;
+    },
+    [fetchProductCharacteristics.fulfilled]: (state, action) => {
+      state.characteristics = action.payload;
+      state.characteristicsStatus = 'success';
+    },
+    [fetchProductCharacteristics.rejected]: (state, action) => {
+      state.characteristicsStatus = 'error';
+    },
+    // Продукты которые покупают вместе с этим продуктом
+    [fetchReationProducts.pending]: (state, action) => {
+      state.reationStatus = 'loading';
+      state.error = null;
+    },
+    [fetchReationProducts.fulfilled]: (state, action) => {
+      state.reationProducts = action.payload;
+      state.reationStatus = 'success';
+    },
+    [fetchReationProducts.rejected]: (state, action) => {
+      state.reationStatus = 'error';
     },
   },
 });
