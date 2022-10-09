@@ -1,0 +1,15 @@
+.share_container {
+  width: 100%;
+  height: 100px;
+  margin-top: 10px;
+
+  .title {
+    margin-bottom: 30px;
+    color: #a7a6a6;
+  }
+
+  .icons_container {
+    display: flex;
+    gap: 2px;
+  }
+}

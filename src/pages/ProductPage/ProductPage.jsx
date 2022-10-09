@@ -14,29 +14,15 @@ import { FaMoneyBillWave } from 'react-icons/fa';
 import { useState } from 'react';
 import ItemsInfo from '../../components/ItemsInfoBlock/ItemsInfo';
 import InfoBlock from '../../components/InfoBlock/InfoBlock';
-import {
-  FacebookShareButton,
-  FacebookIcon,
-  TwitterShareButton,
-  TwitterIcon,
-  ViberShareButton,
-  ViberIcon,
-  TelegramShareButton,
-  TelegramIcon,
-  WhatsappShareButton,
-  WhatsappIcon,
-} from 'react-share';
-import { useLocation } from 'react-router-dom';
 import PropertysProducts from '../../components/PropertysProducts/PropertysProducts';
-import { useEffect } from 'react';
+import ShareBlock from '../../components/ShareBlock/ShareBlock';
 
 const ProductPage = ({ url }) => {
   const dispatch = useDispatch();
-  const location = useLocation();
   const [actualPhoto, setActualPhoto] = useState(0);
   const handlePhotoChange = (id) => setActualPhoto(id);
 
-  useEffect(() => {
+  React.useEffect(() => {
     dispatch(cleanActualProduct());
     dispatch(cleanActualPhotos());
     dispatch(fetchActualProduct(url.replace('tovar_', '')));
@@ -59,7 +45,6 @@ const ProductPage = ({ url }) => {
     }
   }, [product]);
 
-  const shareUrl = window.location.href;
   return (
     <>
       <div className={styles.container}>
@@ -114,32 +99,7 @@ const ProductPage = ({ url }) => {
                 <span>100% гарантия и сервис</span>
               </p>
             </div>
-            <div className={styles.share_container}>
-              <div className={styles.title}>
-                <p>Делитесь с друзьями:</p>
-              </div>
-              <div className={styles.icons_container}>
-                <FacebookShareButton url={shareUrl}>
-                  <FacebookIcon size={30} />
-                </FacebookShareButton>
-
-                <TwitterShareButton url={shareUrl}>
-                  <TwitterIcon size={30} />
-                </TwitterShareButton>
-
-                <ViberShareButton url={shareUrl}>
-                  <ViberIcon size={30} />
-                </ViberShareButton>
-
-                <TelegramShareButton url={shareUrl}>
-                  <TelegramIcon size={30} />
-                </TelegramShareButton>
-
-                <WhatsappShareButton url={shareUrl}>
-                  <WhatsappIcon size={30} />
-                </WhatsappShareButton>
-              </div>
-            </div>
+            <ShareBlock />
           </div>
         </div>
       </div>
