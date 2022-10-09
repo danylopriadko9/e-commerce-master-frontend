@@ -1,0 +1,61 @@
+.imageBlock {
+  width: 470px;
+  display: flex;
+  flex-direction: column;
+
+  .other_photos {
+    width: 100%;
+    height: 100px;
+    margin-top: 10px;
+    display: flex;
+
+    .mini_image_container {
+      width: 80px;
+      height: 80px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-right: 5px;
+      position: relative;
+      overflow: hidden;
+
+      &.active {
+        border-bottom: 3px solid #0066b8;
+      }
+
+      .overlay {
+        position: absolute;
+        top: 0;
+        right: 0;
+        left: 0;
+        bottom: 0;
+        background-color: inherit;
+        transition: 0.2s all;
+
+        &:hover {
+          background-color: rgba(0, 0, 0, 0.2);
+        }
+      }
+
+      img {
+        width: 100%;
+      }
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.image_container {
+  height: 470px;
+  width: 470px;
+  overflow-y: hidden;
+  display: flex;
+  align-items: center;
+
+  img {
+    width: 100%;
+  }
+}

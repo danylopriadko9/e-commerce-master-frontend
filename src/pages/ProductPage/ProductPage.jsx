@@ -16,15 +16,16 @@ import ItemsInfo from '../../components/ItemsInfoBlock/ItemsInfo';
 import InfoBlock from '../../components/InfoBlock/InfoBlock';
 import PropertysProducts from '../../components/PropertysProducts/PropertysProducts';
 import ShareBlock from '../../components/ShareBlock/ShareBlock';
+import PhotoBlock from '../../components/PhotoBlock/PhotoBlock';
 
 const ProductPage = ({ url }) => {
   const dispatch = useDispatch();
-  const [actualPhoto, setActualPhoto] = useState(0);
-  const handlePhotoChange = (id) => setActualPhoto(id);
+  // const [actualPhoto, setActualPhoto] = useState(0);
+  // const handlePhotoChange = (id) => setActualPhoto(id);
 
   React.useEffect(() => {
     dispatch(cleanActualProduct());
-    dispatch(cleanActualPhotos());
+    //dispatch(cleanActualPhotos());
     dispatch(fetchActualProduct(url.replace('tovar_', '')));
     window.scrollTo(0, 0);
   }, [url]);
@@ -41,7 +42,7 @@ const ProductPage = ({ url }) => {
       dispatch(cleanActualPhotos());
       dispatch(fetchProductCharacteristics(product.product_id));
       descriptionBlock.current.innerHTML = product.description;
-      dispatch(fetchPhotos(product.product_id));
+      //dispatch(fetchPhotos(product.product_id));
     }
   }, [product]);
 
@@ -49,7 +50,7 @@ const ProductPage = ({ url }) => {
     <>
       <div className={styles.container}>
         <div className={styles.informationContainer}>
-          <div className={styles.imageBlock}>
+          {/* <div className={styles.imageBlock}>
             <div className={styles.image_container}>
               {product && photos.length && (
                 <img
@@ -79,7 +80,8 @@ const ProductPage = ({ url }) => {
                 </div>
               ))}
             </div>
-          </div>
+          </div> */}
+          {product && <PhotoBlock id={product.product_id} />}
           <div className={styles.informationBlock}>
             <div className={styles.information_container}>
               {product && <ItemsInfo product={product} />}
