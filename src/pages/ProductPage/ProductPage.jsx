@@ -1,10 +1,11 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
+  cleanActualPhotos,
+  cleanActualProduct,
   fetchActualProduct,
   fetchPhotos,
   fetchProductCharacteristics,
-  fetchReationProducts,
 } from '../../redux/slices/productPageSlice';
 import styles from './ProductPage.module.scss';
 import { BsFillUmbrellaFill } from 'react-icons/bs';
@@ -25,60 +26,47 @@ import {
   WhatsappShareButton,
   WhatsappIcon,
 } from 'react-share';
-import Items from '../../components/ItemsSlider/Items';
 import { useLocation } from 'react-router-dom';
-import DiscountItem from '../../components/DiscountItem/DiscountItem';
+import PropertysProducts from '../../components/PropertysProducts/PropertysProducts';
+import { useEffect } from 'react';
 
 const ProductPage = ({ url }) => {
-  const location = useLocation();
-
-  const {
-    actualProduct,
-    photos,
-    characteristics,
-    reationProducts,
-    reationStatus,
-  } = useSelector((state) => state.actualProduct);
-  const [actualPhoto, setActualPhoto] = useState(0);
-
   const dispatch = useDispatch();
+  const location = useLocation();
+  const [actualPhoto, setActualPhoto] = useState(0);
+  const handlePhotoChange = (id) => setActualPhoto(id);
+
+  useEffect(() => {
+    dispatch(cleanActualProduct());
+    dispatch(cleanActualPhotos());
+    dispatch(fetchActualProduct(url.replace('tovar_', '')));
+    window.scrollTo(0, 0);
+  }, [url]);
+
+  const { actualProduct, photos, characteristics } = useSelector(
+    (state) => state.actualProduct
+  );
+
   const descriptionBlock = React.useRef(null);
   const product = actualProduct[0];
 
-  const handlePhotoChange = (id) => {
-    setActualPhoto(id);
-  };
-
-  React.useEffect(() => {
-    if (actualProduct.url !== url) {
-      dispatch(fetchActualProduct(url.replace('tovar_', '')));
-    }
-  }, [location.pathname]);
-
   React.useEffect(() => {
     if (product) {
-      dispatch(fetchPhotos(product.product_id));
+      dispatch(cleanActualPhotos());
       dispatch(fetchProductCharacteristics(product.product_id));
-      dispatch(fetchReationProducts(product.product_id));
       descriptionBlock.current.innerHTML = product.description;
+      dispatch(fetchPhotos(product.product_id));
     }
-    window.scrollTo(0, 0);
   }, [product]);
 
-  console.log(characteristics);
-  console.log(reationProducts);
-
   const shareUrl = window.location.href;
-  console.log(product);
-  console.log(reationProducts.length);
-
   return (
     <>
       <div className={styles.container}>
         <div className={styles.informationContainer}>
           <div className={styles.imageBlock}>
             <div className={styles.image_container}>
-              {product && (
+              {product && photos.length && (
                 <img
                   src={`http://localhost:3001/static/product/${product.product_id}/${photos[actualPhoto]}`}
                   alt=''
@@ -97,10 +85,12 @@ const ProductPage = ({ url }) => {
                   onMouseOver={() => handlePhotoChange(i)}
                 >
                   <div className={styles.overlay}></div>
-                  <img
-                    src={`http://localhost:3001/static/product/${product.product_id}/${photos[i]}`}
-                    alt=''
-                  />
+                  {product && (
+                    <img
+                      src={`http://localhost:3001/static/product/${product.product_id}/${photos[i]}`}
+                      alt=''
+                    />
+                  )}
                 </div>
               ))}
             </div>
@@ -180,31 +170,8 @@ const ProductPage = ({ url }) => {
           </div>
         </div>
       </div>
-      {reationProducts.length > 0 &&
-        (reationProducts.length > 4 ? (
-          <div className={styles.slider_container}>
-            <h2>
-              <div className={styles.indikator}></div>С этим товаром часто
-              покупают
-            </h2>
-            <Items items={reationProducts} status={reationStatus} />
-          </div>
-        ) : (
-          <div className={styles.property_item_container}>
-            <h2>
-              <div className={styles.indikator}></div>С этим товаром часто
-              покупают
-            </h2>
-            <div className={styles.list_of_items}>
-              {reationProducts.map((el) => (
-                <div className={styles.item_container}>
-                  <DiscountItem {...el} />
-                </div>
-              ))}
-            </div>
-          </div>
-        ))}
 
+      {product && <PropertysProducts id={product.product_id} />}
       <InfoBlock />
     </>
   );

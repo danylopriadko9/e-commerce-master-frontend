@@ -54,6 +54,14 @@ const initialState = {
 export const productPageSlice = createSlice({
   name: 'productPage',
   initialState,
+  reducers: {
+    cleanActualProduct: (state, action) => {
+      state.actualProduct = [];
+    },
+    cleanActualPhotos: (state, action) => {
+      state.photos = [];
+    },
+  },
   extraReducers: {
     // Продукт страницы
     [fetchActualProduct.pending]: (state, action) => {
@@ -105,5 +113,8 @@ export const productPageSlice = createSlice({
     },
   },
 });
+
+export const { cleanActualProduct, cleanActualPhotos } =
+  productPageSlice.actions;
 
 export default productPageSlice.reducer;
