@@ -12,11 +12,17 @@ export const fetchCategories = createAsyncThunk(
 export const fetchProductsCategory = createAsyncThunk(
   'category/fetchProducsCategory',
   async (url) => {
-    console.log(url.replace('group_', ''));
     const { data } = await axios.get(
       `/productCategories/${url.replace('group_', '')}`
     );
-    console.log(data);
+    return data;
+  }
+);
+
+export const getSubcategoriesInformation = createAsyncThunk(
+  'category/getSubcategoriesInformation',
+  async (id) => {
+    const { data } = await axios.get(`/subcategories/${id}`);
     return data;
   }
 );
@@ -26,6 +32,8 @@ const initialState = {
   productsCategory: [],
   actualCategory: null,
   actualSubcategories: [],
+  actualSubcategoriesPage: [],
+  actualSubcategoriesPageStatus: null,
   status: null,
   productsCategoryStatus: null,
   error: null,
@@ -42,6 +50,10 @@ export const categorySlice = createSlice({
       state.actualCategory = state.categories.filter(
         (el) => el.id === action.payload
       )[0].name;
+    },
+
+    actualSubcategoriesPageClean: (state, action) => {
+      state.actualSubcategoriesPage = [];
     },
   },
   extraReducers: {
@@ -69,9 +81,22 @@ export const categorySlice = createSlice({
     [fetchProductsCategory.rejected]: (state, action) => {
       state.status = 'error';
     },
+    //================================= getSubcategoriesInformation
+    [getSubcategoriesInformation.pending]: (state, action) => {
+      state.actualSubcategoriesPageStatus = 'loading';
+      state.error = null;
+    },
+    [getSubcategoriesInformation.fulfilled]: (state, action) => {
+      state.actualSubcategoriesPageStatus = 'success';
+      state.actualSubcategoriesPage = action.payload;
+    },
+    [getSubcategoriesInformation.rejected]: (state, action) => {
+      state.actualSubcategoriesPageStatus = 'error';
+    },
   },
 });
 
-export const { searchActualCategory } = categorySlice.actions;
+export const { searchActualCategory, actualSubcategoriesPageClean } =
+  categorySlice.actions;
 
 export default categorySlice.reducer;

@@ -3,7 +3,12 @@ import styles from './DropDown.module.scss';
 import { BiCategoryAlt } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { fetchCategories, searchActualCategory } from '../../redux/index';
+import {
+  actualSubcategoriesPageClean,
+  fetchCategories,
+  getSubcategoriesInformation,
+  searchActualCategory,
+} from '../../redux/index';
 
 const DropDown = () => {
   const dispatch = useDispatch();
@@ -21,6 +26,10 @@ const DropDown = () => {
     dispatch(searchActualCategory(id));
   };
 
+  const handelSubcategorySearch = (id) => {
+    dispatch(getSubcategoriesInformation(id));
+  };
+
   return (
     <>
       <div className={styles.dropdownContainer}>
@@ -33,6 +42,7 @@ const DropDown = () => {
               .map((el) => (
                 <Link
                   to={`group_${el.url}`}
+                  onClick={() => handelSubcategorySearch(el.id)}
                   onMouseEnter={() => categoryMouseEnter(el.id)}
                   key={el.url}
                 >
@@ -49,7 +59,11 @@ const DropDown = () => {
             </h3>
             {actualSubcategories.map((el) => (
               <div className={styles.itemsContainer} key={el.url}>
-                <Link className={styles.item} to={`group_${el.url}`}>
+                <Link
+                  className={styles.item}
+                  onClick={() => dispatch(actualSubcategoriesPageClean())}
+                  to={`group_${el.url}`}
+                >
                   {el.name}
                 </Link>
               </div>

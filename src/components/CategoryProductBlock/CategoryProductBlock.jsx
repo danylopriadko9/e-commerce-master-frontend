@@ -4,7 +4,6 @@ import ItemsInfo from '../ItemsInfoBlock/ItemsInfo';
 import styles from './CategoryProductBlock.module.scss';
 
 const CategoryProductBlock = ({ item }) => {
-  console.log(item);
   return (
     <div className={styles.container}>
       <Link className={styles.image_container} to={`/tovar_${item.url}`}>
