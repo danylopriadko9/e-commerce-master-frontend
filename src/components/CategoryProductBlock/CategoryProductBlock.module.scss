@@ -1,0 +1,15 @@
+.container {
+  width: 220px;
+}
+
+.image_container {
+  height: 255px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+
+  img {
+    height: 100%;
+  }
+}

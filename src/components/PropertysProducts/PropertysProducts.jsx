@@ -6,7 +6,7 @@ import DiscountItem from '../DiscountItem/DiscountItem';
 import Items from '../ItemsSlider/Items';
 import styles from './PropertysProducts.module.scss';
 
-const PropertysProducts = ({ id }) => {
+const PropertysProducts = ({ id, title }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -17,25 +17,32 @@ const PropertysProducts = ({ id }) => {
     (state) => state.actualProduct
   );
 
+  const { watchedProducts } = useSelector((state) => state.watchedProducts);
+
+  const items =
+    title === 'С этим товаром часто покупают'
+      ? reationProducts
+      : watchedProducts;
+
   return (
     <>
-      {reationProducts.length > 0 &&
-        (reationProducts.length > 4 ? (
+      {items.length > 0 &&
+        (items.length > 4 ? (
           <div className={styles.slider_container}>
             <h2>
-              <div className={styles.indikator}></div>С этим товаром часто
-              покупают
+              <div className={styles.indikator}></div>
+              {title}
             </h2>
-            <Items items={reationProducts} status={reationStatus} />
+            <Items items={items} status={reationStatus} />
           </div>
         ) : (
           <div className={styles.property_item_container}>
             <h2>
-              <div className={styles.indikator}></div>С этим товаром часто
-              покупают
+              <div className={styles.indikator}></div>
+              {title}
             </h2>
             <div className={styles.list_of_items}>
-              {reationProducts.map((el) => (
+              {items.map((el) => (
                 <div className={styles.item_container} key={el.url}>
                   <DiscountItem {...el} />
                 </div>

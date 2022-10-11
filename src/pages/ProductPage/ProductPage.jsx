@@ -4,14 +4,12 @@ import {
   cleanActualPhotos,
   cleanActualProduct,
   fetchActualProduct,
-  fetchPhotos,
   fetchProductCharacteristics,
 } from '../../redux/slices/productPageSlice';
 import styles from './ProductPage.module.scss';
 import { BsFillUmbrellaFill } from 'react-icons/bs';
 import { TbTruckDelivery } from 'react-icons/tb';
 import { FaMoneyBillWave } from 'react-icons/fa';
-import { useState } from 'react';
 import ItemsInfo from '../../components/ItemsInfoBlock/ItemsInfo';
 import InfoBlock from '../../components/InfoBlock/InfoBlock';
 import PropertysProducts from '../../components/PropertysProducts/PropertysProducts';
@@ -20,17 +18,15 @@ import PhotoBlock from '../../components/PhotoBlock/PhotoBlock';
 
 const ProductPage = ({ url }) => {
   const dispatch = useDispatch();
-  // const [actualPhoto, setActualPhoto] = useState(0);
-  // const handlePhotoChange = (id) => setActualPhoto(id);
 
   React.useEffect(() => {
     dispatch(cleanActualProduct());
-    //dispatch(cleanActualPhotos());
+    dispatch(cleanActualPhotos());
     dispatch(fetchActualProduct(url.replace('tovar_', '')));
     window.scrollTo(0, 0);
   }, [url]);
 
-  const { actualProduct, photos, characteristics } = useSelector(
+  const { actualProduct, characteristics } = useSelector(
     (state) => state.actualProduct
   );
 
@@ -39,10 +35,8 @@ const ProductPage = ({ url }) => {
 
   React.useEffect(() => {
     if (product) {
-      dispatch(cleanActualPhotos());
       dispatch(fetchProductCharacteristics(product.product_id));
       descriptionBlock.current.innerHTML = product.description;
-      //dispatch(fetchPhotos(product.product_id));
     }
   }, [product]);
 
@@ -50,37 +44,6 @@ const ProductPage = ({ url }) => {
     <>
       <div className={styles.container}>
         <div className={styles.informationContainer}>
-          {/* <div className={styles.imageBlock}>
-            <div className={styles.image_container}>
-              {product && photos.length && (
-                <img
-                  src={`http://localhost:3001/static/product/${product.product_id}/${photos[actualPhoto]}`}
-                  alt=''
-                />
-              )}
-            </div>
-            <div className={styles.other_photos}>
-              {photos.map((img, i) => (
-                <div
-                  className={
-                    actualPhoto === i
-                      ? `${styles.mini_image_container} ${styles.active}`
-                      : styles.mini_image_container
-                  }
-                  key={i}
-                  onMouseOver={() => handlePhotoChange(i)}
-                >
-                  <div className={styles.overlay}></div>
-                  {product && (
-                    <img
-                      src={`http://localhost:3001/static/product/${product.product_id}/${photos[i]}`}
-                      alt=''
-                    />
-                  )}
-                </div>
-              ))}
-            </div>
-          </div> */}
           {product && <PhotoBlock id={product.product_id} />}
           <div className={styles.informationBlock}>
             <div className={styles.information_container}>
@@ -133,7 +96,12 @@ const ProductPage = ({ url }) => {
         </div>
       </div>
 
-      {product && <PropertysProducts id={product.product_id} />}
+      {product && (
+        <PropertysProducts
+          id={product.product_id}
+          title={'С этим товаром часто покупают'}
+        />
+      )}
       <InfoBlock />
     </>
   );

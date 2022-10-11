@@ -5,6 +5,7 @@ import { BsFillCartFill } from 'react-icons/bs';
 import { BiCheckDouble } from 'react-icons/bi';
 import { useDispatch } from 'react-redux';
 import { addItemToCart, handelShowStatus } from '../../redux/slices/cartSlice';
+import { addToWachedProducts } from '../../redux/slices/watchedProductsSlice';
 
 const DiscountItem = (item) => {
   const {
@@ -28,8 +29,16 @@ const DiscountItem = (item) => {
     dispatch(handelShowStatus());
   };
 
+  const handleWatchedProducts = (item) => {
+    dispatch(addToWachedProducts(item));
+  };
+
   return (
-    <Link className={styles.productContainer} to={`/tovar_${url}`}>
+    <Link
+      className={styles.productContainer}
+      to={`/tovar_${url}`}
+      onClick={() => handleWatchedProducts(item)}
+    >
       <div className={styles.overlow}>
         <Link className={styles.overlowButton} to={`/tovar_${url}`}>
           <FaInfo />

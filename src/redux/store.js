@@ -5,6 +5,7 @@ import newProductReducer from './slices/newProductsSlice';
 import newsReducer from './slices/newsSlice';
 import cartReducer from './slices/cartSlice';
 import productPageReducer from './slices/productPageSlice';
+import watchedProductsReducer from './slices/watchedProductsSlice';
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     news: newsReducer,
     cart: cartReducer,
     actualProduct: productPageReducer,
+    watchedProducts: watchedProductsReducer,
   },
 });
 

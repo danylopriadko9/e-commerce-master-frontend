@@ -1,0 +1,17 @@
+.container {
+  width: 960px;
+  margin: 0 auto;
+  min-height: 30vh;
+
+  h2 {
+    color: #cccccc;
+  }
+}
+
+.items_container {
+  display: grid;
+  grid-template-columns: repeat(4, 225px);
+  grid-template-rows: repeat(2, 1fr);
+  grid-column-gap: 20px;
+  grid-row-gap: 25px;
+}

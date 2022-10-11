@@ -103,10 +103,12 @@ export const getAffPhotoForOneProduct = (req, res) => {
     JOIN product_image pi ON p.id = pi.product_id
     WHERE p.id = ${id}
   `;
-  db.query(q, (err, data) => {
-    if (err) console.log(err);
-    return res.json(data);
-  });
+  if (id) {
+    db.query(q, (err, data) => {
+      if (err) console.log(err);
+      return res.json(data);
+    });
+  }
 };
 
 export const getCharacteristics = (req, res) => {

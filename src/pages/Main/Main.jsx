@@ -7,6 +7,7 @@ import {
   cleanActualProduct,
 } from '../../redux/slices/productPageSlice';
 import { useDispatch } from 'react-redux';
+import PropertysProducts from '../../components/PropertysProducts/PropertysProducts';
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const Main = () => {
         <Slider />
         <ItemsSlider title={'Акции'} />
         <ItemsSlider title={'Новинки'} />
+        <PropertysProducts title={'Просмотренные'} />
         <ItemsSlider title={'Новости'} />
       </div>
       <InfoBlock />

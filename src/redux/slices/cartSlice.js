@@ -1,10 +1,25 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { calcTotalPrice } from '../../utils/countTotalPrice';
 
+const setItemsFunction = (items, totalPrice) => {
+  localStorage.setItem('cartItems', JSON.stringify(items));
+  localStorage.setItem('totalPrice', JSON.stringify(totalPrice));
+};
+
+const items =
+  localStorage.getItem('cartItems') !== null
+    ? JSON.parse(localStorage.getItem('cartItems'))
+    : [];
+
+const totalPrice =
+  localStorage.getItem('totalPrice') !== null
+    ? JSON.parse(localStorage.getItem('totalPrice'))
+    : 0;
+
 const initialState = {
-  cartItems: [],
+  cartItems: items,
+  totalPrice: totalPrice,
   showStatus: false,
-  totalPrice: 0,
   popupStatus: 'cart',
 };
 
@@ -26,6 +41,10 @@ export const cartSlice = createSlice({
       }
 
       state.totalPrice = calcTotalPrice(state.cartItems);
+      setItemsFunction(
+        state.cartItems.map((item) => item),
+        state.totalPrice
+      );
     },
     addQtyFromItem: (state, action) => {
       state.cartItems.forEach((item) => {
@@ -34,6 +53,10 @@ export const cartSlice = createSlice({
         }
       });
       state.totalPrice = calcTotalPrice(state.cartItems);
+      setItemsFunction(
+        state.cartItems.map((item) => item),
+        state.totalPrice
+      );
     },
     subtractQuantityFromItem: (state, action) => {
       state.cartItems.forEach((item) => {
@@ -42,12 +65,20 @@ export const cartSlice = createSlice({
         }
       });
       state.totalPrice = calcTotalPrice(state.cartItems);
+      setItemsFunction(
+        state.cartItems.map((item) => item),
+        state.totalPrice
+      );
     },
     removeItemFromCart: (state, action) => {
       state.cartItems = state.cartItems.filter(
         (el) => el.product_id !== action.payload
       );
       state.totalPrice = calcTotalPrice(state.cartItems);
+      setItemsFunction(
+        state.cartItems.map((item) => item),
+        state.totalPrice
+      );
     },
     handelShowStatus: (state, action) => {
       state.showStatus = !state.showStatus;
