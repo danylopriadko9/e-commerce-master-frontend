@@ -1,21 +1,35 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import CategoryProductBlock from '../../components/CategoryProductBlock/CategoryProductBlock';
-import { fetchProductsCategory } from '../../redux/slices/categorySlice';
+import {
+  fetchProductsCategory,
+  getSubcategoriesInformation,
+} from '../../redux/slices/categorySlice';
 import styles from './Categories.module.scss';
 import CategoryItemSkeleton from '../../components/Skeleton/CategoryItemSkeleton';
 import Item from './Item/Item';
 import { useLocation } from 'react-router-dom';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
+import InfoBlock from '../../components/InfoBlock/InfoBlock';
+import CategorySkeleton from '../../components/Skeleton/CategorySkeleton';
 
-const Categories = ({ url }) => {
+const Categories = () => {
   const dispatch = useDispatch();
   const location = useLocation();
   const [page, setPage] = React.useState(1);
 
   React.useEffect(() => {
+    setPage(1);
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
+  React.useEffect(() => {
     dispatch(fetchProductsCategory({ url: location.pathname, page }));
-  }, [page, url]);
+    dispatch(
+      getSubcategoriesInformation(location.pathname.replace('/group_', ''))
+    );
+    window.scrollTo(0, 0);
+  }, [page, location.pathname]);
 
   const {
     productsCategory,
@@ -25,26 +39,18 @@ const Categories = ({ url }) => {
   } = useSelector((state) => state.category);
 
   if (
-    actualSubcategoriesPage.length ||
-    actualSubcategoriesPageStatus === 'error'
+    actualSubcategoriesPageStatus === 'loading' ||
+    actualSubcategoriesPage.length
   ) {
     return (
       <div className={styles.container}>
         <div className={styles.items_container}>
-          {actualSubcategoriesPage.map((el) => (
-            <Item el={el} key={el.url} />
-          ))}
+          {actualSubcategoriesPageStatus === 'loading'
+            ? [...new Array(8)].map((_, i) => <CategorySkeleton key={i} />)
+            : actualSubcategoriesPage.map((el) => (
+                <Item el={el} key={el.url} />
+              ))}
         </div>
-      </div>
-    );
-  }
-
-  console.log(productsCategory);
-
-  if (!productsCategory.data.length || productsCategoryStatus === 'error') {
-    return (
-      <div className={styles.container}>
-        <h2>Ничего не найдено</h2>
       </div>
     );
   }
@@ -102,6 +108,7 @@ const Categories = ({ url }) => {
           <AiOutlineRight />
         </div>
       </div>
+      <InfoBlock />
     </>
   );
 };

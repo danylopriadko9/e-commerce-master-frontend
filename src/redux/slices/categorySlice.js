@@ -22,8 +22,8 @@ export const fetchProductsCategory = createAsyncThunk(
 
 export const getSubcategoriesInformation = createAsyncThunk(
   'category/getSubcategoriesInformation',
-  async (id) => {
-    const { data } = await axios.get(`/subcategories/${id}`);
+  async (url) => {
+    const { data } = await axios.get(`/subcategories/${url}`);
     return data;
   }
 );

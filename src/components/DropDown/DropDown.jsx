@@ -26,10 +26,6 @@ const DropDown = () => {
     dispatch(searchActualCategory(id));
   };
 
-  const handelSubcategorySearch = (id) => {
-    dispatch(getSubcategoriesInformation(id));
-  };
-
   return (
     <>
       <div className={styles.dropdownContainer}>
@@ -42,7 +38,6 @@ const DropDown = () => {
               .map((el) => (
                 <Link
                   to={`group_${el.url}`}
-                  onClick={() => handelSubcategorySearch(el.id)}
                   onMouseEnter={() => categoryMouseEnter(el.id)}
                   key={el.url}
                 >

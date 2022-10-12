@@ -90,20 +90,29 @@ export const getProductCategories = (req, res) => {
 };
 
 export const getSubcategoriesInformation = (req, res) => {
-  const parent_id = req.params.id;
+  const url = req.params.url;
   const q = ` 
-    SELECT 
-	    cl.name,
-      cl.url,
-      ci.filename,
-      ci.dir_path
-    FROM category c
-    JOIN category_lang cl
-	    ON c.id = cl.category_id
-    JOIN category_image ci
-	    ON ci.category_id = c.id
-    WHERE cl.language_id = 1
-    AND c.parent_id = ${parent_id}
+  SELECT 
+	c.id,
+	ci.dir_path,
+    ci.filename,
+    cl.name,
+    cl.url
+FROM category c
+JOIN category_lang cl 
+	ON c.id = cl.category_id
+JOIN category_image ci
+	ON ci.category_id = c.id
+WHERE cl.language_id = 1
+AND c.parent_id IN (
+	SELECT c.id
+	FROM category c
+	JOIN category_lang cl
+		ON cl.category_id = c.id
+	WHERE cl.language_id = 1 
+	AND cl.url IS NOT NULL
+    AND cl.url = '${url}'
+)
   `;
 
   db.query(q, (err, data) => {

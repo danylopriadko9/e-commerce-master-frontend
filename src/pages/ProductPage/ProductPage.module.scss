@@ -65,12 +65,17 @@
     color: #666666;
     font-weight: 400;
 
+    img {
+      width: 100%;
+      height: auto;
+    }
+
     .characteristics {
-      width: 48%;
+      width: 30%;
     }
 
     .description {
-      width: 48%;
+      width: 65%;
     }
 
     h2 {

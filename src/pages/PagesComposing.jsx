@@ -14,10 +14,10 @@ const PagesComposing = () => {
   }
 
   if (pageType === 'group') {
-    return <Categories url={url} />;
+    return <Categories />;
   }
 
-  return <div className={styles.container}>PagesComposing</div>;
+  return <div className={styles.container}>Ошибка</div>;
 };
 
 export default PagesComposing;

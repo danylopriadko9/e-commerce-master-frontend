@@ -32,7 +32,10 @@ app.get(
   '/productCategories/:url/:page',
   categoriesController.getProductCategories
 );
-app.get('/subcategories/:id', categoriesController.getSubcategoriesInformation);
+app.get(
+  '/subcategories/:url',
+  categoriesController.getSubcategoriesInformation
+);
 
 //--------------------news
 app.get('/news', newsController.getAllNews);

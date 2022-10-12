@@ -15,6 +15,8 @@ const DiscountItem = (item) => {
     base_price,
     discount_percent,
     product_id,
+    dir_path,
+    filename,
   } = item;
   const dispatch = useDispatch();
 
