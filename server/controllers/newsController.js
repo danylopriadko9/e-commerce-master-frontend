@@ -1,4 +1,4 @@
-import { db } from '../app.js';
+import { db } from '../connection.js';
 
 export const getAllNews = (req, res) => {
   const newsQuery = `

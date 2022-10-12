@@ -2,7 +2,7 @@ import express from 'express';
 import dotenv from 'dotenv';
 dotenv.config();
 import cors from 'cors';
-import mysql from 'mysql2';
+
 import {
   categoriesController,
   productController,
@@ -16,13 +16,6 @@ app.use(cors());
 
 const __dirname = path.resolve();
 
-export const db = mysql.createConnection({
-  host: process.env.DB_HOST,
-  user: process.env.DB_LOGIN,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_NAME,
-});
-
 //-----------------------------------------------------------------------------
 //--------------------products
 app.get('/discount', productController.getProductsWithDiscountQuery);
@@ -35,7 +28,10 @@ app.get('/product/properties/:id', productController.getPropertiesProducts);
 
 //--------------------categories
 app.get('/categories', categoriesController.getAllCategories);
-app.get('/productCategories/:url', categoriesController.getProductCategories);
+app.get(
+  '/productCategories/:url/:page',
+  categoriesController.getProductCategories
+);
 app.get('/subcategories/:id', categoriesController.getSubcategoriesInformation);
 
 //--------------------news

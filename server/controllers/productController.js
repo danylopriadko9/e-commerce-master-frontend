@@ -1,4 +1,4 @@
-import { db } from '../app.js';
+import { db } from '../connection.js';
 
 import { readdir } from 'fs/promises';
 import path from 'path';

@@ -1,4 +1,4 @@
-import { db } from '../app.js';
+import { db } from '../connection.js';
 export const getAllCategories = (req, res) => {
   const categories = `
     SELECT 
@@ -24,6 +24,7 @@ export const getAllCategories = (req, res) => {
 
 export const getProductCategories = (req, res) => {
   const url = req.params.url;
+  const page = req.params.page;
   const q = `
     SELECT DISTINCT
       pc.product_id, 
@@ -48,7 +49,43 @@ export const getProductCategories = (req, res) => {
 
   db.query(q, (err, data) => {
     if (err) console.log(err);
-    return res.json(data);
+    const qtyItemsPage = 8;
+    const numberOfResult = data.length;
+    const numberOfPages = Math.ceil(data.length / qtyItemsPage);
+    console.log(numberOfResult, numberOfPages);
+    console.log(url, page);
+
+    const startingLimit = (page - 1) * qtyItemsPage;
+    const secound_q = `
+    SELECT DISTINCT
+      pc.product_id, 
+      pc.category_id, 
+      pl.name AS product_name, 
+      pl.url, 
+      pl.meta_keywords,
+      cl.name AS category_name,
+      cl.url AS category_url,
+      pp.base_price,
+      pp.discount_percent
+    FROM product_category pc
+    JOIN category_lang cl 
+      ON cl.category_id = pc.category_id
+    JOIN product_lang pl 
+      ON pl.product_id = pc.product_id
+    JOIN product_price pp 
+      ON pp.product_id = pc.product_id
+    WHERE cl.language_id = pl.language_id = 1
+    AND cl.url LIKE '${url}'
+    LIMIT ${startingLimit}, ${qtyItemsPage}
+  `;
+    db.query(secound_q, (err, data) => {
+      if (err) console.log(err);
+      return res.json({
+        data,
+        numberOfResult,
+        numberOfPages,
+      });
+    });
   });
 };
 

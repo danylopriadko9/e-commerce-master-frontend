@@ -11,9 +11,10 @@ export const fetchCategories = createAsyncThunk(
 
 export const fetchProductsCategory = createAsyncThunk(
   'category/fetchProducsCategory',
-  async (url) => {
+  async (params) => {
+    const { url, page } = params;
     const { data } = await axios.get(
-      `/productCategories/${url.replace('group_', '')}`
+      `/productCategories/${url.replace('/group_', '')}/${page}`
     );
     return data;
   }
@@ -29,7 +30,11 @@ export const getSubcategoriesInformation = createAsyncThunk(
 
 const initialState = {
   categories: [],
-  productsCategory: [],
+  productsCategory: {
+    data: [],
+    numberOfResult: null,
+    numberOfPages: null,
+  },
   actualCategory: null,
   actualSubcategories: [],
   actualSubcategoriesPage: [],
@@ -76,6 +81,7 @@ export const categorySlice = createSlice({
     },
     [fetchProductsCategory.fulfilled]: (state, action) => {
       state.productsCategoryStatus = 'success';
+      console.log(action.payload);
       state.productsCategory = action.payload;
     },
     [fetchProductsCategory.rejected]: (state, action) => {
