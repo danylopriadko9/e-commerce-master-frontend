@@ -16,6 +16,7 @@ import PropertysProducts from '../../components/PropertysProducts/PropertysProdu
 import ShareBlock from '../../components/ShareBlock/ShareBlock';
 import PhotoBlock from '../../components/PhotoBlock/PhotoBlock';
 import { useLocation } from 'react-router-dom';
+import HistoryMap from '../../components/HistoryMap/HistoryMap';
 
 const ProductPage = () => {
   const dispatch = useDispatch();
@@ -31,13 +32,8 @@ const ProductPage = () => {
     (state) => state.actualProduct
   );
 
-  console.log(location.pathname.replace('/tovar_', ''));
-  console.log(actualProduct);
-
   const descriptionBlock = React.useRef(null);
   const product = actualProduct[0];
-
-  console.log(product);
 
   React.useEffect(() => {
     if (product) {
@@ -51,6 +47,7 @@ const ProductPage = () => {
   return (
     <>
       <div className={styles.container}>
+        <HistoryMap />
         <div className={styles.informationContainer}>
           {product && <PhotoBlock id={product.product_id} />}
           <div className={styles.informationBlock}>

@@ -6,6 +6,7 @@ import newsReducer from './slices/newsSlice';
 import cartReducer from './slices/cartSlice';
 import productPageReducer from './slices/productPageSlice';
 import watchedProductsReducer from './slices/watchedProductsSlice';
+import historyMapReducer from './slices/historyMap';
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     cart: cartReducer,
     actualProduct: productPageReducer,
     watchedProducts: watchedProductsReducer,
+    history: historyMapReducer,
   },
 });
 

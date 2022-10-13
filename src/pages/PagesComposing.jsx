@@ -17,7 +17,11 @@ const PagesComposing = () => {
     return <Categories />;
   }
 
-  return <div className={styles.container}>Ошибка</div>;
+  return (
+    <>
+      <div className={styles.container}>Ошибка</div>
+    </>
+  );
 };
 
 export default PagesComposing;

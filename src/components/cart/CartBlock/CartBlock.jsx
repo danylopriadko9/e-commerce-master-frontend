@@ -15,7 +15,6 @@ const CartBlock = () => {
     dispatch(handelShowStatus());
     setTimeout(() => {
       handlePopupStatusChange('cart');
-      console.log('dds');
     }, 1000);
   };
 

@@ -20,7 +20,6 @@ export const fetchPhotos = createAsyncThunk(
 export const fetchReationProducts = createAsyncThunk(
   'product/fetchReationProducts',
   async (id) => {
-    console.log(id);
     const { data } = await axios(`/product/properties/${id}`);
     return data;
   }

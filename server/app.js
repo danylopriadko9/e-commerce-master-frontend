@@ -7,6 +7,7 @@ import {
   categoriesController,
   productController,
   newsController,
+  historyController,
 } from './controllers/index.js';
 import path from 'path';
 
@@ -39,6 +40,9 @@ app.get(
 
 //--------------------news
 app.get('/news', newsController.getAllNews);
+
+//--------------------history block
+app.get('/history/:url', historyController.getHistoryMap);
 //-----------------------------------------------------------------------------
 
 app.use('/static', express.static(path.join(__dirname + '/static')));

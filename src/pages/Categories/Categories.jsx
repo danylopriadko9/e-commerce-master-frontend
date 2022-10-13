@@ -45,6 +45,7 @@ const Categories = () => {
   ) {
     return (
       <div className={styles.container}>
+        <HistoryMap />
         <div className={styles.items_container}>
           {actualSubcategoriesPageStatus === 'loading'
             ? [...new Array(8)].map((_, i) => <CategorySkeleton key={i} />)

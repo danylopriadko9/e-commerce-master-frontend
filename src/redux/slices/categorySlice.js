@@ -81,7 +81,6 @@ export const categorySlice = createSlice({
     },
     [fetchProductsCategory.fulfilled]: (state, action) => {
       state.productsCategoryStatus = 'success';
-      console.log(action.payload);
       state.productsCategory = action.payload;
     },
     [fetchProductsCategory.rejected]: (state, action) => {

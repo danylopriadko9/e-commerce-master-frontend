@@ -1,8 +1,51 @@
 import React from 'react';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useLocation } from 'react-router-dom';
+import { fetchHistory } from '../../redux/slices/historyMap';
 import styles from './HistoryMap.module.scss';
 
 const HistoryMap = () => {
-  return <div className={styles.container}></div>;
+  const location = useLocation();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(fetchHistory(location.pathname.replace('/', '')));
+  }, [location]);
+
+  const { history } = useSelector((state) => state.history);
+
+  if (history) {
+    return (
+      <div className={styles.container}>
+        <p>
+          {history.parent_name && (
+            <span>
+              <Link to={`/group_${history.parent_url}`}>
+                {history.parent_name}
+              </Link>
+              <div className={styles.indefikator}></div>
+            </span>
+          )}
+          {history.category_name && (
+            <span>
+              <Link to={`/group_${history.category_url}`}>
+                {history.category_name}
+              </Link>
+              <div className={styles.indefikator}></div>
+            </span>
+          )}
+          {history.product_name && (
+            <span>
+              <Link to={`/group_${history.product_url}`}>
+                {history.product_name}
+              </Link>
+              <div className={styles.indefikator}></div>
+            </span>
+          )}
+        </p>
+      </div>
+    );
+  }
 };
 
 export default HistoryMap;
