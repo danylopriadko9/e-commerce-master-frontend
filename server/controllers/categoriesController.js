@@ -49,11 +49,10 @@ export const getProductCategories = (req, res) => {
 
   db.query(q, (err, data) => {
     if (err) console.log(err);
+
     const qtyItemsPage = 8;
     const numberOfResult = data.length;
     const numberOfPages = Math.ceil(data.length / qtyItemsPage);
-    console.log(numberOfResult, numberOfPages);
-    console.log(url, page);
 
     const startingLimit = (page - 1) * qtyItemsPage;
     const secound_q = `

@@ -12,6 +12,7 @@ import { useLocation } from 'react-router-dom';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import InfoBlock from '../../components/InfoBlock/InfoBlock';
 import CategorySkeleton from '../../components/Skeleton/CategorySkeleton';
+import HistoryMap from '../../components/HistoryMap/HistoryMap';
 
 const Categories = () => {
   const dispatch = useDispatch();
@@ -77,6 +78,7 @@ const Categories = () => {
   return (
     <>
       <div className={styles.container}>
+        <HistoryMap />
         <div className={styles.items_container}>
           {productsCategoryStatus === 'loading'
             ? [1, 2, 3, 4, 5, 6, 7, 8].map((_, i) => (

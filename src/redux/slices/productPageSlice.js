@@ -4,15 +4,8 @@ import axios from '../../axios';
 export const fetchActualProduct = createAsyncThunk(
   'product/fetchProduct',
   async (url) => {
-    console.log(url);
     const { data } = await axios(`/product/${url}`);
-
-    return [
-      {
-        ...data[0],
-        description: data[0].description.replace('<p>&nbsp;</p>', ''),
-      },
-    ];
+    return data;
   }
 );
 
@@ -27,6 +20,7 @@ export const fetchPhotos = createAsyncThunk(
 export const fetchReationProducts = createAsyncThunk(
   'product/fetchReationProducts',
   async (id) => {
+    console.log(id);
     const { data } = await axios(`/product/properties/${id}`);
     return data;
   }

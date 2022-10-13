@@ -15,28 +15,36 @@ import InfoBlock from '../../components/InfoBlock/InfoBlock';
 import PropertysProducts from '../../components/PropertysProducts/PropertysProducts';
 import ShareBlock from '../../components/ShareBlock/ShareBlock';
 import PhotoBlock from '../../components/PhotoBlock/PhotoBlock';
+import { useLocation } from 'react-router-dom';
 
-const ProductPage = ({ url }) => {
+const ProductPage = () => {
   const dispatch = useDispatch();
-
+  const location = useLocation();
   React.useEffect(() => {
     dispatch(cleanActualProduct());
     dispatch(cleanActualPhotos());
-    dispatch(fetchActualProduct(url.replace('tovar_', '')));
+    dispatch(fetchActualProduct(location.pathname.replace('/tovar_', '')));
     window.scrollTo(0, 0);
-  }, [url]);
+  }, [location.pathname]);
 
   const { actualProduct, characteristics } = useSelector(
     (state) => state.actualProduct
   );
 
+  console.log(location.pathname.replace('/tovar_', ''));
+  console.log(actualProduct);
+
   const descriptionBlock = React.useRef(null);
   const product = actualProduct[0];
+
+  console.log(product);
 
   React.useEffect(() => {
     if (product) {
       dispatch(fetchProductCharacteristics(product.product_id));
-      descriptionBlock.current.innerHTML = product.description;
+      if (product.description)
+        descriptionBlock.current.innerHTML = product.description;
+      else descriptionBlock.current.innerHTML = `<h4>Отсутствует</h4>`;
     }
   }, [product]);
 
@@ -77,14 +85,17 @@ const ProductPage = ({ url }) => {
               Технические <br />
               характаристики
             </h2>
-            {characteristics &&
+            {characteristics.length > 0 ? (
               characteristics.map((el) => (
                 <div key={el.characteristic}>
                   <p>
                     <span>{el.characteristic}</span> — <span>{el.value}</span>
                   </p>
                 </div>
-              ))}
+              ))
+            ) : (
+              <h3>Отсутствуют</h3>
+            )}
           </div>
           <div className={styles.description}>
             <h2>
