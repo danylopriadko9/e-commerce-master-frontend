@@ -5,45 +5,6 @@
   flex-direction: column;
   justify-content: space-between;
   margin-top: 5px;
-
-  .model_id {
-    font-size: 14px;
-    color: #cbccce;
-  }
-
-  .category {
-    line-height: 20px;
-    color: #666666;
-    font-weight: bold;
-    margin-bottom: 10px;
-  }
-
-  .priceBlock {
-    display: flex;
-    flex-direction: column;
-
-    .oldPrice {
-      color: #cbccce;
-      text-decoration: line-through;
-      font-size: 14px;
-    }
-    .discount {
-      color: red;
-      margin-left: 10px;
-      font-size: 16px;
-    }
-  }
-
-  .itemCategory {
-    display: flex;
-    flex-direction: column;
-
-    .model {
-      font-size: 14px;
-      line-height: 20px;
-      font-weight: 100;
-    }
-  }
 }
 
 .buttons_container {

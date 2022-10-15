@@ -6,6 +6,7 @@ import { BiCheckDouble } from 'react-icons/bi';
 import { useDispatch } from 'react-redux';
 import { addItemToCart, handelShowStatus } from '../../redux/slices/cartSlice';
 import { addToWachedProducts } from '../../redux/slices/watchedProductsSlice';
+import { addCompartisonProduct } from '../../redux/slices/comparisonSlice';
 
 const DiscountItem = (item) => {
   const {
@@ -15,8 +16,6 @@ const DiscountItem = (item) => {
     base_price,
     discount_percent,
     product_id,
-    dir_path,
-    filename,
   } = item;
   const dispatch = useDispatch();
 
@@ -35,6 +34,10 @@ const DiscountItem = (item) => {
     dispatch(addToWachedProducts(item));
   };
 
+  const handleAddToComprasion = (item) => {
+    dispatch(addCompartisonProduct(item));
+  };
+
   return (
     <Link
       className={styles.productContainer}
@@ -51,7 +54,11 @@ const DiscountItem = (item) => {
         >
           <BsFillCartFill />
         </Link>
-        <Link className={styles.overlowButton}>
+        <Link
+          className={styles.overlowButton}
+          onClick={() => handleAddToComprasion(item)}
+          to='/compare'
+        >
           <BiCheckDouble />
         </Link>
       </div>

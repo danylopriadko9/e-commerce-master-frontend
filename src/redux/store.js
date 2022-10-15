@@ -7,6 +7,7 @@ import cartReducer from './slices/cartSlice';
 import productPageReducer from './slices/productPageSlice';
 import watchedProductsReducer from './slices/watchedProductsSlice';
 import historyMapReducer from './slices/historyMap';
+import compartisonReducer from './slices/comparisonSlice';
 
 export const store = configureStore({
   reducer: {
@@ -18,6 +19,7 @@ export const store = configureStore({
     actualProduct: productPageReducer,
     watchedProducts: watchedProductsReducer,
     history: historyMapReducer,
+    compartison: compartisonReducer,
   },
 });
 
