@@ -21,7 +21,9 @@ const CompareItem = ({ el }) => {
     dispatch(deleteCompartisonProduct(el));
   };
 
-  const { actualProductsValues } = useSelector((state) => state.compartison);
+  const { actualProductsValues, actualProductsValuesStatus } = useSelector(
+    (state) => state.compartison
+  );
   console.log();
   return (
     <div className={styles.container}>
@@ -38,12 +40,29 @@ const CompareItem = ({ el }) => {
         />
       </div>
       <InformationBlock product={el} />
-      {actualProductsValues[product_id] &&
-        actualProductsValues[product_id].map((el) => (
-          <p key={el.value}>{el.value}</p>
-        ))}
-      {actualProductsValues[product_id] && (
+      {actualProductsValuesStatus === 'success' &&
+      actualProductsValues[product_id] ? (
+        actualProductsValues[product_id].map((el, i) => (
+          <p
+            className={
+              i % 2 === 0
+                ? styles.compare_value
+                : `${styles.compare_value} ${styles.secound}`
+            }
+            key={Math.random()}
+          >
+            {el.value}
+          </p>
+        ))
+      ) : (
+        <></>
+      )}
+
+      {actualProductsValuesStatus === 'success' &&
+      actualProductsValues[product_id] ? (
         <p>{actualProductsValues[product_id][0].guarantee}</p>
+      ) : (
+        <></>
       )}
     </div>
   );

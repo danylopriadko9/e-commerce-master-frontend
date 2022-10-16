@@ -12,16 +12,22 @@ const Compare = () => {
     (state) => state.compartison
   );
   const [actualCategory, setActualCategory] = React.useState(categories[0]);
+  console.log(categories);
+  console.log(actualCategory);
 
   React.useEffect(() => {
-    dispatch(setActualProductsCompartison(categories[0]));
+    if (categories.length) {
+      console.log(categories);
+      dispatch(setActualProductsCompartison(categories[0].category_id));
+    }
+
     window.scrollTo(0, 0);
     console.log('Перерендер');
   }, []);
 
   const handleChangeActualCategory = (category) => {
     setActualCategory(category);
-    dispatch(setActualProductsCompartison(category));
+    dispatch(setActualProductsCompartison(category.category_id));
   };
 
   return (
@@ -36,33 +42,39 @@ const Compare = () => {
           categories.map((el) => (
             <div
               className={
-                actualCategory === el
+                actualCategory.category_id === el.category_id
                   ? `${styles.category_buttons} ${styles.active}`
                   : styles.category_buttons
               }
               onClick={() => handleChangeActualCategory(el)}
-              key={el}
+              key={el.category_id}
             >
-              {el}
+              {el.category_name}
               <span>{`(${
-                compartisonProducts.filter((e) => e.category_name === el).length
+                compartisonProducts.filter(
+                  (e) => e.category_id === el.category_id
+                ).length
               })`}</span>
             </div>
           ))}
       </div>
       <div className={styles.compare_products_container}>
-        <div className={styles.params}>
-          <div className={styles.header}>
-            <p>
-              <AiOutlineCheckCircle />
-              <span>Очистить выбор</span>
-            </p>
-            <p>
-              <AiOutlineCheckCircle />
-              <span>Добавить другой товар</span>
-            </p>
+        {compartisonProducts.length > 0 ? (
+          <div className={styles.params}>
+            <div className={styles.header}>
+              <p>
+                <AiOutlineCheckCircle />
+                <span>Очистить выбор</span>
+              </p>
+              <p>
+                <AiOutlineCheckCircle />
+                <span>Добавить другой товар</span>
+              </p>
+            </div>
           </div>
-        </div>
+        ) : (
+          <h2>Продукты для сравнения отсутствуют...</h2>
+        )}
         {resultOfFilter.map((el) => (
           <CompareItem el={el} key={el.product_id} />
         ))}

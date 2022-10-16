@@ -36,3 +36,19 @@
     height: 100%;
   }
 }
+
+p {
+  width: 100%;
+  font-size: 15px;
+  line-height: 35px;
+  color: #333333;
+  font-weight: 300;
+}
+
+.compare_value {
+  background-color: #f8f8f8;
+
+  &.secound {
+    background-color: inherit;
+  }
+}

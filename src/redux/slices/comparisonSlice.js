@@ -30,8 +30,15 @@ export const compartisonSlice = createSlice({
         state.compartisonProducts.push(action.payload);
       }
 
-      if (!state.categories.find((el) => el === action.payload.category_name)) {
-        state.categories.push(action.payload.category_name);
+      if (
+        !state.categories.find(
+          (el) => el.category_id === action.payload.category_id
+        )
+      ) {
+        state.categories.push({
+          category_name: action.payload.category_name,
+          category_id: action.payload.category_id,
+        });
       }
     },
     deleteCompartisonProduct: (state, action) => {
@@ -42,14 +49,17 @@ export const compartisonSlice = createSlice({
         (el) => el.url !== action.payload.url
       );
       state.categories = state.compartisonProducts.find(
-        (el) => el.category_name === action.payload.category_name
+        (el) => el.category_id === action.payload.category_id
       )
         ? state.categories
-        : state.categories.filter((el) => el !== action.payload.category_name);
+        : state.categories.filter(
+            (el) => el.category_id !== action.payload.category_id
+          );
     },
     setActualProductsCompartison: (state, action) => {
+      console.log(action.payload);
       state.resultOfFilter = state.compartisonProducts.filter(
-        (el) => el.category_name === action.payload
+        (el) => el.category_id === action.payload
       );
     },
   },
