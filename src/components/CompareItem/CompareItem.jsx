@@ -21,9 +21,12 @@ const CompareItem = ({ el }) => {
     dispatch(deleteCompartisonProduct(el));
   };
 
-  const { actualProductsValues, actualProductsValuesStatus } = useSelector(
-    (state) => state.compartison
-  );
+  const {
+    actualProductsValues,
+    actualProductsValuesStatus,
+    actualCategoryCharacteristicsStatus,
+    actualCategoryCharacteristics,
+  } = useSelector((state) => state.compartison);
   console.log();
   return (
     <div className={styles.container}>
@@ -43,9 +46,9 @@ const CompareItem = ({ el }) => {
         <InformationBlock product={el} />
       </div>
       <div className={styles.params}>
-        {actualProductsValuesStatus === 'success' &&
-        actualProductsValues[product_id] ? (
-          actualProductsValues[product_id].map((el, i) => (
+        {actualCategoryCharacteristicsStatus === 'success' &&
+          actualCategoryCharacteristics.length > 0 &&
+          actualCategoryCharacteristics.map((el, i) => (
             <p
               className={
                 i % 2 !== 0
@@ -54,19 +57,23 @@ const CompareItem = ({ el }) => {
               }
               key={Math.random()}
             >
-              {el.value}
+              {actualProductsValuesStatus === 'success' &&
+              actualProductsValues[product_id] ? (
+                actualProductsValues[product_id].find(
+                  (e) => e.property_id === el.property_id
+                ) ? (
+                  actualProductsValues[product_id].find(
+                    (e) => e.property_id === el.property_id
+                  ).value
+                ) : (
+                  'Нет описания'
+                )
+              ) : (
+                <></>
+              )}
             </p>
-          ))
-        ) : (
-          <></>
-        )}
-
-        {actualProductsValuesStatus === 'success' &&
-        actualProductsValues[product_id] ? (
-          <p>{actualProductsValues[product_id][0].guarantee}</p>
-        ) : (
-          <></>
-        )}
+          ))}
+        <p>Гарантия</p>
       </div>
     </div>
   );
