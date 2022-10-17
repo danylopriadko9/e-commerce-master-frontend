@@ -3,8 +3,19 @@ import axios from '../../axios';
 
 export const fetchActualProductsCharacteristicsValue = createAsyncThunk(
   'compare/fetchActualProductsCharacteristicsValue',
-  async (id) => {
-    const { data } = await axios.get(`/compare/${id}`);
+  async (product_id) => {
+    const { data } = await axios.get(`/compare/${product_id}`);
+    console.log(data);
+    return data;
+  }
+);
+
+export const fetchActualCategoryCharacteristics = createAsyncThunk(
+  'compare/fetchActualCategoryCharacteristics',
+  async (category_id) => {
+    console.log(category_id);
+    const { data } = await axios.get(`/compare/category/${category_id}`);
+    console.log(data);
     return data;
   }
 );
@@ -13,6 +24,8 @@ const initialState = {
   compartisonProducts: [],
   categories: [],
   resultOfFilter: [],
+  actualCategoryCharacteristics: null,
+  actualCategoryCharacteristicsStatus: null,
   actualProductsValues: null,
   actualProductsValuesStatus: null,
   error: null,
@@ -64,6 +77,7 @@ export const compartisonSlice = createSlice({
     },
   },
   extraReducers: {
+    //==========================Получение значений характеристик
     [fetchActualProductsCharacteristicsValue.pending]: (state, action) => {
       state.actualProductsValuesStatus = 'loading';
       state.error = null;
@@ -77,6 +91,18 @@ export const compartisonSlice = createSlice({
     },
     [fetchActualProductsCharacteristicsValue.rejected]: (state, action) => {
       state.error = 'error';
+    },
+    //==========================Получение характеристик категории
+    [fetchActualCategoryCharacteristics.pending]: (state, action) => {
+      state.actualCategoryCharacteristicsStatus = 'loading';
+      state.error = null;
+    },
+    [fetchActualCategoryCharacteristics.fulfilled]: (state, action) => {
+      state.actualCategoryCharacteristicsStatus = 'success';
+      state.actualCategoryCharacteristics = action.payload;
+    },
+    [fetchActualCategoryCharacteristics.rejected]: (state, action) => {
+      state.actualCategoryCharacteristicsStatus = 'error';
     },
   },
 });

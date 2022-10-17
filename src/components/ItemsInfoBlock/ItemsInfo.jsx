@@ -6,6 +6,7 @@ import { GrAddCircle } from 'react-icons/gr';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import InformationBlock from '../InformationBlock/InformationBlock';
+import { addCompartisonProduct } from '../../redux/slices/comparisonSlice';
 
 const ItemsInfo = ({ product }) => {
   const dispatch = useDispatch();
@@ -19,6 +20,11 @@ const ItemsInfo = ({ product }) => {
     );
     dispatch(handelShowStatus());
   };
+
+  const handleAddToComprasion = (item) => {
+    console.log(item);
+    dispatch(addCompartisonProduct(item));
+  };
   return (
     <>
       <div className={styles.productInfo}>
@@ -28,10 +34,12 @@ const ItemsInfo = ({ product }) => {
             <BsCartFill />
             <span>Добавить в корзину</span>
           </button>
-          <button>
-            <GrAddCircle />
-            <span>Добавить к сравнению</span>
-          </button>
+          <Link to='/compare'>
+            <button onClick={() => handleAddToComprasion(product)}>
+              <GrAddCircle />
+              <span>Добавить к сравнению</span>
+            </button>
+          </Link>
         </div>
       </div>
     </>

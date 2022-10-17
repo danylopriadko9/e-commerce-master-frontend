@@ -30,6 +30,7 @@
 .compare_products_container {
   width: 100%;
   display: flex;
+  overflow-x: scroll;
 
   h2 {
     color: #cccccc;
@@ -37,12 +38,27 @@
 
   .params {
     width: 240px;
+    background-color: #f8f8f8;
+    padding-top: 25px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    p {
+      font-size: 15px;
+      line-height: 35px;
+      color: #333333;
+      font-weight: 300;
+      padding-left: 20px;
+
+      &.secound {
+        background-color: #ffffff;
+      }
+    }
 
     .header {
       height: 100%;
       width: 100%;
-      background-color: #f8f8f8;
-      padding-top: 25px;
 
       p {
         font-size: 12px;

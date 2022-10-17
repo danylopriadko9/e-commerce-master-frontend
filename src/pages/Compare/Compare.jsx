@@ -2,23 +2,29 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './Compare.module.scss';
 import { AiOutlineCheckCircle } from 'react-icons/ai';
-import { setActualProductsCompartison } from '../../redux/slices/comparisonSlice';
+import {
+  fetchActualCategoryCharacteristics,
+  setActualProductsCompartison,
+} from '../../redux/slices/comparisonSlice';
 import CompareItem from '../../components/CompareItem/CompareItem';
 
 const Compare = () => {
   const dispatch = useDispatch();
 
-  const { compartisonProducts, categories, resultOfFilter } = useSelector(
-    (state) => state.compartison
-  );
+  const {
+    compartisonProducts,
+    categories,
+    resultOfFilter,
+    actualCategoryCharacteristics,
+  } = useSelector((state) => state.compartison);
+  console.log(actualCategoryCharacteristics);
   const [actualCategory, setActualCategory] = React.useState(categories[0]);
-  console.log(categories);
-  console.log(actualCategory);
 
   React.useEffect(() => {
     if (categories.length) {
       console.log(categories);
       dispatch(setActualProductsCompartison(categories[0].category_id));
+      dispatch(fetchActualCategoryCharacteristics(categories[0].category_id));
     }
 
     window.scrollTo(0, 0);
@@ -28,6 +34,7 @@ const Compare = () => {
   const handleChangeActualCategory = (category) => {
     setActualCategory(category);
     dispatch(setActualProductsCompartison(category.category_id));
+    dispatch(fetchActualCategoryCharacteristics(category.category_id));
   };
 
   return (
@@ -70,6 +77,16 @@ const Compare = () => {
                 <AiOutlineCheckCircle />
                 <span>Добавить другой товар</span>
               </p>
+            </div>
+            <div>
+              {actualCategoryCharacteristics &&
+                actualCategoryCharacteristics.map((el, i) => (
+                  <p className={i % 2 === 0 ? styles.secound : ''} key={i}>
+                    {el.characteristic}
+                  </p>
+                ))}
+
+              <p className={styles.secound}>Гарантия</p>
             </div>
           </div>
         ) : (

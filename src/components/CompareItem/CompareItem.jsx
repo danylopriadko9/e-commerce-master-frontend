@@ -27,43 +27,47 @@ const CompareItem = ({ el }) => {
   console.log();
   return (
     <div className={styles.container}>
-      <div
-        className={styles.close}
-        onClick={() => deleteProsuctFromCompare(el)}
-      >
-        <RiCloseFill />
+      <div className={styles.top}>
+        <div
+          className={styles.close}
+          onClick={() => deleteProsuctFromCompare(el)}
+        >
+          <RiCloseFill />
+        </div>
+        <div className={styles.image_container}>
+          <img
+            src={`http://localhost:3001/getProductImage/${product_id}`}
+            alt=''
+          />
+        </div>
+        <InformationBlock product={el} />
       </div>
-      <div className={styles.image_container}>
-        <img
-          src={`http://localhost:3001/getProductImage/${product_id}`}
-          alt=''
-        />
-      </div>
-      <InformationBlock product={el} />
-      {actualProductsValuesStatus === 'success' &&
-      actualProductsValues[product_id] ? (
-        actualProductsValues[product_id].map((el, i) => (
-          <p
-            className={
-              i % 2 === 0
-                ? styles.compare_value
-                : `${styles.compare_value} ${styles.secound}`
-            }
-            key={Math.random()}
-          >
-            {el.value}
-          </p>
-        ))
-      ) : (
-        <></>
-      )}
+      <div className={styles.params}>
+        {actualProductsValuesStatus === 'success' &&
+        actualProductsValues[product_id] ? (
+          actualProductsValues[product_id].map((el, i) => (
+            <p
+              className={
+                i % 2 !== 0
+                  ? styles.compare_value
+                  : `${styles.compare_value} ${styles.secound}`
+              }
+              key={Math.random()}
+            >
+              {el.value}
+            </p>
+          ))
+        ) : (
+          <></>
+        )}
 
-      {actualProductsValuesStatus === 'success' &&
-      actualProductsValues[product_id] ? (
-        <p>{actualProductsValues[product_id][0].guarantee}</p>
-      ) : (
-        <></>
-      )}
+        {actualProductsValuesStatus === 'success' &&
+        actualProductsValues[product_id] ? (
+          <p>{actualProductsValues[product_id][0].guarantee}</p>
+        ) : (
+          <></>
+        )}
+      </div>
     </div>
   );
 };
