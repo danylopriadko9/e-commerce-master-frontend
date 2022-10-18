@@ -3,11 +3,12 @@ import Footer from './components/Footer/Footer';
 import './App.scss';
 import PagesComposing from './pages/Pages';
 import Cart from './components/cart/Cart';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { CSSTransition } from 'react-transition-group';
 import { Route, Routes } from 'react-router-dom';
 import Main from './pages/Main/Main';
 import Pages from './pages/Pages';
+import { fetchActualProductsProperties } from './redux/slices/comparisonSlice';
 
 function App() {
   const { showStatus } = useSelector((state) => state.cart);

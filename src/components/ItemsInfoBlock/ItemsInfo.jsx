@@ -22,7 +22,6 @@ const ItemsInfo = ({ product }) => {
   };
 
   const handleAddToComprasion = (item) => {
-    console.log(item);
     dispatch(addCompartisonProduct(item));
   };
   return (
@@ -34,11 +33,9 @@ const ItemsInfo = ({ product }) => {
             <BsCartFill />
             <span>Добавить в корзину</span>
           </button>
-          <Link to='/compare'>
-            <button onClick={() => handleAddToComprasion(product)}>
-              <GrAddCircle />
-              <span>Добавить к сравнению</span>
-            </button>
+          <Link to='/compare' onClick={() => handleAddToComprasion(product)}>
+            <GrAddCircle />
+            <span>Добавить к сравнению</span>
           </Link>
         </div>
       </div>

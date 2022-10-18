@@ -4,9 +4,12 @@ import styles from './Compare.module.scss';
 import { AiOutlineCheckCircle } from 'react-icons/ai';
 import {
   fetchActualCategoryCharacteristics,
+  fetchActualProductsProperties,
   setActualProductsCompartison,
 } from '../../redux/slices/comparisonSlice';
 import CompareItem from '../../components/CompareItem/CompareItem';
+import Items from '../../components/ItemsSlider/Items';
+import PropertysProducts from '../../components/PropertysProducts/PropertysProducts';
 
 const Compare = () => {
   const dispatch = useDispatch();
@@ -16,20 +19,29 @@ const Compare = () => {
     categories,
     resultOfFilter,
     actualCategoryCharacteristics,
+    propertyProducts,
+    propertyProductsStatus,
   } = useSelector((state) => state.compartison);
-  console.log(actualCategoryCharacteristics);
   const [actualCategory, setActualCategory] = React.useState(categories[0]);
 
   React.useEffect(() => {
     if (categories.length) {
-      console.log(categories);
       dispatch(setActualProductsCompartison(categories[0].category_id));
       dispatch(fetchActualCategoryCharacteristics(categories[0].category_id));
     }
-
     window.scrollTo(0, 0);
-    console.log('Перерендер');
   }, []);
+
+  React.useEffect(() => {
+    if (categories.length > 0) {
+      handleChangeActualCategory(categories[categories.length - 1]);
+    }
+    dispatch(fetchActualProductsProperties());
+  }, [categories.length]);
+
+  React.useEffect(() => {
+    dispatch(fetchActualProductsProperties(resultOfFilter));
+  }, [resultOfFilter]);
 
   const handleChangeActualCategory = (category) => {
     setActualCategory(category);
@@ -92,10 +104,18 @@ const Compare = () => {
         ) : (
           <h2>Продукты для сравнения отсутствуют...</h2>
         )}
-        {resultOfFilter.map((el) => (
-          <CompareItem el={el} key={el.product_id} />
-        ))}
+        {resultOfFilter.length > 0 && (
+          <div className={styles.compare_items_container}>
+            {resultOfFilter.map((el) => (
+              <CompareItem el={el} key={el.product_id} />
+            ))}
+          </div>
+        )}
       </div>
+      <PropertysProducts
+        items={propertyProducts}
+        status={propertyProductsStatus}
+      />
     </div>
   );
 };

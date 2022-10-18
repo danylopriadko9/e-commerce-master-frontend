@@ -27,7 +27,6 @@ const CompareItem = ({ el }) => {
     actualCategoryCharacteristicsStatus,
     actualCategoryCharacteristics,
   } = useSelector((state) => state.compartison);
-  console.log();
   return (
     <div className={styles.container}>
       <div className={styles.top}>
@@ -47,7 +46,7 @@ const CompareItem = ({ el }) => {
       </div>
       <div className={styles.params}>
         {actualCategoryCharacteristicsStatus === 'success' &&
-          actualCategoryCharacteristics.length > 0 &&
+        actualCategoryCharacteristics.length > 0 ? (
           actualCategoryCharacteristics.map((el, i) => (
             <p
               className={
@@ -72,8 +71,19 @@ const CompareItem = ({ el }) => {
                 <></>
               )}
             </p>
-          ))}
-        <p>Гарантия</p>
+          ))
+        ) : (
+          <></>
+        )}
+        {actualProductsValuesStatus === 'success' &&
+        actualProductsValues[product_id] ? (
+          <p>
+            {actualProductsValues[product_id][0] &&
+              actualProductsValues[product_id][0].guarantee}{' '}
+          </p>
+        ) : (
+          <></>
+        )}
       </div>
     </div>
   );

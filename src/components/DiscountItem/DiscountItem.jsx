@@ -20,7 +20,6 @@ const DiscountItem = (item) => {
   const dispatch = useDispatch();
 
   const handleAddItemToCart = (item) => {
-    console.log(item, item.category_id);
     dispatch(
       addItemToCart({
         ...item,

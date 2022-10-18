@@ -37,7 +37,7 @@
   }
 
   .params {
-    width: 240px;
+    min-width: 240px;
     background-color: #f8f8f8;
     padding-top: 25px;
     display: flex;
@@ -45,7 +45,7 @@
     justify-content: space-between;
 
     p {
-      font-size: 15px;
+      font-size: 12px;
       line-height: 35px;
       color: #333333;
       font-weight: 300;
@@ -126,4 +126,10 @@
       color: #636363;
     }
   }
+}
+
+.compare_items_container {
+  display: flex;
+  width: 100%;
+  overflow-x: scroll;
 }

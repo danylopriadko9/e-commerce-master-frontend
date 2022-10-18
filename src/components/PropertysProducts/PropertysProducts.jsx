@@ -6,7 +6,7 @@ import DiscountItem from '../DiscountItem/DiscountItem';
 import Items from '../ItemsSlider/Items';
 import styles from './PropertysProducts.module.scss';
 
-const PropertysProducts = ({ id, title }) => {
+const PropertysProducts = ({ id, title, products, status }) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -18,6 +18,37 @@ const PropertysProducts = ({ id, title }) => {
   );
 
   const { watchedProducts } = useSelector((state) => state.watchedProducts);
+
+  if (products) {
+    return (
+      <>
+        {products.length > 0 &&
+          (products.length > 4 ? (
+            <div className={styles.slider_container}>
+              <h2>
+                <div className={styles.indikator}></div>
+                {title}
+              </h2>
+              <Items items={products} status={status} />
+            </div>
+          ) : (
+            <div className={styles.property_item_container}>
+              <h2>
+                <div className={styles.indikator}></div>
+                {title}
+              </h2>
+              <div className={styles.list_of_items}>
+                {products.map((el) => (
+                  <div className={styles.item_container} key={el.url}>
+                    <DiscountItem {...el} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          ))}
+      </>
+    );
+  }
 
   const items =
     title === 'С этим товаром часто покупают'

@@ -5,7 +5,6 @@ export const fetchActualProductsCharacteristicsValue = createAsyncThunk(
   'compare/fetchActualProductsCharacteristicsValue',
   async (product_id) => {
     const { data } = await axios.get(`/compare/${product_id}`);
-    console.log(data);
     return data;
   }
 );
@@ -13,9 +12,21 @@ export const fetchActualProductsCharacteristicsValue = createAsyncThunk(
 export const fetchActualCategoryCharacteristics = createAsyncThunk(
   'compare/fetchActualCategoryCharacteristics',
   async (category_id) => {
-    console.log(category_id);
     const { data } = await axios.get(`/compare/category/${category_id}`);
-    console.log(data);
+    return data;
+  }
+);
+
+export const fetchActualProductsProperties = createAsyncThunk(
+  'compare/fetchActualProductsProperties',
+  async (actual_filter_products) => {
+    console.log(actual_filter_products);
+    const { data } = await axios.post('/property_compare_products', {
+      data: actual_filter_products.reduce((acc, val) => {
+        acc.push(val.product_id);
+        return acc;
+      }, []),
+    });
     return data;
   }
 );
@@ -24,11 +35,13 @@ const initialState = {
   compartisonProducts: [],
   categories: [],
   resultOfFilter: [],
+  propertyProducts: [],
   actualCategoryCharacteristics: null,
   actualCategoryCharacteristicsStatus: null,
   actualProductsValues: null,
   actualProductsValuesStatus: null,
   error: null,
+  propertyProductsStatus: null,
 };
 
 export const compartisonSlice = createSlice({
@@ -36,7 +49,6 @@ export const compartisonSlice = createSlice({
   initialState,
   reducers: {
     addCompartisonProduct: (state, action) => {
-      console.log(action.payload);
       if (
         !state.compartisonProducts.find((el) => el.url === action.payload.url)
       ) {
@@ -70,7 +82,6 @@ export const compartisonSlice = createSlice({
           );
     },
     setActualProductsCompartison: (state, action) => {
-      console.log(action.payload);
       state.resultOfFilter = state.compartisonProducts.filter(
         (el) => el.category_id === action.payload
       );
@@ -103,6 +114,19 @@ export const compartisonSlice = createSlice({
     },
     [fetchActualCategoryCharacteristics.rejected]: (state, action) => {
       state.actualCategoryCharacteristicsStatus = 'error';
+    },
+    //==========================Получение продуктов которые покупают вместе
+    [fetchActualProductsProperties.pending]: (state, action) => {
+      state.propertyProductsStatus = 'loading';
+      state.error = null;
+    },
+    [fetchActualProductsProperties.fulfilled]: (state, action) => {
+      console.log(action.payload);
+      state.propertyProductsStatus = 'success';
+      state.propertyProducts = action.payload;
+    },
+    [fetchActualProductsProperties.rejected]: (state, action) => {
+      state.propertyProductsStatus = 'error';
     },
   },
 });
