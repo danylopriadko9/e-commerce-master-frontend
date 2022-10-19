@@ -16,6 +16,7 @@ const DiscountItem = (item) => {
     base_price,
     discount_percent,
     product_id,
+    iso,
   } = item;
   const dispatch = useDispatch();
 
@@ -83,12 +84,14 @@ const DiscountItem = (item) => {
                       (base_price * discount_percent.slice(0, -3)) / 100
                     ).toFixed(2)
                   : base_price}
-                грн
+                {` ${iso}`}
               </span>
               <span className={styles.price}>
                 {discount_percent && (
                   <>
-                    <span className={styles.oldPrice}>{base_price} грн</span>
+                    <span className={styles.oldPrice}>
+                      {`${base_price} ${iso}`}
+                    </span>
                     <span className={styles.discount}>
                       -{discount_percent.slice(0, -3)}%
                     </span>

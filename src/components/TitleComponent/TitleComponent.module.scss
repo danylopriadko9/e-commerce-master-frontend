@@ -1,0 +1,15 @@
+.title {
+  color: #cbccce;
+  position: relative;
+  margin-bottom: 30px;
+
+  .indicator {
+    position: absolute;
+    width: 50px;
+    height: 3px;
+    top: -20px;
+    left: 0;
+    background-color: red;
+    margin-bottom: 20px;
+  }
+}

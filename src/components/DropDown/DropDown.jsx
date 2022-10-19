@@ -6,7 +6,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   actualSubcategoriesPageClean,
   fetchCategories,
-  getSubcategoriesInformation,
   searchActualCategory,
 } from '../../redux/index';
 

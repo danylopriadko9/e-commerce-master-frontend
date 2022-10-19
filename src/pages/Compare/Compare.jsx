@@ -8,7 +8,6 @@ import {
   setActualProductsCompartison,
 } from '../../redux/slices/comparisonSlice';
 import CompareItem from '../../components/CompareItem/CompareItem';
-import Items from '../../components/ItemsSlider/Items';
 import PropertysProducts from '../../components/PropertysProducts/PropertysProducts';
 
 const Compare = () => {
@@ -113,8 +112,10 @@ const Compare = () => {
         )}
       </div>
       <PropertysProducts
-        items={propertyProducts}
+        products={propertyProducts}
+        title={'С этими товарами часто покупают'}
         status={propertyProductsStatus}
+        type={'products'}
       />
     </div>
   );

@@ -5,6 +5,7 @@ import {
   cleanActualProduct,
   fetchActualProduct,
   fetchProductCharacteristics,
+  fetchReationProducts,
 } from '../../redux/slices/productPageSlice';
 import styles from './ProductPage.module.scss';
 import { BsFillUmbrellaFill } from 'react-icons/bs';
@@ -36,13 +37,18 @@ const ProductPage = () => {
   const product = actualProduct[0];
 
   React.useEffect(() => {
-    if (product) {
+    if (product && product.product_id) {
       dispatch(fetchProductCharacteristics(product.product_id));
+      dispatch(fetchReationProducts(product.product_id));
       if (product.description)
         descriptionBlock.current.innerHTML = product.description;
       else descriptionBlock.current.innerHTML = `<h4>Отсутствует</h4>`;
     }
   }, [product]);
+
+  const { reationProducts, reationStatus } = useSelector(
+    (state) => state.actualProduct
+  );
 
   return (
     <>
@@ -108,6 +114,8 @@ const ProductPage = () => {
         <PropertysProducts
           id={product.product_id}
           title={'С этим товаром часто покупают'}
+          products={reationProducts}
+          status={reationStatus}
         />
       )}
       <InfoBlock />
