@@ -1,6 +1,6 @@
 import styles from './Header.module.scss';
 import logo from '../../assets/logo.png';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaFacebookSquare } from 'react-icons/fa';
 import { AiOutlineShoppingCart } from 'react-icons/ai';
 import { RiAccountCircleLine } from 'react-icons/ri';
@@ -8,14 +8,31 @@ import DropDown from '../DropDown/DropDown';
 import NumberPopup from '../NumberPopup/NumberPopup';
 import { useDispatch, useSelector } from 'react-redux';
 import { handelShowStatus } from '../../redux/slices/cartSlice';
+import React from 'react';
 
 const Header = () => {
   const dispatch = useDispatch();
+  const searchInput = React.useRef(null);
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const { totalPrice } = useSelector((state) => state.cart);
 
   const handleCartOpen = () => {
     dispatch(handelShowStatus());
+  };
+
+  const handleSearch = (e) => {
+    if (e.current.value.length) {
+      if (location.pathname.includes('/group')) {
+        const groupLink = location.pathname.split('/')[1];
+        navigate(`${groupLink}/search/${e.current.value}`);
+      } else {
+        navigate(`/search/${e.current.value}`);
+      }
+      // ' ' = %20
+      // /search/:id
+    }
   };
   return (
     <div className={styles.header}>
@@ -35,8 +52,8 @@ const Header = () => {
           <Link to='/cooperation'>Сотрудничество</Link>
         </div>
         <div className={styles.inputConteiner}>
-          <input type='text' />
-          <button>Найти</button>
+          <input ref={searchInput} type='text' />
+          <button onClick={() => handleSearch(searchInput)}>Найти</button>
         </div>
       </div>
       <div className={styles.right}>

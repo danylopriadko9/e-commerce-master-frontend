@@ -9,6 +9,7 @@ import watchedProductsReducer from './slices/watchedProductsSlice';
 import historyMapReducer from './slices/historyMap';
 import compartisonReducer from './slices/comparisonSlice';
 import currentReducer from './slices/currentCurrency';
+import searchReducer from './slices/searchSlice';
 
 export const store = configureStore({
   reducer: {
@@ -22,6 +23,7 @@ export const store = configureStore({
     history: historyMapReducer,
     compartison: compartisonReducer,
     currency: currentReducer,
+    search: searchReducer,
   },
 });
 
