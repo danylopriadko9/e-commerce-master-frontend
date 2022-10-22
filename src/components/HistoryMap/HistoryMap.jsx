@@ -17,32 +17,48 @@ const HistoryMap = () => {
   if (history) {
     return (
       <div className={styles.container}>
-        <p>
-          {history.parent_name && (
+        {location.pathname.includes('search') ? (
+          <p>
             <span>
-              <Link to={`/group_${history.parent_url}`}>
-                {history.parent_name}
-              </Link>
+              <Link to={`/`}>Главная</Link>
               <div className={styles.indefikator}></div>
             </span>
-          )}
-          {history.category_name && (
             <span>
-              <Link to={`/group_${history.category_url}`}>
-                {history.category_name}
-              </Link>
+              <Link>Поиск</Link>
+            </span>
+          </p>
+        ) : (
+          <p>
+            <span>
+              <Link to={`/`}>Главная</Link>
               <div className={styles.indefikator}></div>
             </span>
-          )}
-          {history.product_name && (
-            <span>
-              <Link to={`/group_${history.product_url}`}>
-                {history.product_name}
-              </Link>
-              <div className={styles.indefikator}></div>
-            </span>
-          )}
-        </p>
+            {history.parent_name && (
+              <span>
+                <Link to={`/group_${history.parent_url}`}>
+                  {history.parent_name}
+                </Link>
+                <div className={styles.indefikator}></div>
+              </span>
+            )}
+            {history.category_name && (
+              <span>
+                <Link to={`/group_${history.category_url}`}>
+                  {history.category_name}
+                </Link>
+                <div className={styles.indefikator}></div>
+              </span>
+            )}
+            {history.product_name && (
+              <span>
+                <Link to={`/group_${history.product_url}`}>
+                  {history.product_name}
+                </Link>
+                <div className={styles.indefikator}></div>
+              </span>
+            )}
+          </p>
+        )}
       </div>
     );
   }

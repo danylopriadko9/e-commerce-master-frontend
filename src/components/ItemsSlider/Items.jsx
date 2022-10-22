@@ -8,6 +8,7 @@ import ProductItemSkeleton from '../Skeleton/ProductItemSkeleton';
 import NewsItemsSkeleton from '../Skeleton/NewsItemSkeleton';
 import styles from './Discount.module.scss';
 import TitleComponent from '../TitleComponent/TitleComponent';
+import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 
 const Items = ({ items, status, type, title }) => {
   const settings = {
@@ -17,6 +18,8 @@ const Items = ({ items, status, type, title }) => {
     slidesToScroll: 4,
     autoplay: true,
     autoplaySpeed: 5000,
+    nextArrow: <AiOutlineRight />,
+    prevArrow: <AiOutlineLeft />,
   };
 
   if (type === 'news')

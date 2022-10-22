@@ -19,6 +19,7 @@ const initialState = {
   actualSearchItems: [],
   status: null,
   error: null,
+  type: null,
 };
 
 export const searchSlice = createSlice({
@@ -31,6 +32,7 @@ export const searchSlice = createSlice({
     },
     [fetchSearchItems.fulfilled]: (state, action) => {
       state.actualSearchItems = action.payload;
+      //state.type = action.payload.type;
       state.status = 'success';
     },
     [fetchSearchItems.rejected]: (state, action) => {
