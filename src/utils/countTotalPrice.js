@@ -8,3 +8,8 @@ export const calcTotalPrice = (items) => {
       : obj.base_price * obj.qty + sum;
   }, 0);
 };
+
+// base_ccy: 'UAH';
+// buy: '36.56860';
+// ccy: 'USD';
+// sale: '37.45318';

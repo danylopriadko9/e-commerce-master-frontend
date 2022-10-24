@@ -18,6 +18,7 @@ const CartItem = (item) => {
     discount_percent,
     product_id,
     qty,
+    iso,
   } = item;
 
   const handelQtyConsole = () => {};
@@ -48,11 +49,11 @@ const CartItem = (item) => {
                   (base_price * discount_percent.slice(0, -3)) / 100
                 ).toFixed(2)
               : base_price}
-            грн
+            {` ${iso}`}
           </p>
           {discount_percent && (
             <p>
-              <span className={styles.oldPrice}>{`${base_price} грн`} </span>
+              <span className={styles.oldPrice}>{`${base_price} ${iso}`} </span>
               <span className={styles.discount}>{`-${discount_percent.slice(
                 0,
                 -3

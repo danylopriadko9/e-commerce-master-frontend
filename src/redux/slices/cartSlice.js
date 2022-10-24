@@ -1,5 +1,22 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 import { calcTotalPrice } from '../../utils/countTotalPrice';
+
+// export const fetchCurrentCurrency = createAsyncThunk(
+//   'cart/fetchCurrentCurrency',
+//   async () => {
+//     const { data } = await axios.get(
+//       'https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11'
+//     );
+//     console.log(data);
+//     return data;
+//   }
+// );
+
+// base_ccy: 'UAH';
+// buy: '36.56860';
+// ccy: 'USD';
+// sale: '37.45318';
 
 const setItemsFunction = (items, totalPrice) => {
   localStorage.setItem('cartItems', JSON.stringify(items));
@@ -21,6 +38,8 @@ const initialState = {
   totalPrice: totalPrice,
   showStatus: false,
   popupStatus: 'cart',
+  currency: null,
+  currencyStatus: null,
 };
 
 export const cartSlice = createSlice({
@@ -40,7 +59,7 @@ export const cartSlice = createSlice({
         state.cartItems.push(action.payload);
       }
 
-      state.totalPrice = calcTotalPrice(state.cartItems);
+      state.totalPrice = calcTotalPrice(state.cartItems, state.currency);
       setItemsFunction(
         state.cartItems.map((item) => item),
         state.totalPrice
@@ -52,7 +71,7 @@ export const cartSlice = createSlice({
           item.qty += 1;
         }
       });
-      state.totalPrice = calcTotalPrice(state.cartItems);
+      state.totalPrice = calcTotalPrice(state.cartItems, state.currency);
       setItemsFunction(
         state.cartItems.map((item) => item),
         state.totalPrice
@@ -64,7 +83,7 @@ export const cartSlice = createSlice({
           item.qty -= 1;
         }
       });
-      state.totalPrice = calcTotalPrice(state.cartItems);
+      state.totalPrice = calcTotalPrice(state.cartItems, state.currency);
       setItemsFunction(
         state.cartItems.map((item) => item),
         state.totalPrice
@@ -74,7 +93,7 @@ export const cartSlice = createSlice({
       state.cartItems = state.cartItems.filter(
         (el) => el.product_id !== action.payload
       );
-      state.totalPrice = calcTotalPrice(state.cartItems);
+      state.totalPrice = calcTotalPrice(state.cartItems, state.currency);
       setItemsFunction(
         state.cartItems.map((item) => item),
         state.totalPrice
@@ -87,6 +106,19 @@ export const cartSlice = createSlice({
       state.popupStatus = action.payload; // cart | ofer
     },
   },
+  // extraReducers: {
+  //   [fetchCurrentCurrency.pending]: (state, action) => {
+  //     state.currencyStatus = 'loading';
+  //     state.error = null;
+  //   },
+  //   [fetchCurrentCurrency.fulfilled]: (state, action) => {
+  //     state.currencyStatus = 'success';
+  //     state.currency = action.payload;
+  //   },
+  //   [fetchCurrentCurrency.rejected]: (state, action) => {
+  //     state.currencyStatus = 'error';
+  //   },
+  // },
 });
 
 export const {

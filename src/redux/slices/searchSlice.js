@@ -3,13 +3,15 @@ import axios from '../../axios';
 
 export const fetchSearchItems = createAsyncThunk(
   'search/fetchSearchItems',
-  async ({ searchValue, groupUrl }) => {
-    console.log(searchValue, groupUrl);
+  async ({ searchValue, groupUrl, page }) => {
+    console.log(searchValue, groupUrl, page);
     if (groupUrl) {
-      const { data } = await axios.get(`/search/${groupUrl}/${searchValue}`);
+      const { data } = await axios.get(
+        `/search/${groupUrl}/${searchValue}/${page}`
+      );
       return data;
     } else {
-      const { data } = await axios.get(`/search/${searchValue}`);
+      const { data } = await axios.get(`/search/${searchValue}/${page}`);
       return data;
     }
   }
@@ -17,6 +19,7 @@ export const fetchSearchItems = createAsyncThunk(
 
 const initialState = {
   actualSearchItems: [],
+  searchValue: '',
   status: null,
   error: null,
   type: null,
@@ -25,6 +28,11 @@ const initialState = {
 export const searchSlice = createSlice({
   name: 'search',
   initialState,
+  reducers: {
+    setSearchValue: (state, action) => {
+      state.searchValue = action.payload;
+    },
+  },
   extraReducers: {
     [fetchSearchItems.pending]: (state, action) => {
       state.status = 'loading';
@@ -32,7 +40,6 @@ export const searchSlice = createSlice({
     },
     [fetchSearchItems.fulfilled]: (state, action) => {
       state.actualSearchItems = action.payload;
-      //state.type = action.payload.type;
       state.status = 'success';
     },
     [fetchSearchItems.rejected]: (state, action) => {
@@ -41,4 +48,5 @@ export const searchSlice = createSlice({
   },
 });
 
+export const { setSearchValue } = searchSlice.actions;
 export default searchSlice.reducer;

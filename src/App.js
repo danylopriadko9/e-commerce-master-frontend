@@ -4,14 +4,14 @@ import './App.scss';
 import Cart from './components/cart/Cart';
 import Pages from './pages/Pages';
 import { useDispatch } from 'react-redux';
-import { fetchCurrentCurrency } from './redux/slices/currentCurrency';
+import { fetchCurrentCurrency } from './redux/slices/cartSlice';
 import React from 'react';
 
 function App() {
   const dispatch = useDispatch();
-  React.useEffect(() => {
-    dispatch(fetchCurrentCurrency());
-  }, []);
+  // React.useEffect(() => {
+  //   dispatch(fetchCurrentCurrency());
+  // }, []);
   return (
     <>
       <Cart />

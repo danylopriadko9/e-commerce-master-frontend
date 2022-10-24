@@ -8,7 +8,6 @@ import productPageReducer from './slices/productPageSlice';
 import watchedProductsReducer from './slices/watchedProductsSlice';
 import historyMapReducer from './slices/historyMap';
 import compartisonReducer from './slices/comparisonSlice';
-import currentReducer from './slices/currentCurrency';
 import searchReducer from './slices/searchSlice';
 
 export const store = configureStore({
@@ -22,7 +21,6 @@ export const store = configureStore({
     watchedProducts: watchedProductsReducer,
     history: historyMapReducer,
     compartison: compartisonReducer,
-    currency: currentReducer,
     search: searchReducer,
   },
 });

@@ -30,6 +30,7 @@ export const getSubcategoriesInformation = createAsyncThunk(
 
 const initialState = {
   categories: [],
+  actualPage: 1,
   productsCategory: {
     data: [],
     numberOfResult: null,
@@ -59,6 +60,19 @@ export const categorySlice = createSlice({
 
     actualSubcategoriesPageClean: (state, action) => {
       state.actualSubcategoriesPage = [];
+    },
+
+    increasePageNumber: (state, action) => {
+      state.actualPage = state.actualPage + 1;
+    },
+
+    degreasePageNumber: (state, action) => {
+      state.actualPage = state.actualPage - 1;
+    },
+
+    setPageNumber: (state, action) => {
+      console.log(action.payload);
+      state.actualPage = action.payload;
     },
   },
   extraReducers: {
@@ -101,7 +115,12 @@ export const categorySlice = createSlice({
   },
 });
 
-export const { searchActualCategory, actualSubcategoriesPageClean } =
-  categorySlice.actions;
+export const {
+  searchActualCategory,
+  actualSubcategoriesPageClean,
+  increasePageNumber,
+  degreasePageNumber,
+  setPageNumber,
+} = categorySlice.actions;
 
 export default categorySlice.reducer;

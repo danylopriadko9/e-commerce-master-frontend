@@ -9,6 +9,7 @@ import NumberPopup from '../NumberPopup/NumberPopup';
 import { useDispatch, useSelector } from 'react-redux';
 import { handelShowStatus } from '../../redux/slices/cartSlice';
 import React from 'react';
+import { setSearchValue } from '../../redux/slices/searchSlice';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -23,6 +24,11 @@ const Header = () => {
   };
 
   const handleSearch = (e) => {
+    if (!e.current.value.trim().length) {
+      const groupLink = location.pathname.split('/')[1];
+      navigate(`${groupLink}`.replace('search', ''));
+      return;
+    }
     if (e.current.value.length) {
       if (location.pathname.includes('/group')) {
         const groupLink = location.pathname.split('/')[1];
@@ -30,9 +36,9 @@ const Header = () => {
       } else {
         navigate(`/search/${e.current.value}`);
       }
-      // ' ' = %20
-      // /search/:id
     }
+    dispatch(setSearchValue(e.current.value));
+    e.current.value = '';
   };
   return (
     <div className={styles.header}>
@@ -52,7 +58,13 @@ const Header = () => {
           <Link to='/cooperation'>Сотрудничество</Link>
         </div>
         <div className={styles.inputConteiner}>
-          <input ref={searchInput} type='text' />
+          <input
+            ref={searchInput}
+            type='text'
+            onKeyDown={(e) => {
+              if (e.key === 'Enter') handleSearch(searchInput);
+            }}
+          />
           <button onClick={() => handleSearch(searchInput)}>Найти</button>
         </div>
       </div>
