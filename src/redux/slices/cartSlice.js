@@ -2,16 +2,28 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { calcTotalPrice } from '../../utils/countTotalPrice';
 
-// export const fetchCurrentCurrency = createAsyncThunk(
-//   'cart/fetchCurrentCurrency',
-//   async () => {
-//     const { data } = await axios.get(
-//       'https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11'
-//     );
-//     console.log(data);
-//     return data;
-//   }
-// );
+export const fetchCurrentCurrency = createAsyncThunk(
+  'cart/fetchCurrentCurrency',
+  async () => {
+    const { data } = await axios.get(
+      'https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11'
+    );
+
+    const result = data
+      .map((el) => (el.ccy === 'RUR' ? { ...el, ccy: 'RUB' } : el))
+      .filter((el) => el.ccy !== 'BTC');
+
+    return [
+      ...result,
+      {
+        ccy: 'UAH',
+        base_ccy: 'UAH',
+        buy: '1',
+        sale: '1',
+      },
+    ];
+  }
+);
 
 // base_ccy: 'UAH';
 // buy: '36.56860';
@@ -106,19 +118,19 @@ export const cartSlice = createSlice({
       state.popupStatus = action.payload; // cart | ofer
     },
   },
-  // extraReducers: {
-  //   [fetchCurrentCurrency.pending]: (state, action) => {
-  //     state.currencyStatus = 'loading';
-  //     state.error = null;
-  //   },
-  //   [fetchCurrentCurrency.fulfilled]: (state, action) => {
-  //     state.currencyStatus = 'success';
-  //     state.currency = action.payload;
-  //   },
-  //   [fetchCurrentCurrency.rejected]: (state, action) => {
-  //     state.currencyStatus = 'error';
-  //   },
-  // },
+  extraReducers: {
+    [fetchCurrentCurrency.pending]: (state, action) => {
+      state.currencyStatus = 'loading';
+      state.error = null;
+    },
+    [fetchCurrentCurrency.fulfilled]: (state, action) => {
+      state.currencyStatus = 'success';
+      state.currency = action.payload;
+    },
+    [fetchCurrentCurrency.rejected]: (state, action) => {
+      state.currencyStatus = 'error';
+    },
+  },
 });
 
 export const {

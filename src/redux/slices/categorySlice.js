@@ -71,7 +71,6 @@ export const categorySlice = createSlice({
     },
 
     setPageNumber: (state, action) => {
-      console.log(action.payload);
       state.actualPage = action.payload;
     },
   },

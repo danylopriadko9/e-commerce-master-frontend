@@ -9,9 +9,9 @@ import React from 'react';
 
 function App() {
   const dispatch = useDispatch();
-  // React.useEffect(() => {
-  //   dispatch(fetchCurrentCurrency());
-  // }, []);
+  React.useEffect(() => {
+    dispatch(fetchCurrentCurrency());
+  }, []);
   return (
     <>
       <Cart />

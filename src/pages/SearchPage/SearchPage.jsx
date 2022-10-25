@@ -5,7 +5,11 @@ import CategoryProductBlock from '../../components/CategoryProductBlock/Category
 import HistoryMap from '../../components/HistoryMap/HistoryMap';
 import Pagination from '../../components/Pagination /Pagination';
 import CategoryItemSkeleton from '../../components/Skeleton/CategoryItemSkeleton';
-import { fetchSearchItems } from '../../redux/slices/searchSlice';
+import { setPageNumber } from '../../redux';
+import {
+  fetchSearchItems,
+  setSearchValue,
+} from '../../redux/slices/searchSlice';
 import Item from '../Categories/Item/Item';
 import styles from './SearchPage.module.scss';
 
@@ -30,7 +34,17 @@ const SearchPage = () => {
     (state) => state.search
   );
 
-  if (!actualSearchItems.data && status === 'success') {
+  React.useEffect(() => {
+    dispatch(setPageNumber(1));
+
+    if (!searchValue.length) {
+      const searchValueFromLink =
+        location.pathname.split('/')[location.pathname.split('/').length - 1];
+      dispatch(setSearchValue(searchValueFromLink));
+    }
+  }, []);
+
+  if (status === 'success' && actualSearchItems.data.length === 0) {
     return (
       <div className={styles.container}>
         <HistoryMap />

@@ -6,6 +6,7 @@ import {
   fetchPhotos,
 } from '../../redux/slices/productPageSlice';
 import styles from './PhotoBlock.module.scss';
+import noimg from '../../assets/noimg.jpeg';
 
 const PhotoBlock = ({ id }) => {
   const dispatch = useDispatch();
@@ -17,18 +18,18 @@ const PhotoBlock = ({ id }) => {
     dispatch(fetchPhotos(id));
   }, []);
 
-  const { photos } = useSelector((state) => state.actualProduct);
-
-  if (!id) return <h1>Loading...</h1>;
+  const { photos, status } = useSelector((state) => state.actualProduct);
 
   return (
     <div className={styles.imageBlock}>
       <div className={styles.image_container}>
-        {id && photos.length && (
+        {id && status === 'success' && photos.length > 0 ? (
           <img
             src={`http://localhost:3001/static/product/${id}/${photos[actualPhoto]}`}
             alt=''
           />
+        ) : (
+          <img src={noimg} alt='' />
         )}
       </div>
       <div className={styles.other_photos}>

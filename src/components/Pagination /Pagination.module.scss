@@ -3,6 +3,7 @@
   margin: 30px auto 0;
   display: flex;
   height: 100px;
+  gap: 10px;
 }
 
 .pagination_block {
@@ -10,7 +11,7 @@
   border-radius: 5px;
   width: 25px;
   height: 25px;
-  margin-right: 10px;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -43,5 +44,16 @@
 
   &:first-child {
     margin-right: 10px;
+  }
+}
+
+.dots {
+  font-size: 15px;
+  display: flex;
+  align-items: center;
+  border: none;
+
+  &:hover {
+    border: none;
   }
 }
