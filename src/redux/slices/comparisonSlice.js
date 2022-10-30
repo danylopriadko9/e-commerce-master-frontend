@@ -11,8 +11,8 @@ export const fetchActualProductsCharacteristicsValue = createAsyncThunk(
 
 export const fetchActualCategoryCharacteristics = createAsyncThunk(
   'compare/fetchActualCategoryCharacteristics',
-  async (category_id) => {
-    const { data } = await axios.get(`/compare/category/${category_id}`);
+  async (category_url) => {
+    const { data } = await axios.get(`/compare/category/${category_url}`);
     return data;
   }
 );
@@ -20,7 +20,6 @@ export const fetchActualCategoryCharacteristics = createAsyncThunk(
 export const fetchActualProductsProperties = createAsyncThunk(
   'compare/fetchActualProductsProperties',
   async (actual_filter_products) => {
-    console.log(actual_filter_products);
     const { data } = await axios.post('/property_compare_products', {
       data: actual_filter_products.reduce((acc, val) => {
         acc.push(val.product_id);
@@ -63,6 +62,7 @@ export const compartisonSlice = createSlice({
         state.categories.push({
           category_name: action.payload.category_name,
           category_id: action.payload.category_id,
+          category_url: action.payload.category_url,
         });
       }
     },
@@ -121,7 +121,6 @@ export const compartisonSlice = createSlice({
       state.error = null;
     },
     [fetchActualProductsProperties.fulfilled]: (state, action) => {
-      console.log(action.payload);
       state.propertyProductsStatus = 'success';
       state.propertyProducts = action.payload;
     },

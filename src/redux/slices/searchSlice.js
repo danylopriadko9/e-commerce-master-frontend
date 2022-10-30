@@ -4,7 +4,6 @@ import axios from '../../axios';
 export const fetchSearchItems = createAsyncThunk(
   'search/fetchSearchItems',
   async ({ searchValue, groupUrl, page }) => {
-    console.log(searchValue, groupUrl, page);
     if (groupUrl) {
       const { data } = await axios.get(
         `/search/${groupUrl}/${searchValue}/${page}`

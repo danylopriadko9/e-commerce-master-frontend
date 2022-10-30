@@ -28,6 +28,14 @@ export const getSubcategoriesInformation = createAsyncThunk(
   }
 );
 
+export const getSubcategoriesFilterParams = createAsyncThunk(
+  'category/getSubcategoriesFilterParams',
+  async (url) => {
+    const { data } = await axios.get(`/subcategories/filter/${url}`);
+    return data;
+  }
+);
+
 const initialState = {
   categories: [],
   actualPage: 1,
@@ -43,6 +51,8 @@ const initialState = {
   status: null,
   productsCategoryStatus: null,
   error: null,
+  filterStatus: null,
+  filterParams: [],
 };
 
 export const categorySlice = createSlice({
@@ -110,6 +120,18 @@ export const categorySlice = createSlice({
     },
     [getSubcategoriesInformation.rejected]: (state, action) => {
       state.actualSubcategoriesPageStatus = 'error';
+    },
+    //================================= get filter params
+    [getSubcategoriesFilterParams.pending]: (state, action) => {
+      state.filterStatus = 'loading';
+      state.error = null;
+    },
+    [getSubcategoriesFilterParams.fulfilled]: (state, action) => {
+      state.filterStatus = 'success';
+      state.filterParams = action.payload;
+    },
+    [getSubcategoriesFilterParams.rejected]: (state, action) => {
+      state.filterStatus = 'error';
     },
   },
 });

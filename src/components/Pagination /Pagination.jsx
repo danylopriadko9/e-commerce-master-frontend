@@ -60,7 +60,6 @@ const Pagination = ({ numberOfPages }) => {
         .map((a, i) => i + 1)
         .map((value) => {
           if (value > actualPage - 4 && value < actualPage + 4) {
-            console.log(value);
             return (
               <div
                 onClick={() => handleSetPageNumber(value)}

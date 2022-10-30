@@ -1,0 +1,20 @@
+.compareQty {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  height: 55px;
+  border-bottom: 1px solid #f5f5f5;
+  margin-bottom: 20px;
+  color: #cccccc;
+  font-size: 13px;
+
+  span {
+    margin: 0 5px;
+    color: black;
+  }
+
+  a {
+    text-decoration: underline;
+    color: #cccccc;
+  }
+}

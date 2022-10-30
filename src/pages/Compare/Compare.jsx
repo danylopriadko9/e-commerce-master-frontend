@@ -26,7 +26,7 @@ const Compare = () => {
   React.useEffect(() => {
     if (categories.length) {
       dispatch(setActualProductsCompartison(categories[0].category_id));
-      dispatch(fetchActualCategoryCharacteristics(categories[0].category_id));
+      dispatch(fetchActualCategoryCharacteristics(categories[0].category_url));
     }
     window.scrollTo(0, 0);
   }, []);
@@ -45,7 +45,7 @@ const Compare = () => {
   const handleChangeActualCategory = (category) => {
     setActualCategory(category);
     dispatch(setActualProductsCompartison(category.category_id));
-    dispatch(fetchActualCategoryCharacteristics(category.category_id));
+    dispatch(fetchActualCategoryCharacteristics(category.category_url));
   };
 
   return (
@@ -56,7 +56,7 @@ const Compare = () => {
         {compartisonProducts.length} товаров
       </p>
       <div className={styles.categories_line}>
-        {categories &&
+        {categories.length > 0 &&
           categories.map((el) => (
             <div
               className={
