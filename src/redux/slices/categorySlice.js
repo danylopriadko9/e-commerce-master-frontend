@@ -83,6 +83,10 @@ export const categorySlice = createSlice({
     setPageNumber: (state, action) => {
       state.actualPage = action.payload;
     },
+
+    setActualProducts: (state, action) => {
+      state.productsCategory = action.payload;
+    },
   },
   extraReducers: {
     //================================== DropDown Categories
@@ -142,6 +146,7 @@ export const {
   increasePageNumber,
   degreasePageNumber,
   setPageNumber,
+  setActualProducts,
 } = categorySlice.actions;
 
 export default categorySlice.reducer;

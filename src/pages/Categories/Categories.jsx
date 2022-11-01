@@ -68,16 +68,23 @@ const Categories = () => {
         <HistoryMap />
         <FilterBlock />
         <div className={styles.items_container}>
-          {productsCategoryStatus === 'loading'
-            ? [1, 2, 3, 4, 5, 6, 7, 8].map((_, i) => (
-                <CategoryItemSkeleton key={i} />
-              ))
-            : productsCategory.data.map((el) => (
-                <CategoryProductBlock item={el} key={el.url} />
-              ))}
+          {productsCategoryStatus === 'loading' &&
+            [1, 2, 3, 4, 5, 6, 7, 8].map((_, i) => (
+              <CategoryItemSkeleton key={i} />
+            ))}
+          {productsCategoryStatus === 'success' &&
+            productsCategory.data &&
+            productsCategory.data.map((el) => (
+              <CategoryProductBlock item={el} key={el.url} />
+            ))}
         </div>
+        {!productsCategory.data.length && (
+          <h2>По данному запросу продуктов не найдено...</h2>
+        )}
       </div>
-      <Pagination numberOfPages={productsCategory.numberOfPages} />;
+      {productsCategory.numberOfPages > 1 && (
+        <Pagination numberOfPages={productsCategory.numberOfPages} />
+      )}
       <InfoBlock />
     </>
   );

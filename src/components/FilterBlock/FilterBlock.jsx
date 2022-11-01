@@ -2,13 +2,11 @@ import React from 'react';
 import styles from './FilterBlock.module.scss';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSubcategoriesFilterParams } from '../../redux';
+import { getSubcategoriesFilterParams, setActualProducts } from '../../redux';
 import CompareLine from '../CompareLine/CompareLine';
-import {
-  fetchCategoryParams,
-  postFiltrationParams,
-} from '../../redux/slices/filtrationSlice';
+import { fetchCategoryParams } from '../../redux/slices/filtrationSlice';
 import axios from '../../axios';
+import { BsCheckLg } from 'react-icons/bs';
 
 const FilterBlock = () => {
   const location = useLocation();
@@ -34,12 +32,16 @@ const FilterBlock = () => {
   const postFiltersParams = async () => {
     const result = {
       brands: [],
+      filter_params: {},
     };
 
     for (let i = 0; i < selectContainer.current.children.length; i++) {
       if (selectContainer.current.children[i].children.select.value.length) {
-        result[selectContainer.current.children[i].children.select.id] =
-          selectContainer.current.children[i].children.select.value;
+        result.filter_params = {
+          ...result.filter_params,
+          [selectContainer.current.children[i].children.select.id]:
+            selectContainer.current.children[i].children.select.value,
+        };
       }
     }
 
@@ -55,7 +57,7 @@ const FilterBlock = () => {
     }
 
     const { data } = await axios.post(`/filter/post/${groupurl}`, result);
-    console.log(data);
+    dispatch(setActualProducts({ data }));
   };
 
   return (
@@ -119,7 +121,11 @@ const FilterBlock = () => {
               ))}
           </div>
         </div>
-        <button onClick={postFiltersParams}>Submit</button>
+      </div>
+      <div className={styles.submit_block}>
+        <button onClick={postFiltersParams}>
+          <BsCheckLg />
+        </button>
       </div>
       <CompareLine />
     </>
