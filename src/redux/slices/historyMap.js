@@ -4,8 +4,10 @@ import axios from '../../axios';
 export const fetchHistory = createAsyncThunk(
   'news/fetchHistory',
   async (url) => {
-    const { data } = await axios.get(`/history/${url}`);
-    return data;
+    if (url.length) {
+      const { data } = await axios.get(`/history/${url}`);
+      return data;
+    }
   }
 );
 

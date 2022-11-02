@@ -1,18 +1,37 @@
 import React from 'react';
+import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styles from './Ofer.module.scss';
 
 const Ofer = () => {
+  const { cartItems, totalPrice } = useSelector((state) => state.cart);
+  const [qty, setQty] = React.useState(0);
+
+  React.useEffect(() => {
+    setQty(() => {
+      return cartItems.reduce((acc, val) => {
+        return (acc += val.qty);
+      }, 0);
+    });
+  }, []);
+
   return (
     <>
       <div className={styles.totalBlock}>
         <div className={styles.totalInformationContainer}>
           <h3>ИТОГО: </h3>
           <p className={styles.totalPrice}>
-            2 товара на сумму: <span>98664 грн</span>
+            {qty}{' '}
+            {qty === '1' && qty !== '1'
+              ? 'товар'
+              : qty >= 5 && qty <= 20
+              ? 'товаров'
+              : 'товара'}{' '}
+            на сумму: <span>{Math.ceil(totalPrice)} UAH</span>
           </p>
           <p className={styles.deliveryPrice}>
-            Стоимость доставки: <span>1054 грн</span>
+            Стоимость доставки: <span>1054 UAH</span>
           </p>
           <p className={styles.priceWithDelivery}>
             К оплате <span>105664 грн</span>

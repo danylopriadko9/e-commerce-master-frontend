@@ -1,12 +1,17 @@
-export const calcTotalPrice = (items) => {
+export const calcTotalPrice = (items, currency) => {
+  console.log('work');
   return items.reduce((sum, obj) => {
-    return obj.discount_percent
-      ? (obj.base_price -
-          (obj.base_price * obj.discount_percent.slice(0, -3)) / 100) *
-          obj.qty +
-          sum
-      : obj.base_price * obj.qty + sum;
+    return (sum += calcPriceForOneProducts(obj, currency));
   }, 0);
+};
+
+const calcPriceForOneProducts = (item, currency) => {
+  const actualProductCurrency = currency.find((el) => el.ccy === item.iso);
+  return item.discount_percent
+    ? (item.base_price - (item.base_price * item.discount_percent) / 100) *
+        item.qty *
+        actualProductCurrency.sale
+    : item.base_price * item.qty * actualProductCurrency.sale;
 };
 
 // base_ccy: 'UAH';

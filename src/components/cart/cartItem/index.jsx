@@ -86,7 +86,7 @@ const CartItem = (item) => {
                 qty
               ).toFixed(2)
             : (base_price * qty).toFixed(2)}
-          грн
+          {` ${iso}`}
         </p>
       </div>
     </div>

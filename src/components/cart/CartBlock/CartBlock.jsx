@@ -38,7 +38,7 @@ const CartBlock = () => {
           {cartItems.length > 0 && (
             <>
               <p className={styles.totalSumBlock}>
-                <span>Итого: </span> <span>{totalPrice.toFixed(2)} грн</span>
+                <span>Итого: </span> <span>{totalPrice.toFixed(2)} UAH</span>
               </p>
               <button onClick={() => handlePopupStatusChange('ofer')}>
                 <BsCartFill />
