@@ -25,6 +25,8 @@ const FilterBlock = () => {
 
   const { filterStatus, filterParams } = useSelector((state) => state.category);
 
+  const { currency } = useSelector((state) => state.cart);
+
   const { categoryParams, categoryValues } = useSelector(
     (state) => state.filter
   );
@@ -56,8 +58,11 @@ const FilterBlock = () => {
       }
     }
 
+    result.currency = currency;
+
     const { data } = await axios.post(`/filter/post/${groupurl}`, result);
-    dispatch(setActualProducts({ data }));
+    console.log(data);
+    dispatch(setActualProducts({ data: data }));
   };
 
   return (
