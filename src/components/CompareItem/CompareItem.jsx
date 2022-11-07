@@ -38,7 +38,7 @@ const CompareItem = ({ el }) => {
         </div>
         <div className={styles.image_container}>
           <img
-            src={`http://localhost:3001/getProductImage/${product_id}`}
+            src={`http://localhost:3001/product/getProductImage/${product_id}`}
             alt=''
           />
         </div>

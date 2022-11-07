@@ -4,7 +4,7 @@ import axios from '../../axios';
 export const fetchCategories = createAsyncThunk(
   'category/fetchCategories', // name
   async () => {
-    const { data } = await axios.get('/categories');
+    const { data } = await axios.get('/category');
     return data;
   }
 );
@@ -14,7 +14,7 @@ export const fetchProductsCategory = createAsyncThunk(
   async (params) => {
     const { url, page } = params;
     const { data } = await axios.get(
-      `/productCategories/${url.replace('/group_', '')}/${page}`
+      `/category/productCategories/${url.replace('/group_', '')}/${page}`
     );
     return data;
   }
@@ -23,7 +23,7 @@ export const fetchProductsCategory = createAsyncThunk(
 export const getSubcategoriesInformation = createAsyncThunk(
   'category/getSubcategoriesInformation',
   async (url) => {
-    const { data } = await axios.get(`/subcategories/${url}`);
+    const { data } = await axios.get(`/category/subcategories/${url}`);
     return data;
   }
 );
@@ -31,7 +31,7 @@ export const getSubcategoriesInformation = createAsyncThunk(
 export const getSubcategoriesFilterParams = createAsyncThunk(
   'category/getSubcategoriesFilterParams',
   async (url) => {
-    const { data } = await axios.get(`/subcategories/filter/${url}`);
+    const { data } = await axios.get(`/category/subcategories/filter/${url}`);
     return data;
   }
 );

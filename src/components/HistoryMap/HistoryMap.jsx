@@ -51,9 +51,7 @@ const HistoryMap = () => {
             )}
             {history.product_name && (
               <span>
-                <Link to={`/group_${history.product_url}`}>
-                  {history.product_name}
-                </Link>
+                <Link>{history.product_name}</Link>
                 <div className={styles.indefikator}></div>
               </span>
             )}

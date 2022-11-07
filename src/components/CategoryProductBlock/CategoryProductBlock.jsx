@@ -9,7 +9,7 @@ const CategoryProductBlock = ({ item }) => {
       <Link className={styles.image_container} to={`/tovar_${item.url}`}>
         {item.product_id && (
           <img
-            src={`http://localhost:3001/getProductImage/${item.product_id}`}
+            src={`http://localhost:3001/product/getProductImage/${item.product_id}`}
             alt=''
           />
         )}

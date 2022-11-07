@@ -4,7 +4,9 @@ import axios from '../../axios';
 export const fetchCategoryParams = createAsyncThunk(
   'filtration/fetchCategoryParams',
   async (category_url) => {
-    const { data } = await axios.get(`/filter/category/${category_url}`);
+    const { data } = await axios.get(
+      `/category/filter/category/${category_url}`
+    );
     return data;
   }
 );

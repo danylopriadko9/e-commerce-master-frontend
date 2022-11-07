@@ -66,7 +66,7 @@ const DiscountItem = (item) => {
       <div className={styles.itemContainer}>
         <div className={styles.imageContainer}>
           <img
-            src={`http://localhost:3001/getProductImage/${product_id}`}
+            src={`http://localhost:3001/product/getProductImage/${product_id}`}
             alt=''
           />
         </div>

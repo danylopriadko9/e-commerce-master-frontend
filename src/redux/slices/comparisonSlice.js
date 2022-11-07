@@ -4,7 +4,7 @@ import axios from '../../axios';
 export const fetchActualProductsCharacteristicsValue = createAsyncThunk(
   'compare/fetchActualProductsCharacteristicsValue',
   async (product_id) => {
-    const { data } = await axios.get(`/compare/${product_id}`);
+    const { data } = await axios.get(`/product/compare/${product_id}`);
     return data;
   }
 );
@@ -12,7 +12,9 @@ export const fetchActualProductsCharacteristicsValue = createAsyncThunk(
 export const fetchActualCategoryCharacteristics = createAsyncThunk(
   'compare/fetchActualCategoryCharacteristics',
   async (category_url) => {
-    const { data } = await axios.get(`/compare/category/${category_url}`);
+    const { data } = await axios.get(
+      `/category/compare/category/${category_url}`
+    );
     return data;
   }
 );
@@ -20,7 +22,7 @@ export const fetchActualCategoryCharacteristics = createAsyncThunk(
 export const fetchActualProductsProperties = createAsyncThunk(
   'compare/fetchActualProductsProperties',
   async (actual_filter_products) => {
-    const { data } = await axios.post('/property_compare_products', {
+    const { data } = await axios.post('/product/property_compare_products', {
       data: actual_filter_products.reduce((acc, val) => {
         acc.push(val.product_id);
         return acc;
