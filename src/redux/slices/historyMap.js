@@ -4,8 +4,16 @@ import axios from '../../axios';
 export const fetchHistory = createAsyncThunk(
   'news/fetchHistory',
   async (url) => {
-    if (url.length) {
-      const { data } = await axios.get(`/history/${url}`);
+    if (url.includes('tovar_')) {
+      const { data } = await axios.get(
+        `/history/product/${url.replace('tovar_', '')}`
+      );
+      return data;
+    }
+    if (url.includes('group_')) {
+      const { data } = await axios.get(
+        `/history/group/${url.replace('group_', '')}`
+      );
       return data;
     }
   }
@@ -33,7 +41,7 @@ export const historyMapSlice = createSlice({
     },
     [fetchHistory.fulfilled]: (state, action) => {
       state.status = 'success';
-      state.history = action.payload;
+      state.history = action.payload[0];
     },
     [fetchHistory.rejected]: (state, action) => {
       state.status = 'error';

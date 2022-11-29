@@ -10,12 +10,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { handelShowStatus } from '../../redux/slices/cartSlice';
 import React from 'react';
 import { setSearchValue } from '../../redux/slices/searchSlice';
+import { AuthContext } from '../../context/authContext';
 
 const Header = () => {
   const dispatch = useDispatch();
   const searchInput = React.useRef(null);
   const navigate = useNavigate();
   const location = useLocation();
+
+  const { currentUser, logout } = React.useContext(AuthContext);
 
   const { totalPrice } = useSelector((state) => state.cart);
 
@@ -96,7 +99,19 @@ const Header = () => {
           </div>
           <div className={`${styles.login} ${styles.cartAndLoginItems}`}>
             <RiAccountCircleLine className={styles.icon} />
-            <span>Вход</span>
+            {currentUser ? (
+              <>
+                <Link onClick={logout}>
+                  <span>Logout</span>
+                </Link>
+              </>
+            ) : (
+              <>
+                <Link to='/login'>
+                  <span>Вход</span>
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </div>

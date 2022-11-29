@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { addItemToCart, handelShowStatus } from '../../redux/slices/cartSlice';
 import { addToWachedProducts } from '../../redux/slices/watchedProductsSlice';
 import { addCompartisonProduct } from '../../redux/slices/comparisonSlice';
+import { apiurl } from '../../axios';
 
 const DiscountItem = (item) => {
   const {
@@ -65,10 +66,7 @@ const DiscountItem = (item) => {
       </div>
       <div className={styles.itemContainer}>
         <div className={styles.imageContainer}>
-          <img
-            src={`http://localhost:3001/product/getProductImage/${product_id}`}
-            alt=''
-          />
+          <img src={`${apiurl}/product/photo/${product_id}`} alt='' />
         </div>
         <span className={styles.category}>{category_name}</span>
         <div className={styles.infoContainer}>

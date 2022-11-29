@@ -2,7 +2,7 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from '../../axios';
 
 export const fetchCategories = createAsyncThunk(
-  'category/fetchCategories', // name
+  'category/fetchCategories',
   async () => {
     const { data } = await axios.get('/category');
     return data;
@@ -13,8 +13,9 @@ export const fetchProductsCategory = createAsyncThunk(
   'category/fetchProducsCategory',
   async (params) => {
     const { url, page } = params;
+    console.log(url, page);
     const { data } = await axios.get(
-      `/category/productCategories/${url.replace('/group_', '')}/${page}`
+      `/category/page/${url.replace('/group_', '')}/${page}`
     );
     return data;
   }
@@ -31,7 +32,7 @@ export const getSubcategoriesInformation = createAsyncThunk(
 export const getSubcategoriesFilterParams = createAsyncThunk(
   'category/getSubcategoriesFilterParams',
   async (url) => {
-    const { data } = await axios.get(`/category/subcategories/filter/${url}`);
+    const { data } = await axios.get(`/category/manufacturers/${url}`);
     return data;
   }
 );

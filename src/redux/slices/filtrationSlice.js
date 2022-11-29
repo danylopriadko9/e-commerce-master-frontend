@@ -11,15 +11,15 @@ export const fetchCategoryParams = createAsyncThunk(
   }
 );
 
-export const postFiltrationParams = createAsyncThunk(
-  'filtration/fetchCategoryParams',
-  async (params) => {
-    const { data } = await axios.post('/filter/post', {
-      params,
-    });
-    return data;
-  }
-);
+// export const postFiltrationParams = createAsyncThunk(
+//   'filtration/fetchCategoryParams',
+//   async (params) => {
+//     const { data } = await axios.post('/filter/post', {
+//       params,
+//     });
+//     return data;
+//   }
+// );
 
 const initialState = {
   categoryParams: [],

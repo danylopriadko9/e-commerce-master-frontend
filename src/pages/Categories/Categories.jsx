@@ -78,9 +78,10 @@ const Categories = () => {
               <CategoryProductBlock item={el} key={el.url} />
             ))}
         </div>
-        {!productsCategory.data.length && (
-          <h2>По данному запросу продуктов не найдено...</h2>
-        )}
+        {!productsCategory.data ||
+          (!productsCategory.data.length && (
+            <h2>По данному запросу продуктов не найдено...</h2>
+          ))}
       </div>
       {productsCategory.numberOfPages > 1 && (
         <Pagination numberOfPages={productsCategory.numberOfPages} />

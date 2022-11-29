@@ -7,6 +7,7 @@ import {
   removeItemFromCart,
   subtractQuantityFromItem,
 } from '../../../redux/slices/cartSlice';
+import { apiurl } from '../../../axios';
 
 const CartItem = (item) => {
   const dispatch = useDispatch();
@@ -36,9 +37,7 @@ const CartItem = (item) => {
     <div className={styles.cartItemContainer}>
       <div className={styles.infoContainer}>
         <div className={styles.imageContainer}>
-          <img
-            src={`http://localhost:3001/product/getProductImage/${product_id}`}
-          />
+          <img src={`${apiurl}/product/photo/${product_id}`} />
         </div>
         <div className={styles.infoBlock}>
           <p className={styles.id}>{`#${product_id}`}</p>

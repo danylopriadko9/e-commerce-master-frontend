@@ -32,18 +32,19 @@ const DropDown = () => {
         <span>КАТАЛОГ</span>
         <div className={styles.dropdownContent}>
           <div className={styles.dropdown}>
-            {categories
-              .filter((el) => el.parent_id === 0)
-              .map((el) => (
-                <Link
-                  to={`group_${el.url}`}
-                  onMouseEnter={() => categoryMouseEnter(el.id)}
-                  key={el.url}
-                >
-                  <div className={styles.indikator}></div>
-                  {el.name}
-                </Link>
-              ))}
+            {categories &&
+              categories
+                .filter((el) => el.parent_id === 0)
+                .map((el) => (
+                  <Link
+                    to={`group_${el.url}`}
+                    onMouseEnter={() => categoryMouseEnter(el.id)}
+                    key={el.url}
+                  >
+                    <div className={styles.indikator}></div>
+                    {el.name}
+                  </Link>
+                ))}
           </div>
 
           <div className={styles.categoryItems}>

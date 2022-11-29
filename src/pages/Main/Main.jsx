@@ -17,9 +17,9 @@ const Main = () => {
   useEffect(() => {
     dispatch(cleanActualProduct());
     dispatch(cleanActualPhotos());
-    dispatch(fetchDiscountProducts());
-    dispatch(fetchNewProducts());
-    dispatch(fetchNews());
+    if (discountProductsStatus !== 'success') dispatch(fetchDiscountProducts());
+    if (newProductsStatus !== 'success') dispatch(fetchNewProducts());
+    if (newProductsStatus !== 'success') dispatch(fetchNews());
   }, []);
 
   const { newProducts, newProductsStatus } = useSelector(

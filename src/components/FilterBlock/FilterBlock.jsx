@@ -116,11 +116,12 @@ const FilterBlock = () => {
                   <p>{el.characteristic}</p>
                   <select name='select' id={el.property_id}>
                     <option value=''>Все</option>
-                    {categoryValues[el.property_id].map((e, i) => (
-                      <option key={i} value={e}>
-                        {e}
-                      </option>
-                    ))}
+                    {categoryValues[el.property_id] &&
+                      categoryValues[el.property_id].map((e, i) => (
+                        <option key={i} value={e}>
+                          {e}
+                        </option>
+                      ))}
                   </select>
                 </div>
               ))}

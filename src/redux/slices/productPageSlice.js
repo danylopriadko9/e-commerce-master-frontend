@@ -4,7 +4,7 @@ import axios from '../../axios';
 export const fetchActualProduct = createAsyncThunk(
   'product/fetchProduct',
   async (url) => {
-    const { data } = await axios(`/product/${url}`);
+    const { data } = await axios(`/product/one/${url}`);
     return data;
   }
 );

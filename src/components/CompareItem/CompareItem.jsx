@@ -7,6 +7,7 @@ import {
   deleteCompartisonProduct,
   fetchActualProductsCharacteristicsValue,
 } from '../../redux/slices/comparisonSlice';
+import { apiurl } from '../../axios';
 
 const CompareItem = ({ el }) => {
   const dispatch = useDispatch();
@@ -37,10 +38,7 @@ const CompareItem = ({ el }) => {
           <RiCloseFill />
         </div>
         <div className={styles.image_container}>
-          <img
-            src={`http://localhost:3001/product/getProductImage/${product_id}`}
-            alt=''
-          />
+          <img src={`${apiurl}/product/photo/${product_id}`} alt='' />
         </div>
         <InformationBlock product={el} />
       </div>

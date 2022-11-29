@@ -5,23 +5,9 @@ import { calcTotalPrice } from '../../utils/countTotalPrice';
 export const fetchCurrentCurrency = createAsyncThunk(
   'cart/fetchCurrentCurrency',
   async () => {
-    const { data } = await axios.get(
-      'https://api.privatbank.ua/p24api/pubinfo?exchange&json&coursid=11'
-    );
-
-    const result = data
-      .map((el) => (el.ccy === 'RUR' ? { ...el, ccy: 'RUB' } : el))
-      .filter((el) => el.ccy !== 'BTC');
-
-    return [
-      ...result,
-      {
-        ccy: 'UAH',
-        base_ccy: 'UAH',
-        buy: '1',
-        sale: '1',
-      },
-    ];
+    const { data } = await axios.get('http://localhost:8000/currency');
+    console.log(data);
+    return data;
   }
 );
 
