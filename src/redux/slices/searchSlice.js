@@ -6,11 +6,11 @@ export const fetchSearchItems = createAsyncThunk(
   async ({ searchValue, groupUrl, page }) => {
     if (groupUrl) {
       const { data } = await axios.get(
-        `/search/${groupUrl}/${searchValue}/${page}`
+        `search/${groupUrl}/${searchValue}/${page}`
       );
       return data;
     } else {
-      const { data } = await axios.get(`/search/${searchValue}/${page}`);
+      const { data } = await axios.get(`search/${searchValue}/${page}`);
       return data;
     }
   }

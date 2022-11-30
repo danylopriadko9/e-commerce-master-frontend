@@ -28,8 +28,10 @@ const DropDown = () => {
   return (
     <>
       <div className={styles.dropdownContainer}>
-        <BiCategoryAlt />
-        <span>КАТАЛОГ</span>
+        <Link className={styles.categoryButton} to='/categories'>
+          <BiCategoryAlt />
+          <span>КАТАЛОГ</span>
+        </Link>
         <div className={styles.dropdownContent}>
           <div className={styles.dropdown}>
             {categories &&
@@ -37,7 +39,7 @@ const DropDown = () => {
                 .filter((el) => el.parent_id === 0)
                 .map((el) => (
                   <Link
-                    to={`group_${el.url}`}
+                    to={`/group_${el.url}`}
                     onMouseEnter={() => categoryMouseEnter(el.id)}
                     key={el.url}
                   >
@@ -49,7 +51,7 @@ const DropDown = () => {
 
           <div className={styles.categoryItems}>
             <h3>
-              {actualCategory}
+              {actualCategory?.name}
               <div className={styles.itemsIndikator}></div>
             </h3>
             {actualSubcategories.map((el) => (
@@ -57,7 +59,7 @@ const DropDown = () => {
                 <Link
                   className={styles.item}
                   onClick={() => dispatch(actualSubcategoriesPageClean())}
-                  to={`group_${el.url}`}
+                  to={`/group_${el.url}`}
                 >
                   {el.name}
                 </Link>

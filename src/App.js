@@ -1,5 +1,4 @@
 import './App.scss';
-import Pages from './pages/Pages';
 import React from 'react';
 import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
 import Login from './pages/Registration&Login/Login';
@@ -11,6 +10,10 @@ import Footer from './components/Footer/Footer';
 import Main from './pages/Main/Main';
 import Compare from './pages/Compare/Compare';
 import SearchPage from './pages/SearchPage/SearchPage';
+import Categories from './pages/Categories/Categories';
+import { useDispatch } from 'react-redux';
+import { fetchCurrentCurrency } from './redux/slices/cartSlice';
+import UpdateProduct from './pages/UpdateProduct/UpdateProduct';
 
 const Layout = () => {
   return (
@@ -37,6 +40,10 @@ const router = createBrowserRouter([
         element: <Compare />,
       },
       {
+        path: '/categories',
+        element: <Categories />,
+      },
+      {
         path: '/:url',
         element: <PagesComposing />,
       },
@@ -47,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: '/search/:searchValue',
         element: <SearchPage />,
+      },
+      {
+        path: '/update/product/:id',
+        element: <UpdateProduct />,
       },
     ],
   },
@@ -61,6 +72,10 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
+  const dispatch = useDispatch();
+  React.useEffect(() => {
+    dispatch(fetchCurrentCurrency());
+  }, []);
   return (
     <>
       <RouterProvider router={router} />

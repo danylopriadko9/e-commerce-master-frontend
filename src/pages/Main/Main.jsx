@@ -11,6 +11,7 @@ import Items from '../../components/ItemsSlider/Items';
 import { fetchNewProducts } from '../../redux/slices/newProductsSlice';
 import { fetchDiscountProducts } from '../../redux/slices/discountProductsSlice';
 import { fetchNews } from '../../redux/slices/newsSlice';
+import { Helmet } from 'react-helmet';
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -33,6 +34,22 @@ const Main = () => {
   const { watchedProducts } = useSelector((state) => state.watchedProducts);
   return (
     <>
+      <Helmet>
+        <meta
+          name='title'
+          content='Оборудование для ресторанов, кафе, столовой с 1993 года'
+        />
+        <meta charSet='utf-8' />
+        <meta
+          name='keywords'
+          content='оборудование для общественного питания, оборудование общепита, профессиональное кухонное оборудование, оборудование для кафе и ресторанов'
+        />
+        <meta
+          name='description'
+          content='Комплексное оснащение профессиональным оборудованием для кухни ресторана, кафе, столовой, кулинарного цеха - прямые поставки, большой опыт в реализации проектов, консультации профессионалов.'
+        ></meta>
+        <title>Оборудование для ресторанов, кафе, столовой с 1993 года</title>
+      </Helmet>
       <div className='mainContentContainer'>
         <Slider />
         <Items

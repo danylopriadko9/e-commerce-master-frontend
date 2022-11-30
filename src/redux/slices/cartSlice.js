@@ -6,7 +6,6 @@ export const fetchCurrentCurrency = createAsyncThunk(
   'cart/fetchCurrentCurrency',
   async () => {
     const { data } = await axios.get('http://localhost:8000/currency');
-    console.log(data);
     return data;
   }
 );

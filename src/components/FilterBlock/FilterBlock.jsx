@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getSubcategoriesFilterParams, setActualProducts } from '../../redux';
 import CompareLine from '../CompareLine/CompareLine';
 import { fetchCategoryParams } from '../../redux/slices/filtrationSlice';
-import axios from '../../axios';
+import axios from 'axios';
 import { BsCheckLg } from 'react-icons/bs';
 
 const FilterBlock = () => {
@@ -61,7 +61,6 @@ const FilterBlock = () => {
     result.currency = currency;
 
     const { data } = await axios.post(`/filter/post/${groupurl}`, result);
-    console.log(data);
     dispatch(setActualProducts({ data: data }));
   };
 

@@ -21,8 +21,6 @@ const PhotoBlock = ({ id }) => {
 
   const { photos, status } = useSelector((state) => state.actualProduct);
 
-  console.log(photos);
-
   return (
     <div className={styles.imageBlock}>
       <div className={styles.image_container}>

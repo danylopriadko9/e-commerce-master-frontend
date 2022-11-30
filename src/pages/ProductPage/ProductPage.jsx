@@ -18,6 +18,7 @@ import ShareBlock from '../../components/ShareBlock/ShareBlock';
 import PhotoBlock from '../../components/PhotoBlock/PhotoBlock';
 import { useLocation } from 'react-router-dom';
 import HistoryMap from '../../components/HistoryMap/HistoryMap';
+import { Helmet } from 'react-helmet';
 
 const ProductPage = () => {
   const dispatch = useDispatch();
@@ -52,6 +53,17 @@ const ProductPage = () => {
 
   return (
     <>
+      {actualProduct.length > 0 && (
+        <Helmet>
+          <meta name='title' content={actualProduct[0].meta_title} />
+          <meta charSet='utf-8' />
+          <meta name='keywords' content={actualProduct[0].meta_keywords} />
+          <meta
+            name='description'
+            content={actualProduct[0].meta_description}
+          />
+        </Helmet>
+      )}
       <div className={styles.container}>
         <HistoryMap />
         <div className={styles.informationContainer}>

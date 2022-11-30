@@ -1,5 +1,4 @@
 export const calcTotalPrice = (items, currency) => {
-  console.log('work');
   return items.reduce((sum, obj) => {
     return (sum += calcPriceForOneProducts(obj, currency));
   }, 0);

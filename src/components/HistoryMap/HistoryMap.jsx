@@ -9,10 +9,29 @@ const HistoryMap = () => {
   const location = useLocation();
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(fetchHistory(location.pathname.replace('/', '')));
+    if (!location.pathname.includes('categories')) {
+      dispatch(fetchHistory(location.pathname.replace('/', '')));
+    }
   }, [location]);
 
   const { history } = useSelector((state) => state.history);
+
+  if (location.pathname.includes('categories')) {
+    return (
+      <div className={styles.container}>
+        <p>
+          <span>
+            <Link to={`/`}>Главная</Link>
+            <div className={styles.indefikator}></div>
+          </span>
+          <span>
+            <Link to={`/categories`}>Каталог</Link>
+            <div className={styles.indefikator}></div>
+          </span>
+        </p>
+      </div>
+    );
+  }
 
   return (
     <div className={styles.container}>
@@ -33,14 +52,36 @@ const HistoryMap = () => {
             <div className={styles.indefikator}></div>
           </span>
           {history.parent_name && (
-            <span>
-              <Link to={`/group_${history.parent_url}`}>
-                {history.parent_name}
-              </Link>
-              <div className={styles.indefikator}></div>
-            </span>
+            <>
+              <span>
+                <Link to={`/categories`}>Категории</Link>
+                <div className={styles.indefikator}></div>
+              </span>
+
+              <span>
+                <Link to={`/group_${history.parent_url}`}>
+                  {history.parent_name}
+                </Link>
+                <div className={styles.indefikator}></div>
+              </span>
+            </>
           )}
-          {history.category_name && (
+          {history.category_name && !history.parent_name && (
+            <>
+              <span>
+                <Link to={`/categories`}>Категории</Link>
+                <div className={styles.indefikator}></div>
+              </span>
+              <span>
+                <Link to={`/group_${history.category_url}`}>
+                  {history.category_name}
+                </Link>
+                <div className={styles.indefikator}></div>
+              </span>
+            </>
+          )}
+
+          {history.category_name && history.parent_name && (
             <span>
               <Link to={`/group_${history.category_url}`}>
                 {history.category_name}
