@@ -17,6 +17,7 @@
     "react-icons": "^4.4.0",
     "react-image-magnify": "^2.7.4",
     "react-loading-skeleton": "^3.1.0",
+    "react-quill": "^2.0.0",
     "react-router-dom": "^6.4.3",
     "react-scripts": "5.0.1",
     "react-share": "^4.4.0",

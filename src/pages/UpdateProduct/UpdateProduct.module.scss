@@ -1,4 +1,169 @@
 .container {
-  width: 960px;
-  margin: 0 auto;
+  width: 760px;
+  margin: 20px auto 0;
+  display: flex;
+  flex-direction: column;
+
+  .description {
+    margin-top: 30px;
+
+    .editorContainer {
+      min-height: 350px;
+      overflow: scroll;
+      border: 1px solid lightgray;
+      margin-top: 10px;
+
+      .editor {
+        height: 350px;
+        min-height: 350px;
+      }
+    }
+  }
+
+  h1 {
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 60%;
+
+    span {
+      font-size: 13px;
+      font-weight: 400;
+      cursor: pointer;
+    }
+  }
+
+  .main {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .submit_buttons {
+    margin-top: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: end;
+    gap: 10px;
+
+    button {
+      padding: 10px 10px;
+      color: white;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-evenly;
+      align-items: center;
+      min-width: 80px;
+
+      &:first-child {
+        background-color: red;
+      }
+
+      &:last-child {
+        background-color: green;
+      }
+    }
+  }
+}
+
+.content_container {
+  width: 100%;
+  display: flex;
+}
+
+.photos {
+  width: 39%;
+  height: 100%;
+  overflow-y: scroll;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  label {
+    border: 1px solid black;
+    padding: 10px 15px;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+
+  .photo_block {
+    width: 80%;
+    position: relative;
+
+    .delete_button {
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      display: flex;
+      top: 0;
+      left: 70px;
+      background-color: red;
+      border-radius: 5px;
+      color: white;
+      font-size: 18px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .photo_container {
+      width: 70px;
+      height: 70px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+
+      img {
+        width: 100%;
+      }
+    }
+  }
+}
+
+.inputs {
+  width: 60%;
+
+  .preference {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin: 0.5rem;
+    align-items: center;
+
+    textarea {
+      min-width: 70%;
+      max-width: 70%;
+      width: 70%;
+      height: 100px;
+      outline: none;
+    }
+
+    input {
+      width: 70%;
+      outline: none;
+      display: flex;
+      align-items: center;
+      height: 30px;
+    }
+
+    select {
+      max-width: 71%;
+      width: 71%;
+    }
+
+    .priceContainer {
+      display: flex;
+      width: 71%;
+      justify-content: space-between;
+
+      input {
+        width: 60%;
+      }
+
+      select {
+        width: 30%;
+      }
+    }
+  }
 }

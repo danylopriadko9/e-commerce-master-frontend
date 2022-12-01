@@ -16,13 +16,17 @@ import InfoBlock from '../../components/InfoBlock/InfoBlock';
 import PropertysProducts from '../../components/PropertysProducts/PropertysProducts';
 import ShareBlock from '../../components/ShareBlock/ShareBlock';
 import PhotoBlock from '../../components/PhotoBlock/PhotoBlock';
-import { useLocation } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import HistoryMap from '../../components/HistoryMap/HistoryMap';
 import { Helmet } from 'react-helmet';
+import { AuthContext } from '../../context/authContext';
+import { BiSave } from 'react-icons/bi';
 
 const ProductPage = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+  const { currentUser } = React.useContext(AuthContext);
+
   React.useEffect(() => {
     dispatch(cleanActualProduct());
     dispatch(cleanActualPhotos());
@@ -88,6 +92,15 @@ const ProductPage = () => {
               </p>
             </div>
             <ShareBlock />
+            {currentUser?.role === 'admin' && (
+              <Link
+                className={styles.update_button}
+                to={`/update/product/${product?.product_id}`}
+              >
+                <BiSave />
+                Update
+              </Link>
+            )}
           </div>
         </div>
       </div>
