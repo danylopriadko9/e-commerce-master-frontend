@@ -11,7 +11,15 @@ import { AiOutlineClear } from 'react-icons/ai';
 import axios from 'axios';
 import {
   addRelationProduct,
+  changeProductDescription,
+  changeProductInformtion,
+  deletePhoto,
   deleteRelationProduct,
+  fetchCategoryCharacteristics,
+  fetchManufacturers,
+  fetchProduct,
+  fetchProductCharacteristicsValues,
+  fetchProductPhotos,
   fetchReationProductsIds,
 } from '../../redux/slices/adminSlice';
 
@@ -23,19 +31,25 @@ const UpdateProduct = () => {
   const dispatch = useDispatch();
   const inputRef = React.useRef(null);
 
-  const [product, setProduct] = React.useState({});
   const [file, setFile] = React.useState(null);
-  const [photos, setPhotos] = React.useState([]);
-  const [manufacturers, setManufacturers] = React.useState([]);
-  const [properties, setProperties] = React.useState([]);
-  const [characteristics, setCharacteristics] = React.useState([]);
+
+  const {
+    relationProducts,
+    productPhotos,
+    manufacturers,
+    product,
+    categoryCharacteristics,
+    productCharacteristicsValues,
+  } = useSelector((state) => state.admin);
 
   const hangleChangeDescription = (e) => {
-    setProduct((prev) => ({ ...prev, description: e }));
+    dispatch(changeProductDescription({ value: e }));
   };
 
   const handleChange = (e) => {
-    setProduct((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    dispatch(
+      changeProductInformtion({ key: e.target.name, value: e.target.value })
+    );
   };
 
   const filteredCategories = categories
@@ -44,89 +58,30 @@ const UpdateProduct = () => {
 
   React.useEffect(() => {
     if (id) {
-      axios.get(`/product/id/${id}`).then((response) => {
-        setProduct(response.data[0]);
-      });
-
-      axios.get(`/product/photos/${id}`).then((result) => {
-        setPhotos(result.data);
-      });
-
-      axios.get('/product/manufacturers').then((result) => {
-        setManufacturers(
-          result.data.sort((a, b) => a.name.localeCompare(b.name))
-        );
-      });
-
+      dispatch(fetchProduct(id));
+      dispatch(fetchProductPhotos(id));
+      dispatch(fetchManufacturers());
       dispatch(fetchReationProductsIds(id));
-    } else {
-      setProduct({
-        product_name: '',
-        url: '',
-        base_price: 0,
-        discount_percent: 0,
-        currency_id: 1,
-        description: '',
-        meta_description: '',
-        meta_title: '',
-        meta_keywords: '',
-        category_id: 0,
-        guarantee: 0,
-        manufacturer_id: null,
-        category_url: '',
-      });
+      dispatch(fetchProductCharacteristicsValues(id));
     }
   }, []);
 
   React.useEffect(() => {
-    console.log('work');
     if (product.category_id) {
-      axios
-        .get(`/category/characteristics/id/${product.category_id}`)
-        .then((response) => {
-          setProperties(response.data);
-        });
-
-      axios.get(`/product/compare/${id}`).then((result) => {
-        setCharacteristics(result.data[id]);
-      });
+      dispatch(fetchCategoryCharacteristics(product.category_id));
     }
-    console.log(product.category_id);
   }, [product?.category_id]);
 
   const handleProductUpdate = async () => {
     if (id) {
       axios.put(`/product/${id}`, {
         product,
-        photos,
       });
       navigate(`/tovar_${product.url}`);
     } else {
       await axios.post('/product/create', product);
     }
   };
-
-  const handleChangeCharacteristics = (e) => {
-    if (!characteristics.find((el) => el.property_id == e.target.name)) {
-      setCharacteristics((prev) => [
-        ...prev,
-        { property_id: Number(e.target.name), value: e.target.value },
-      ]);
-    }
-    setCharacteristics((prev) =>
-      prev.map((el) => {
-        if (el.property_id == e.target.name)
-          return { ...el, value: e.target.value };
-        else return el;
-      })
-    );
-  };
-
-  const handleDeletePhoto = (filename) => {
-    setPhotos((prev) => prev.filter((file) => file.filename !== filename));
-  };
-
-  const { relationProducts } = useSelector((state) => state.admin);
 
   const handleAddRelation = () => {
     dispatch(addRelationProduct({ product_id: inputRef.current.value }));
@@ -177,7 +132,7 @@ const UpdateProduct = () => {
               <div className={styles.priceContainer}>
                 <input
                   type='number'
-                  value={product?.base_price || 0}
+                  value={product?.base_price || ''}
                   name='base_price'
                   onChange={handleChange}
                 />
@@ -203,7 +158,7 @@ const UpdateProduct = () => {
                 type='number'
                 onChange={handleChange}
                 name='discount_percent'
-                value={product?.discount_percent || 0}
+                value={product?.discount_percent || ''}
               />
             </div>
 
@@ -259,7 +214,7 @@ const UpdateProduct = () => {
                 type='number'
                 onChange={handleChange}
                 name='guarantee'
-                value={product?.guarantee || 0}
+                value={product?.guarantee || ''}
               />
             </div>
 
@@ -270,7 +225,7 @@ const UpdateProduct = () => {
                 onChange={handleChange}
                 value={product?.manufacturer_id}
               >
-                {manufacturers.map((el) => (
+                {manufacturers?.map((el) => (
                   <option value={el.id} key={el.id}>
                     {el.name}
                   </option>
@@ -280,22 +235,23 @@ const UpdateProduct = () => {
 
             <h3>Product characteristics</h3>
 
-            {properties &&
-              properties.map((el) => (
+            {categoryCharacteristics.length > 0 &&
+              categoryCharacteristics.map((el) => (
                 <div key={el.property_id} className={styles.preference}>
                   <label>{el.characteristic}: </label>
                   <input
                     type='text'
-                    onChange={handleChangeCharacteristics}
+                    // onChange={}
                     name={
-                      (properties &&
-                        properties.find((e) => e.property_id === el.property_id)
-                          ?.property_id) ||
+                      (productCharacteristicsValues &&
+                        productCharacteristicsValues.find(
+                          (e) => e.property_id === el.property_id
+                        )?.property_id) ||
                       ''
                     }
                     value={
-                      (characteristics.length &&
-                        characteristics.find(
+                      (productCharacteristicsValues.length > 0 &&
+                        productCharacteristicsValues.find(
                           (e) => e.property_id === el.property_id
                         )?.value) ||
                       ''
@@ -307,6 +263,9 @@ const UpdateProduct = () => {
             <div className={styles.relation_block}>
               <h3>Product relation products:</h3>
               <div className={styles.relation_container}>
+                {!relationProducts.length && (
+                  <h4>This product has not any relations</h4>
+                )}
                 {relationProducts.map((el) => (
                   <div
                     onClick={() =>
@@ -329,12 +288,12 @@ const UpdateProduct = () => {
             </div>
           </div>
           <div className={styles.photos}>
-            {photos &&
-              photos.map((el) => (
+            {productPhotos.length > 0 &&
+              productPhotos.map((el) => (
                 <div className={styles.photo_block} key={el.filename}>
                   <div
                     className={styles.delete_button}
-                    onClick={() => handleDeletePhoto(el.filename)}
+                    onClick={() => dispatch(deletePhoto(el.filename))}
                   >
                     <BsFillTrashFill />
                   </div>
