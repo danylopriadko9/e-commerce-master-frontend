@@ -1,6 +1,23 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from '../../axios';
 
+const setItemsFunction = (items) => {
+  localStorage.setItem('watchedProducts', JSON.stringify(items));
+};
+
+const items =
+  localStorage.getItem('watchedProducts') !== null
+    ? JSON.parse(localStorage.getItem('watchedProducts'))
+    : [];
+
+export const fetchNewProducts = createAsyncThunk(
+  'newProducts/fetchNewProducts',
+  async () => {
+    const { data } = await axios.get('/product/new');
+    return data;
+  }
+);
+
 export const fetchDiscountProducts = createAsyncThunk(
   'discountProducts/fetchDiscountProducts',
   async () => {
@@ -10,15 +27,21 @@ export const fetchDiscountProducts = createAsyncThunk(
 );
 
 const initialState = {
+  //----Новые продукты
+  newProducts: [],
+  newProductsStatus: null,
+  error: null,
+  //-----Со скидкой
   discountProducts: [],
   discountProductsStatus: null,
-  error: null,
   viewedProducts: [],
   comparisonProducts: [],
+  // -----Просмотренные продукты
+  watchedProducts: items,
 };
 
 export const productsSlice = createSlice({
-  name: 'products',
+  name: 'newProducts',
   initialState,
   reducers: {
     addViewedProducts: (state, action) => {
@@ -32,8 +55,28 @@ export const productsSlice = createSlice({
         (el) => el.id !== action.payload
       );
     },
+    addToWachedProducts: (state, action) => {
+      if (!state.watchedProducts.find((el) => el.url === action.payload.url)) {
+        state.watchedProducts.push(action.payload);
+        setItemsFunction(state.watchedProducts.map((item) => item));
+      }
+    },
   },
   extraReducers: {
+    // ----------------- New Products
+    [fetchNewProducts.pending]: (state, action) => {
+      state.error = null;
+      state.newProductsStatus = 'loading';
+    },
+    [fetchNewProducts.fulfilled]: (state, action) => {
+      state.newProducts = action.payload;
+      state.newProductsStatus = 'success';
+    },
+    [fetchNewProducts.rejected]: (state, action) => {
+      state.error = 'error';
+      state.newProductsStatus = 'error';
+    },
+    //---------------- Продукты со скидкой
     [fetchDiscountProducts.pending]: (state, action) => {
       state.discountProductsStatus = 'loading';
       state.error = null;
@@ -52,6 +95,6 @@ export const {
   addViewedProducts,
   addComparisonProducts,
   deleteComparisonProducts,
+  addToWachedProducts,
 } = productsSlice.actions;
-
 export default productsSlice.reducer;

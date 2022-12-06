@@ -5,7 +5,7 @@ import CategoryProductBlock from '../../components/CategoryProductBlock/Category
 import HistoryMap from '../../components/HistoryMap/HistoryMap';
 import Pagination from '../../components/Pagination /Pagination';
 import CategoryItemSkeleton from '../../components/Skeleton/CategoryItemSkeleton';
-import { setPageNumber } from '../../redux';
+import { setPageNumber } from '../../redux/slices/categorySlice';
 import {
   fetchSearchItems,
   setSearchValue,

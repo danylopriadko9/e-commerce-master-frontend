@@ -8,8 +8,10 @@ import {
 import { useDispatch, useSelector } from 'react-redux';
 import PropertysProducts from '../../components/PropertysProducts/PropertysProducts';
 import Items from '../../components/ItemsSlider/Items';
-import { fetchNewProducts } from '../../redux/slices/newProductsSlice';
-import { fetchDiscountProducts } from '../../redux/slices/discountProductsSlice';
+import {
+  fetchNewProducts,
+  fetchDiscountProducts,
+} from '../../redux/slices/productsSlice';
 import { fetchNews } from '../../redux/slices/newsSlice';
 import { Helmet } from 'react-helmet';
 
@@ -23,15 +25,15 @@ const Main = () => {
     if (newProductsStatus !== 'success') dispatch(fetchNews());
   }, []);
 
-  const { newProducts, newProductsStatus } = useSelector(
-    (state) => state.newProducts
-  );
-  const { discountProducts, discountProductsStatus } = useSelector(
-    (state) => state.discount
-  );
-  const { news, newsStatus } = useSelector((state) => state.news);
+  const {
+    newProducts,
+    newProductsStatus,
+    discountProducts,
+    discountProductsStatus,
+  } = useSelector((state) => state.products);
 
-  const { watchedProducts } = useSelector((state) => state.watchedProducts);
+  const { news, newsStatus } = useSelector((state) => state.news);
+  const { watchedProducts } = useSelector((state) => state.products);
   return (
     <>
       <Helmet>

@@ -4,7 +4,7 @@ import {
   degreasePageNumber,
   increasePageNumber,
   setPageNumber,
-} from '../../redux';
+} from '../../redux/slices/categorySlice';
 import styles from './Pagination.module.scss';
 import { AiOutlineLeft, AiOutlineRight } from 'react-icons/ai';
 import { BiDotsHorizontal } from 'react-icons/bi';

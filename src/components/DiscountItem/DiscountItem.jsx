@@ -5,7 +5,7 @@ import { BsFillCartFill } from 'react-icons/bs';
 import { BiCheckDouble } from 'react-icons/bi';
 import { useDispatch } from 'react-redux';
 import { addItemToCart, handelShowStatus } from '../../redux/slices/cartSlice';
-import { addToWachedProducts } from '../../redux/slices/watchedProductsSlice';
+import { addToWachedProducts } from '../../redux/slices/productsSlice';
 import { addCompartisonProduct } from '../../redux/slices/comparisonSlice';
 import { apiurl } from '../../axios';
 

@@ -34,7 +34,18 @@ export const fetchProductCharacteristics = createAsyncThunk(
 );
 
 const initialState = {
-  actualProduct: [],
+  actualProduct: {
+    product_name: '',
+    url: '',
+    base_price: 0,
+    discount_percent: 0,
+    currency_id: 1,
+    description: '',
+    meta_description: '',
+    meta_title: '',
+    meta_keywords: '',
+    category_id: 0,
+  },
   characteristics: [],
   photos: [],
   reationProducts: [],
@@ -54,6 +65,12 @@ export const productPageSlice = createSlice({
     },
     cleanActualPhotos: (state, action) => {
       state.photos = [];
+    },
+    hangleChangeDescription: (state, action) => {
+      state.actualProduct.description = action.payload;
+    },
+    handleChange: (state, action) => {
+      state.actualProduct[action.payload.name] = action.payload.text;
     },
   },
   extraReducers: {

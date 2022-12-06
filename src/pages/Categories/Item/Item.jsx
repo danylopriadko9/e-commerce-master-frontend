@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { actualSubcategoriesPageClean } from '../../../redux';
+import { actualSubcategoriesPageClean } from '../../../redux/slices/categorySlice';
 import styles from './Item.module.scss';
 import { apiurl } from '../../../axios';
 

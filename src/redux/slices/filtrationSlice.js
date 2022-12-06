@@ -11,16 +11,6 @@ export const fetchCategoryParams = createAsyncThunk(
   }
 );
 
-// export const postFiltrationParams = createAsyncThunk(
-//   'filtration/fetchCategoryParams',
-//   async (params) => {
-//     const { data } = await axios.post('/filter/post', {
-//       params,
-//     });
-//     return data;
-//   }
-// );
-
 const initialState = {
   categoryParams: [],
   categoryValues: [],
@@ -47,16 +37,6 @@ export const filtrationSlice = createSlice({
     [fetchCategoryParams.rejected]: (state, action) => {
       state.status = 'error';
     },
-    // [postFiltrationParams.pending]: (state, action) => {
-    //   state.filtretionStatus = 'loading';
-    // },
-    // [postFiltrationParams.fulfilled]: (state, action) => {
-    //   state.filtretionProducts = action.payload;
-    //   state.filtretionStatus = 'success';
-    // },
-    // [postFiltrationParams.rejected]: (state, action) => {
-    //   state.error = 'error';
-    // },
   },
 });
 

@@ -4,10 +4,10 @@ import { BiCategoryAlt } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  actualSubcategoriesPageClean,
   fetchCategories,
   searchActualCategory,
-} from '../../redux/index';
+  actualSubcategoriesPageClean,
+} from '../../redux/slices/categorySlice';
 
 const DropDown = () => {
   const dispatch = useDispatch();

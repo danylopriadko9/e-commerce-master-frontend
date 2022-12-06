@@ -2,7 +2,10 @@ import React from 'react';
 import styles from './FilterBlock.module.scss';
 import { useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { getSubcategoriesFilterParams, setActualProducts } from '../../redux';
+import {
+  getSubcategoriesFilterParams,
+  setActualProducts,
+} from '../../redux/slices/categorySlice';
 import CompareLine from '../CompareLine/CompareLine';
 import { fetchCategoryParams } from '../../redux/slices/filtrationSlice';
 import axios from 'axios';

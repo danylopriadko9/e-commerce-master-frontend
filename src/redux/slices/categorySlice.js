@@ -53,11 +53,6 @@ const initialState = {
   error: null,
   filterStatus: null,
   filterParams: [],
-  metaData: {
-    meta_title: '',
-    meta_description: '',
-    meta_keywords: '',
-  },
 };
 
 export const categorySlice = createSlice({
@@ -75,7 +70,6 @@ export const categorySlice = createSlice({
 
     actualSubcategoriesPageClean: (state, action) => {
       state.actualSubcategoriesPage = [];
-      state.metaData = state.actualCategory;
     },
 
     increasePageNumber: (state, action) => {
