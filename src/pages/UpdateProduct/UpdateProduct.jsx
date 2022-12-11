@@ -11,6 +11,7 @@ import { AiOutlineClear } from 'react-icons/ai';
 import axios from 'axios';
 import {
   addRelationProduct,
+  changeProductCharacteristicsValues,
   changeProductDescription,
   changeProductInformtion,
   deletePhoto,
@@ -21,6 +22,7 @@ import {
   fetchProductCharacteristicsValues,
   fetchProductPhotos,
   fetchReationProductsIds,
+  productClear,
 } from '../../redux/slices/adminSlice';
 
 const UpdateProduct = () => {
@@ -42,6 +44,18 @@ const UpdateProduct = () => {
     productCharacteristicsValues,
   } = useSelector((state) => state.admin);
 
+  React.useEffect(() => {
+    if (id) {
+      dispatch(fetchProduct(id));
+      dispatch(fetchProductPhotos(id));
+      dispatch(fetchReationProductsIds(id));
+      dispatch(fetchProductCharacteristicsValues(id));
+    } else {
+      dispatch(productClear());
+    }
+    dispatch(fetchManufacturers());
+  }, [id]);
+
   const hangleChangeDescription = (e) => {
     dispatch(changeProductDescription({ value: e }));
   };
@@ -55,16 +69,6 @@ const UpdateProduct = () => {
   const filteredCategories = categories
     .filter((el) => el.parent_id !== 0)
     .sort((a, b) => a.name.localeCompare(b.name));
-
-  React.useEffect(() => {
-    if (id) {
-      dispatch(fetchProduct(id));
-      dispatch(fetchProductPhotos(id));
-      dispatch(fetchManufacturers());
-      dispatch(fetchReationProductsIds(id));
-      dispatch(fetchProductCharacteristicsValues(id));
-    }
-  }, []);
 
   React.useEffect(() => {
     if (product.category_id) {
@@ -81,6 +85,15 @@ const UpdateProduct = () => {
     } else {
       await axios.post('/product/create', product);
     }
+  };
+
+  const changeCharacteristicsValues = (e) => {
+    dispatch(
+      changeProductCharacteristicsValues({
+        property_id: e.target.name,
+        value: e.target.value,
+      })
+    );
   };
 
   const handleAddRelation = () => {
@@ -241,10 +254,10 @@ const UpdateProduct = () => {
                   <label>{el.characteristic}: </label>
                   <input
                     type='text'
-                    // onChange={}
+                    onChange={changeCharacteristicsValues}
                     name={
-                      (productCharacteristicsValues &&
-                        productCharacteristicsValues.find(
+                      (categoryCharacteristics &&
+                        categoryCharacteristics.find(
                           (e) => e.property_id === el.property_id
                         )?.property_id) ||
                       ''

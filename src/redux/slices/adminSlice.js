@@ -113,10 +113,58 @@ export const adminSlice = createSlice({
         ...state.product,
         [action.payload.key]: action.payload.value,
       };
+
+      if (action.payload.key === 'category_id') {
+        state.productCharacteristicsValues = [];
+      }
     },
 
     changeProductDescription: (state, action) => {
       state.product = { ...state.product, description: action.payload.value };
+    },
+
+    changeProductCharacteristicsValues: (state, action) => {
+      if (
+        !state.productCharacteristicsValues.find(
+          (el) => Number(el.property_id) === Number(action.payload.property_id)
+        )
+      ) {
+        state.productCharacteristicsValues.push({
+          values: action.payload.value,
+          property_id: Number(action.payload.property_id),
+        });
+        console.log('s');
+      }
+
+      state.productCharacteristicsValues =
+        state.productCharacteristicsValues.map((el) =>
+          Number(el.property_id) === Number(action.payload.property_id)
+            ? { ...el, value: action.payload.value }
+            : el
+        );
+    },
+
+    productClear: (state, action) => {
+      state.product = {
+        product_name: '',
+        url: '',
+        base_price: null,
+        discount_percent: null,
+        currency_id: 1,
+        description: '',
+        meta_description: '',
+        meta_title: '',
+        meta_keywords: '',
+        category_id: 0,
+        guarantee: null,
+        manufacturer_id: null,
+        category_url: '',
+      };
+
+      state.relationProducts = [];
+      state.productPhotos = [];
+      state.categoryCharacteristics = [];
+      state.productCharacteristicsValues = [];
     },
   },
   extraReducers: {
@@ -201,5 +249,7 @@ export const {
   deletePhoto,
   changeProductInformtion,
   changeProductDescription,
+  changeProductCharacteristicsValues,
+  productClear,
 } = adminSlice.actions;
 export default adminSlice.reducer;

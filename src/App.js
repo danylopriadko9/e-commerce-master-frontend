@@ -14,6 +14,9 @@ import Categories from './pages/Categories/Categories';
 import { useDispatch } from 'react-redux';
 import { fetchCurrentCurrency } from './redux/slices/cartSlice';
 import UpdateProduct from './pages/UpdateProduct/UpdateProduct';
+import AdminHeader from './components/AdminHeader/AdminHeader';
+import UpdateCategory from './pages/UpdateCategory/UpdateCategory';
+import Users from './pages/UpdateUsers/Users';
 
 const Layout = () => {
   return (
@@ -22,6 +25,15 @@ const Layout = () => {
       <Header />
       <Outlet />
       <Footer />
+    </>
+  );
+};
+
+const AdminOutlet = () => {
+  return (
+    <>
+      <AdminHeader />
+      <Outlet />
     </>
   );
 };
@@ -56,12 +68,26 @@ const router = createBrowserRouter([
         element: <SearchPage />,
       },
       {
-        path: '/update/product/:id',
-        element: <UpdateProduct />,
-      },
-      {
-        path: '/create/product',
-        element: <UpdateProduct />,
+        path: '/admin',
+        element: <AdminOutlet />,
+        children: [
+          {
+            path: '/admin/product/:id',
+            element: <UpdateProduct />,
+          },
+          {
+            path: '/admin/product',
+            element: <UpdateProduct />,
+          },
+          {
+            path: '/admin/category',
+            element: <UpdateCategory />,
+          },
+          {
+            path: '/admin/users',
+            element: <Users />,
+          },
+        ],
       },
     ],
   },

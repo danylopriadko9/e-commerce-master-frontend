@@ -95,7 +95,7 @@ const ProductPage = () => {
             {currentUser?.role === 'admin' && (
               <Link
                 className={styles.update_button}
-                to={`/update/product/${product?.product_id}`}
+                to={`/admin/product/${product?.product_id}`}
               >
                 <BiSave />
                 Update
