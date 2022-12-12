@@ -7,7 +7,8 @@ import { useDispatch } from 'react-redux';
 import { addItemToCart, handelShowStatus } from '../../redux/slices/cartSlice';
 import { addToWachedProducts } from '../../redux/slices/productsSlice';
 import { addCompartisonProduct } from '../../redux/slices/comparisonSlice';
-import { apiurl } from '../../axios';
+import axios from 'axios';
+import React from 'react';
 
 const DiscountItem = (item) => {
   const {
@@ -20,6 +21,8 @@ const DiscountItem = (item) => {
     iso,
   } = item;
   const dispatch = useDispatch();
+
+  const [image, setImage] = React.useState(null);
 
   const handleAddItemToCart = (item) => {
     dispatch(
@@ -39,6 +42,17 @@ const DiscountItem = (item) => {
   const handleAddToComprasion = (item) => {
     dispatch(addCompartisonProduct(item));
   };
+
+  const fetchProductPhoto = async () => {
+    const { data } = await axios.get(
+      `http://localhost:8000/product/photo/${product_id}`
+    );
+    setImage(data);
+  };
+
+  React.useEffect(() => {
+    fetchProductPhoto();
+  }, []);
 
   return (
     <Link
@@ -66,7 +80,14 @@ const DiscountItem = (item) => {
       </div>
       <div className={styles.itemContainer}>
         <div className={styles.imageContainer}>
-          <img src={`${apiurl}/product/photo/${product_id}`} alt='' />
+          {image ? (
+            <img src={image} alt='' />
+          ) : (
+            <img
+              src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw0zKknEf_ExsMDMYCkGnkF4bvK-dRrBJb9FdYBJOO0vy5H15IsJSpMBSlVDz7bt6BKCk&usqp=CAU'
+              alt=''
+            />
+          )}
         </div>
         <span className={styles.category}>{category_name}</span>
         <div className={styles.infoContainer}>

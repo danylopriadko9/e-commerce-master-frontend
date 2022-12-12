@@ -78,13 +78,23 @@ const UpdateCategory = () => {
     }));
   };
 
-  const handleUpdateCategory = async (el) => {
-    console.log(el);
-    const { data } = await axios.put(
-      `http://localhost:8000/category/${el.id}`,
-      el
-    );
-    console.log(data);
+  const handleUpdateCategory = async (el, photo) => {
+    try {
+      const { data } = await axios.put(`/category/${el.id}`, el);
+
+      if (photo) {
+        const image = new FormData();
+        image.append('avatar', photo);
+
+        await axios.post(`/upload/category/${el.id}`, image, {
+          headers: {
+            'content-type': 'mulpipart/form-data',
+          },
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -242,7 +252,11 @@ const UpdateCategory = () => {
               />
               <span>{updateCategoryFile?.name}</span>
             </div>
-            <button onClick={() => handleUpdateCategory(actualCategory)}>
+            <button
+              onClick={() =>
+                handleUpdateCategory(actualCategory, updateCategoryFile)
+              }
+            >
               Create
             </button>
           </div>
@@ -341,7 +355,11 @@ const UpdateCategory = () => {
                 />
                 <span>{addSubcategoryFile?.name}</span>
               </div>
-              <button onClick={() => handleUpdateCategory(actualSubcategory)}>
+              <button
+                onClick={() =>
+                  handleUpdateCategory(actualSubcategory, addSubcategoryFile)
+                }
+              >
                 Update
               </button>
             </div>

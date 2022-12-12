@@ -73,7 +73,9 @@ const Categories = () => {
                     to={`/group_${el.url}`}
                     key={el.url}
                   >
-                    <img src={`${apiurl}/category/photo/${el.id}`} alt='' />
+                    <div className={styles.img_container}>
+                      <img src={`${apiurl}/category/photo/${el.id}`} alt='' />
+                    </div>
                     <div className={styles.indikator}></div>
                     <p>{el.name}</p>
                   </Link>
