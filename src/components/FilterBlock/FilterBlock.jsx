@@ -26,7 +26,9 @@ const FilterBlock = () => {
     dispatch(fetchCategoryParams(groupurl));
   }, []);
 
-  const { filterStatus, filterParams } = useSelector((state) => state.category);
+  const { filterStatus, filterParams, params } = useSelector(
+    (state) => state.category
+  );
 
   const { currency } = useSelector((state) => state.cart);
 
@@ -66,6 +68,8 @@ const FilterBlock = () => {
     const { data } = await axios.post(`/filter/post/${groupurl}`, result);
     dispatch(setActualProducts({ data: data }));
   };
+
+  const handleChangeParams = () => {};
 
   return (
     <>
