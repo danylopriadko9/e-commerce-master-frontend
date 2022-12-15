@@ -17,7 +17,7 @@ const initialState = {
   filtretionProducts: [],
   filtretionStatus: null,
 
-  params: {
+  submitParams: {
     params: {},
     brands: [],
   },
@@ -31,25 +31,35 @@ export const filtrationSlice = createSlice({
   initialState,
   reducers: {
     changeParams: (state, action) => {
-      if (!action.payload.value_id) {
-        state.params.params =
-          delete state.params.params[action.payload.characteriscic_id];
+      console.log(action.payload);
+      if (!Number(action.payload.value_id)) {
+        delete state.submitParams.params[action.payload.characteristic_id];
       } else {
-        state.params.params = {
-          ...state.params.params,
-          [action.payload.characteriscic_id]: [action.payload.value_id],
+        state.submitParams.params = {
+          ...state.submitParams.params,
+          [action.payload.characteristic_id]: action.payload.value_id,
         };
       }
     },
 
     changeBrands: (state, action) => {
-      if (!action.payload) {
-        state.params.brands = state.params.brands.filter(
-          (el) => action.payload
+      if (!action.payload.checked) {
+        state.submitParams.brands = state.submitParams.brands.filter(
+          (el) => el !== action.payload.manufacturer_id
         );
       } else {
-        state.params.brands = state.params.brands.push(action.payload);
+        state.submitParams.brands = [
+          ...state.submitParams.brands,
+          action.payload.manufacturer_id,
+        ];
       }
+    },
+
+    cleanParams: (state, action) => {
+      state.submitParams = {
+        params: {},
+        brands: [],
+      };
     },
   },
   extraReducers: {
@@ -68,5 +78,6 @@ export const filtrationSlice = createSlice({
     },
   },
 });
-export const { changeParams, changeBrands } = filtrationSlice.actions;
+export const { changeParams, changeBrands, cleanParams } =
+  filtrationSlice.actions;
 export default filtrationSlice.reducer;

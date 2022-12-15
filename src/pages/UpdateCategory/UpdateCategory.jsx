@@ -106,7 +106,7 @@ const UpdateCategory = () => {
 
           <div className={styles.inputs_block}>
             <div className={styles.input_label}>
-              <label for='username'>Name: </label>
+              <label>Name: </label>
               <input
                 name='name'
                 onChange={handleChangeNewCategoryInformation}
@@ -115,7 +115,7 @@ const UpdateCategory = () => {
               />
             </div>
             <div className={styles.input_label}>
-              <label for='username'>Url: </label>
+              <label>Url: </label>
               <input
                 name='url'
                 onChange={handleChangeNewCategoryInformation}
@@ -124,7 +124,7 @@ const UpdateCategory = () => {
               />
             </div>
             <div className={styles.input_label}>
-              <label for='username'>meta_title: </label>
+              <label>meta_title: </label>
               <input
                 name='meta_title'
                 onChange={handleChangeNewCategoryInformation}
@@ -133,7 +133,7 @@ const UpdateCategory = () => {
               />
             </div>
             <div className={styles.input_label}>
-              <label for='username'>meta_keywords: </label>
+              <label>meta_keywords: </label>
               <input
                 name='meta_keywords'
                 onChange={handleChangeNewCategoryInformation}
@@ -142,7 +142,7 @@ const UpdateCategory = () => {
               />
             </div>
             <div className={styles.input_label}>
-              <label for='username'>meta_description: </label>
+              <label>meta_description: </label>
               <input
                 name='meta_description'
                 onChange={handleChangeNewCategoryInformation}
@@ -188,7 +188,7 @@ const UpdateCategory = () => {
           </select>
           <div className={styles.inputs_block}>
             <div className={styles.input_label}>
-              <label for='username'>Name: </label>
+              <label>Name: </label>
               <input
                 value={actualCategory?.name}
                 type='text'
@@ -198,7 +198,7 @@ const UpdateCategory = () => {
               />
             </div>
             <div className={styles.input_label}>
-              <label for='username'>Url: </label>
+              <label>Url: </label>
               <input
                 onChange={handleChangeCategoryInformation}
                 value={actualCategory?.url}
@@ -208,7 +208,7 @@ const UpdateCategory = () => {
               />
             </div>
             <div className={styles.input_label}>
-              <label for='username'>meta_title: </label>
+              <label>meta_title: </label>
               <input
                 value={actualCategory?.meta_title}
                 onChange={handleChangeActualCategory}
@@ -218,7 +218,7 @@ const UpdateCategory = () => {
               />
             </div>
             <div className={styles.input_label}>
-              <label for='username'>meta_keywords: </label>
+              <label>meta_keywords: </label>
               <input
                 value={actualCategory?.meta_keywords}
                 onChange={handleChangeActualCategory}
@@ -228,7 +228,7 @@ const UpdateCategory = () => {
               />
             </div>
             <div className={styles.input_label}>
-              <label for='username'>meta_description: </label>
+              <label>meta_description: </label>
               <input
                 name='meta_description'
                 value={actualCategory?.meta_description}
@@ -291,7 +291,7 @@ const UpdateCategory = () => {
           {actualSubcategory && (
             <div className={styles.inputs_block}>
               <div className={styles.input_label}>
-                <label for='username'>Name: </label>
+                <label>Name: </label>
                 <input
                   value={actualSubcategory?.name}
                   onChange={handleChangeActualSubcategoryInfo}
@@ -301,7 +301,7 @@ const UpdateCategory = () => {
                 />
               </div>
               <div className={styles.input_label}>
-                <label for='username'>Url: </label>
+                <label>Url: </label>
                 <input
                   value={actualSubcategory?.url}
                   onChange={handleChangeActualSubcategoryInfo}
@@ -311,7 +311,7 @@ const UpdateCategory = () => {
                 />
               </div>
               <div className={styles.input_label}>
-                <label for='username'>meta_title: </label>
+                <label>meta_title: </label>
                 <input
                   name='meta_title'
                   value={actualSubcategory?.meta_title}
@@ -321,7 +321,7 @@ const UpdateCategory = () => {
                 />
               </div>
               <div className={styles.input_label}>
-                <label for='username'>meta_keywords: </label>
+                <label>meta_keywords: </label>
                 <input
                   value={actualSubcategory?.meta_keywords}
                   name='meta_keywords'
@@ -331,7 +331,7 @@ const UpdateCategory = () => {
                 />
               </div>
               <div className={styles.input_label}>
-                <label for='username'>meta_description: </label>
+                <label>meta_description: </label>
                 <input
                   value={actualSubcategory?.meta_description}
                   name='meta_description'
@@ -370,7 +370,7 @@ const UpdateCategory = () => {
             <h2>Create subcategory for {actualCategoryToAddSub?.name} </h2>
             <div className={styles.inputs_block}>
               <div className={styles.input_label}>
-                <label for='username'>Name: </label>
+                <label>Name: </label>
                 <input
                   onChange={handleChangeNewSubcategoryInformation}
                   name='name'
@@ -380,7 +380,7 @@ const UpdateCategory = () => {
                 />
               </div>
               <div className={styles.input_label}>
-                <label for='username'>Url: </label>
+                <label>Url: </label>
                 <input
                   onChange={handleChangeNewSubcategoryInformation}
                   value={newSubcategory.url}
@@ -390,7 +390,7 @@ const UpdateCategory = () => {
                 />
               </div>
               <div className={styles.input_label}>
-                <label for='username'>meta_title: </label>
+                <label>meta_title: </label>
                 <input
                   onChange={handleChangeNewSubcategoryInformation}
                   name='meta_title'
@@ -399,7 +399,7 @@ const UpdateCategory = () => {
                 />
               </div>
               <div className={styles.input_label}>
-                <label for='username'>meta_keywords: </label>
+                <label>meta_keywords: </label>
                 <input
                   onChange={handleChangeNewSubcategoryInformation}
                   name='meta_keywords'
@@ -408,7 +408,7 @@ const UpdateCategory = () => {
                 />
               </div>
               <div className={styles.input_label}>
-                <label for='username'>meta_description: </label>
+                <label>meta_description: </label>
                 <input
                   onChange={handleChangeNewSubcategoryInformation}
                   name='meta_description'

@@ -33,7 +33,7 @@ const UpdateProduct = () => {
   const dispatch = useDispatch();
   const inputRef = React.useRef(null);
 
-  const [file, setFile] = React.useState(null);
+  const [files, setFiles] = React.useState(null);
 
   const {
     relationProducts,
@@ -99,6 +99,26 @@ const UpdateProduct = () => {
   const handleAddRelation = () => {
     dispatch(addRelationProduct({ product_id: inputRef.current.value }));
     inputRef.current.value = '';
+  };
+
+  const handleUploadPhotos = async () => {
+    try {
+      await axios.post(`/product/photos-delete/${id}`, productPhotos);
+
+      const formData = new FormData();
+      Object.values(files).forEach((file) => {
+        console.log(file);
+        formData.append('files', file);
+      });
+
+      await axios.post(`/product/photos-upload/product/${id}`, formData, {
+        headers: {
+          'content-type': 'mulpipart/form-data',
+        },
+      });
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   if (currentUser?.role !== 'admin' || !currentUser) {
@@ -320,9 +340,10 @@ const UpdateProduct = () => {
               multiple
               type='file'
               onChange={(e) => {
-                setFile(e.target.files[0]);
+                setFiles(e.target.files);
               }}
             />
+            <button onClick={handleUploadPhotos}>Upload photos</button>
           </div>
         </div>
       </div>

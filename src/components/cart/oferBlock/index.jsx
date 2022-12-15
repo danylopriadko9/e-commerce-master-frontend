@@ -82,7 +82,9 @@ const Ofer = () => {
                   name='contact'
                   value='email'
                 />
-                <label for='contactChoice1'>Самовывоз из нашего склада</label>
+                <label htmlFor='contactChoice1'>
+                  Самовывоз из нашего склада
+                </label>
               </div>
             </div>
 
@@ -93,13 +95,13 @@ const Ofer = () => {
                 name='contact'
                 value='phone'
               />
-              <label for='contactChoice2'>Самовывоз из Новой Почты</label>
+              <label htmlFor='contactChoice2'>Самовывоз из Новой Почты</label>
             </div>
           </div>
           <input type='radio' id='contactChoice3' name='contact' value='mail' />
           <input
             type='text'
-            for='contactChoice3'
+            htmlFor='contactChoice3'
             placeholder='Адрес доставки'
             disabled
             className={styles.adresDelivery}
@@ -123,7 +125,7 @@ const Ofer = () => {
                 name='contact'
                 value='email'
               />
-              <label for='contactChoice1'>Наличными</label>
+              <label htmlFor='contactChoice1'>Наличными</label>
             </div>
             <div>
               <input
@@ -132,7 +134,7 @@ const Ofer = () => {
                 name='contact'
                 value='email'
               />
-              <label for='contactChoice1'>Visa/MasterCard</label>
+              <label htmlFor='contactChoice1'>Visa/MasterCard</label>
             </div>
             <div>
               <input
@@ -141,7 +143,7 @@ const Ofer = () => {
                 name='contact'
                 value='email'
               />
-              <label for='contactChoice1'>Приват24</label>
+              <label htmlFor='contactChoice1'>Приват24</label>
             </div>
             <div>
               <input
@@ -150,7 +152,7 @@ const Ofer = () => {
                 name='contact'
                 value='email'
               />
-              <label for='contactChoice1'>Безналичными</label>
+              <label htmlFor='contactChoice1'>Безналичными</label>
             </div>
           </div>
         </form>

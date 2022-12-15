@@ -7,21 +7,28 @@ import {
   setActualProducts,
 } from '../../redux/slices/categorySlice';
 import CompareLine from '../CompareLine/CompareLine';
-import { fetchCategoryParams } from '../../redux/slices/filtrationSlice';
+import {
+  changeBrands,
+  changeParams,
+  cleanParams,
+  fetchCategoryParams,
+} from '../../redux/slices/filtrationSlice';
 import axios from 'axios';
 import { BsCheckLg } from 'react-icons/bs';
 
 const FilterBlock = () => {
   const location = useLocation();
   const dispatch = useDispatch();
-  const selectContainer = React.useRef(null);
-  const minPrice = React.useRef(null);
-  const maxPrice = React.useRef(null);
-  const checkboxCotainer = React.useRef(null);
+
+  const [price, setPrice] = React.useState({
+    min: null,
+    max: null,
+  });
 
   const groupurl = location.pathname.split('/')[1].replace('group_', '');
 
   React.useEffect(() => {
+    dispatch(cleanParams());
     dispatch(getSubcategoriesFilterParams(groupurl));
     dispatch(fetchCategoryParams(groupurl));
   }, []);
@@ -30,53 +37,46 @@ const FilterBlock = () => {
     (state) => state.category
   );
 
-  const { currency } = useSelector((state) => state.cart);
-
-  const { categoryParams, categoryValues } = useSelector(
+  const { categoryParams, categoryValues, submitParams } = useSelector(
     (state) => state.filter
   );
 
-  const postFiltersParams = async () => {
-    const result = {
-      brands: [],
-      filter_params: {},
-    };
-
-    for (let i = 0; i < selectContainer.current.children.length; i++) {
-      if (selectContainer.current.children[i].children.select.value.length) {
-        result.filter_params = {
-          ...result.filter_params,
-          [selectContainer.current.children[i].children.select.id]:
-            selectContainer.current.children[i].children.select.value,
-        };
-      }
-    }
-
-    result.min_price = minPrice.current.value;
-    result.max_price = maxPrice.current.value;
-
-    for (let i = 0; i < checkboxCotainer.current.children.length; i++) {
-      if (checkboxCotainer.current.children[i].children[0].checked) {
-        result.brands.push(
-          checkboxCotainer.current.children[i].children[0].value
-        );
-      }
-    }
-
-    result.currency = currency;
-
-    const { data } = await axios.post(`/filter/post/${groupurl}`, result);
-    dispatch(setActualProducts({ data: data }));
+  const handleChangeParams = (characteristic_id, value_id) => {
+    console.log(characteristic_id, value_id);
+    dispatch(changeParams({ characteristic_id, value_id }));
   };
 
-  const handleChangeParams = () => {};
+  const handleChangeBrands = (manufacturer_id, checked) => {
+    dispatch(changeBrands({ manufacturer_id, checked }));
+  };
+
+  const handlePriceChange = (e) => {
+    setPrice((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    console.log(price);
+  };
+
+  const handleSubmitFiltration = async () => {
+    try {
+      const result = {
+        min: price.min,
+        max: price.max,
+        params: submitParams.params,
+        brands: submitParams.brands,
+      };
+
+      const { data } = await axios.post(`/category/test/${groupurl}`, result);
+      dispatch(setActualProducts({ data: data }));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <>
       <div className={styles.container}>
         <div className={styles.brends_choise}>
           <p className={styles.subtitle}>Бренд:</p>
-          <div ref={checkboxCotainer}>
+          <div>
             {filterStatus === 'success' &&
               filterParams.map((el) => (
                 <div
@@ -87,8 +87,11 @@ const FilterBlock = () => {
                     type='checkbox'
                     name='manufacturer'
                     value={el.manufacturer_id}
+                    onChange={(e) =>
+                      handleChangeBrands(el.manufacturer_id, e.target.checked)
+                    }
                   />
-                  <label for='manufacturer'>{el.name}</label>
+                  <label htmlFor='manufacturer'>{el.name}</label>
                 </div>
               ))}
           </div>
@@ -96,21 +99,28 @@ const FilterBlock = () => {
             <p className={styles.subtitle}>Цена:</p>
             <p>
               От
-              <input ref={minPrice} type='number' />
+              <input
+                value={price.min ? price.min : ''}
+                name='min'
+                onChange={handlePriceChange}
+                type='number'
+              />
               грн
             </p>
             <p>
               До
-              <input ref={maxPrice} type='number' />
+              <input
+                value={price.max ? price.max : ''}
+                name='max'
+                onChange={handlePriceChange}
+                type='number'
+              />
               грн
             </p>
           </div>
         </div>
         <div className={styles.characteristics}>
-          <div
-            ref={selectContainer}
-            className={styles.characteristict_container}
-          >
+          <div className={styles.characteristict_container}>
             {categoryParams &&
               categoryParams.length > 0 &&
               categoryParams.map((el) => (
@@ -120,12 +130,18 @@ const FilterBlock = () => {
                   className={styles.characteristicBlock}
                 >
                   <p>{el.characteristic}</p>
-                  <select name='select' id={el.property_id}>
-                    <option value=''>Все</option>
+                  <select
+                    name={el.property_id}
+                    id={el.property_id}
+                    onChange={(e) =>
+                      handleChangeParams(e.target.name, e.target.value)
+                    }
+                  >
+                    <option value={0}>Все</option>
                     {categoryValues[el.property_id] &&
                       categoryValues[el.property_id].map((e, i) => (
-                        <option key={i} value={e}>
-                          {e}
+                        <option key={e.value_id} value={e.value_id}>
+                          {e.value}
                         </option>
                       ))}
                   </select>
@@ -135,7 +151,7 @@ const FilterBlock = () => {
         </div>
       </div>
       <div className={styles.submit_block}>
-        <button onClick={postFiltersParams}>
+        <button onClick={handleSubmitFiltration}>
           <BsCheckLg />
         </button>
       </div>
