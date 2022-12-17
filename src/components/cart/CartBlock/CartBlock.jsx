@@ -7,6 +7,7 @@ import {
   handelShowStatus,
   handlePopupStatus,
 } from '../../../redux/slices/cartSlice';
+import { useTranslation } from 'react-i18next';
 
 const CartBlock = () => {
   const dispatch = useDispatch();
@@ -22,27 +23,31 @@ const CartBlock = () => {
     dispatch(handlePopupStatus(status));
   };
   const { cartItems, totalPrice } = useSelector((state) => state.cart);
+
+  const { t, i18n } = useTranslation();
+
   return (
     <>
       <div className={styles.itemsContainer}>
         {cartItems &&
           cartItems.map((el) => <CartItem {...el} key={el.product_id} />)}
-        {cartItems.length === 0 && <h2>Корзина пуста...</h2>}
+        {cartItems.length === 0 && <h2>{t('cart.cart_is_empty')}</h2>}
       </div>
       <footer>
         <div className={styles.left}>
           <BsArrowLeft />
-          <span onClick={handleCloseCartPopup}>Продолжить покупки</span>
+          <span onClick={handleCloseCartPopup}>{t('cart.continue')}</span>
         </div>
         <div className={styles.right}>
           {cartItems.length > 0 && (
             <>
               <p className={styles.totalSumBlock}>
-                <span>Итого: </span> <span>{totalPrice.toFixed(2)} UAH</span>
+                <span>{t('cart.result')}: </span>{' '}
+                <span>{totalPrice.toFixed(2)} UAH</span>
               </p>
               <button onClick={() => handlePopupStatusChange('ofer')}>
                 <BsCartFill />
-                <span>Оформить заказ</span>
+                <span>{t('cart.create_ofer')}</span>
               </button>
             </>
           )}

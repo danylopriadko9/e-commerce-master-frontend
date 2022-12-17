@@ -8,6 +8,7 @@ import {
 } from '../../redux/slices/cartSlice';
 import CartBlock from './CartBlock/CartBlock';
 import OferBlock from './oferBlock';
+import { useTranslation } from 'react-i18next';
 
 const Cart = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,8 @@ const Cart = () => {
     dispatch(handlePopupStatus(status));
   };
 
+  const { t, i18n } = useTranslation();
+
   return (
     <CSSTransition
       timeout={300}
@@ -37,7 +40,7 @@ const Cart = () => {
           <div className={styles.container}>
             <header>
               <h1>
-                {popupStatus === 'cart' ? 'Корзина' : 'Оформление заказа'}
+                {popupStatus === 'cart' ? t('cart.cart') : t('cart.checkout')}
               </h1>
               <div className={styles.indikator}></div>
               <button onClick={handleCloseCartPopup}>

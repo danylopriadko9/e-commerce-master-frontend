@@ -9,6 +9,7 @@ import {
 } from '../../redux/slices/comparisonSlice';
 import CompareItem from '../../components/CompareItem/CompareItem';
 import PropertysProducts from '../../components/PropertysProducts/PropertysProducts';
+import { useTranslation } from 'react-i18next';
 
 const Compare = () => {
   const dispatch = useDispatch();
@@ -48,12 +49,14 @@ const Compare = () => {
     dispatch(fetchActualCategoryCharacteristics(category.category_url));
   };
 
+  const { t, i18n } = useTranslation();
+
   return (
     <div className={styles.container}>
       <p className={styles.title_container}>
         <div className={styles.indikator}></div>
-        <span className={styles.title}>Сравнение</span>{' '}
-        {compartisonProducts.length} товаров
+        <span className={styles.title}>{t('compare.comparing')}</span>{' '}
+        {compartisonProducts.length} {t('compare.products')}
       </p>
       <div className={styles.categories_line}>
         {categories.length > 0 &&
@@ -82,11 +85,11 @@ const Compare = () => {
             <div className={styles.header}>
               <p>
                 <AiOutlineCheckCircle />
-                <span>Очистить выбор</span>
+                <span>{t('compare.clear')}</span>
               </p>
               <p>
                 <AiOutlineCheckCircle />
-                <span>Добавить другой товар</span>
+                <span>{t('compare.add')}</span>
               </p>
             </div>
             <div>
@@ -97,11 +100,11 @@ const Compare = () => {
                   </p>
                 ))}
 
-              <p className={styles.secound}>Гарантия</p>
+              <p className={styles.secound}>{t('header.warranty')}</p>
             </div>
           </div>
         ) : (
-          <h2>Продукты для сравнения отсутствуют...</h2>
+          <h2>{t('compare.no_products_to_compare')}</h2>
         )}
         {resultOfFilter.length > 0 && (
           <div className={styles.compare_items_container}>
@@ -113,7 +116,7 @@ const Compare = () => {
       </div>
       <PropertysProducts
         products={propertyProducts}
-        title={'С этими товарами часто покупают'}
+        title={t('sliders_titles.buy_also')}
         status={propertyProductsStatus}
         type={'products'}
       />

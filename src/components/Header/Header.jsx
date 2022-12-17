@@ -11,6 +11,7 @@ import { handelShowStatus } from '../../redux/slices/cartSlice';
 import React from 'react';
 import { setSearchValue } from '../../redux/slices/searchSlice';
 import { AuthContext } from '../../context/authContext';
+import { useTranslation } from 'react-i18next';
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -43,6 +44,9 @@ const Header = () => {
     dispatch(setSearchValue(e.current.value));
     e.current.value = '';
   };
+
+  const { t, i18n } = useTranslation();
+
   return (
     <div className={styles.header}>
       <div className={styles.logoContainer}>
@@ -52,13 +56,13 @@ const Header = () => {
       </div>
       <div className={styles.center}>
         <div className={styles.navbar}>
-          <Link to='/about-us'>О нас</Link>
-          <Link to='/contacts'>Контакты</Link>
-          <Link to='/news'>Новости</Link>
-          <Link to='/support'>Поддержка</Link>
-          <Link to='/portfolio'>Портфолио</Link>
-          <Link to='/brands'>Бренды</Link>
-          <Link to='/cooperation'>Сотрудничество</Link>
+          <Link to='/about-us'>{t('header.about_us')}</Link>
+          <Link to='/contacts'>{t('header.contacts')}</Link>
+          <Link to='/news'>{t('header.news')}</Link>
+          <Link to='/support'>{t('header.support')}</Link>
+          <Link to='/portfolio'>{t('header.portfolio')}</Link>
+          <Link to='/brands'>{t('header.brands')}</Link>
+          <Link to='/cooperation'>{t('header.cooperation')}</Link>
         </div>
         <div className={styles.inputConteiner}>
           <input
@@ -68,14 +72,16 @@ const Header = () => {
               if (e.key === 'Enter') handleSearch(searchInput);
             }}
           />
-          <button onClick={() => handleSearch(searchInput)}>Найти</button>
+          <button onClick={() => handleSearch(searchInput)}>
+            {t('header.search')}
+          </button>
         </div>
       </div>
       <div className={styles.right}>
         <div className={styles.links}>
-          <Link to='/payment'>Оплата</Link>
-          <Link to='/delivery'>Доставка</Link>
-          <Link to='/warranty'>Гарантия</Link>
+          <Link to='/payment'>{t('header.payment')}</Link>
+          <Link to='/delivery'>{t('header.delivery')}</Link>
+          <Link to='/warranty'>{t('header.warranty')}</Link>
         </div>
         <div className={styles.phoneNumber}>
           <NumberPopup />
@@ -95,7 +101,7 @@ const Header = () => {
           >
             <AiOutlineShoppingCart className={styles.icon} />
             <div className={styles.barrier}></div>
-            <span>{totalPrice.toFixed()} грн</span>
+            <span>{totalPrice.toFixed()} UAH</span>
           </div>
           <div className={`${styles.login} ${styles.cartAndLoginItems}`}>
             <RiAccountCircleLine className={styles.icon} />
@@ -108,7 +114,7 @@ const Header = () => {
             ) : (
               <>
                 <Link to='/login'>
-                  <span>Вход</span>
+                  <span>{t('header.login')}</span>
                 </Link>
               </>
             )}

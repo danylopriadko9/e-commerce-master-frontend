@@ -1,9 +1,28 @@
 .number {
-  font-weight: 400;
-  font-size: 25px;
-  color: #0058cf;
   position: relative;
-  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 220px;
+
+  .phone_number {
+    color: #0058cf;
+    font-size: 25px;
+    font-weight: 400;
+  }
+
+  .language_buttons {
+    font-size: 13px;
+    color: #1f1f1f;
+    line-height: 25px;
+
+    span {
+      cursor: pointer;
+      &:hover {
+        text-decoration: underline;
+      }
+    }
+  }
 
   .triangle {
     position: absolute;

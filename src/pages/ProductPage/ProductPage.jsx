@@ -21,6 +21,7 @@ import HistoryMap from '../../components/HistoryMap/HistoryMap';
 import { Helmet } from 'react-helmet';
 import { AuthContext } from '../../context/authContext';
 import { BiSave } from 'react-icons/bi';
+import { useTranslation } from 'react-i18next';
 
 const ProductPage = () => {
   const dispatch = useDispatch();
@@ -55,6 +56,8 @@ const ProductPage = () => {
     (state) => state.actualProduct
   );
 
+  const { t, i18n } = useTranslation();
+
   return (
     <>
       {actualProduct.length > 0 && (
@@ -80,15 +83,15 @@ const ProductPage = () => {
             <div className={styles.general_information}>
               <p>
                 <TbTruckDelivery />
-                <span>Доставка по всей Украине</span>
+                <span>{t('product_page.delivery')}</span>
               </p>
               <p>
                 <FaMoneyBillWave />
-                <span>Оплата любым способом</span>
+                <span>{t('product_page.pay')}</span>
               </p>
               <p>
                 <BsFillUmbrellaFill />
-                <span>100% гарантия и сервис</span>
+                <span>{t('product_page.pay')}</span>
               </p>
             </div>
             <ShareBlock />
@@ -110,8 +113,7 @@ const ProductPage = () => {
           <div className={styles.characteristics}>
             <h2>
               <div className={styles.indikator}></div>
-              Технические <br />
-              характаристики
+              {t('product_page.characteristics')}
             </h2>
             {characteristics.length > 0 ? (
               characteristics.map((el) => (
@@ -122,13 +124,13 @@ const ProductPage = () => {
                 </div>
               ))
             ) : (
-              <h3>Отсутствуют</h3>
+              <h3>{t('product_page.empty')}</h3>
             )}
           </div>
           <div className={styles.description}>
             <h2>
               <div className={styles.indikator}></div>
-              Описание
+              {t('product_page.desc')}
             </h2>
             <span ref={descriptionBlock}></span>
           </div>
@@ -138,7 +140,7 @@ const ProductPage = () => {
       {product && (
         <PropertysProducts
           id={product.product_id}
-          title={'С этим товаром часто покупают'}
+          title={t('sliders_titles.buy_also')}
           products={reationProducts}
           status={reationStatus}
         />

@@ -8,6 +8,8 @@ import {
   fetchActualProductsCharacteristicsValue,
 } from '../../redux/slices/comparisonSlice';
 import { apiurl } from '../../axios';
+import { useTranslation } from 'react-i18next';
+import axios from 'axios';
 
 const CompareItem = ({ el }) => {
   const dispatch = useDispatch();
@@ -28,6 +30,24 @@ const CompareItem = ({ el }) => {
     actualCategoryCharacteristicsStatus,
     actualCategoryCharacteristics,
   } = useSelector((state) => state.compartison);
+
+  const { t, i18n } = useTranslation();
+
+  const [image, setImage] = React.useState(null);
+
+  const fetchProductPhoto = async () => {
+    const { data } = await axios.get(
+      `http://localhost:8000/product/photo/${product_id}`
+    );
+    setImage(data);
+  };
+
+  React.useEffect(() => {
+    if (!image) {
+      fetchProductPhoto();
+    }
+  }, []);
+
   return (
     <div className={styles.container}>
       <div className={styles.top}>
@@ -38,7 +58,7 @@ const CompareItem = ({ el }) => {
           <RiCloseFill />
         </div>
         <div className={styles.image_container}>
-          <img src={`${apiurl}/product/photo/${product_id}`} alt='' />
+          <img src={`/static/${image}`} alt='' />
         </div>
         <InformationBlock product={el} />
       </div>
@@ -63,7 +83,7 @@ const CompareItem = ({ el }) => {
                     (e) => e.property_id === el.property_id
                   ).value
                 ) : (
-                  'Нет описания'
+                  t('compare.no_desc')
                 )
               ) : (
                 <></>

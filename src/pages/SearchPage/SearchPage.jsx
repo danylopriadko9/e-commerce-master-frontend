@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
 import CategoryProductBlock from '../../components/CategoryProductBlock/CategoryProductBlock';
@@ -34,6 +35,8 @@ const SearchPage = () => {
     (state) => state.search
   );
 
+  const { t, i18n } = useTranslation();
+
   React.useEffect(() => {
     dispatch(setPageNumber(1));
 
@@ -48,9 +51,9 @@ const SearchPage = () => {
     return (
       <div className={styles.container}>
         <HistoryMap />
-        <h2
-          style={{ marginTop: '20px' }}
-        >{`По запросу ${searchValue} ничего не найдено...`}</h2>
+        <h2 style={{ marginTop: '20px' }}>{`${t(
+          'search_page.for_search'
+        )} ${searchValue} ${t('search_page.no_results')}`}</h2>
       </div>
     );
   }

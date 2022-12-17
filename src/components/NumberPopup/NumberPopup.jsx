@@ -1,18 +1,29 @@
 import React, { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import styles from './NumberPopup.module.scss';
 
 const NumberPopup = () => {
-  const [numberHover, setNumberHover] = useState(false);
+  //const [numberHover, setNumberHover] = useState(false);
 
   const onClickNumber = () => {
-    setNumberHover(!numberHover);
+    //setNumberHover(!numberHover);
+  };
+
+  const { t, i18n } = useTranslation();
+
+  const changeLanguage = (lan) => {
+    i18n.changeLanguage(lan);
   };
 
   return (
     <>
       <span className={styles.number} onClick={onClickNumber}>
-        496 20 08 <div className={styles.triangle}></div>
-        {numberHover && (
+        <div className={styles.phone_number}>496 20 08</div>
+        <div className={styles.language_buttons}>
+          <span onClick={() => changeLanguage('ru')}>Русский </span>/
+          <span onClick={() => changeLanguage('ua')}> Українська</span>
+        </div>
+        {/* {numberHover && (
           <div className={styles.numberPopupContainer}>
             <p>+38(044) 496-20-09</p>
             <p>
@@ -32,7 +43,7 @@ const NumberPopup = () => {
               <span style={{ color: 'blue' }}>Служба сервиса</span>
             </p>
           </div>
-        )}
+        )} */}
       </span>
     </>
   );

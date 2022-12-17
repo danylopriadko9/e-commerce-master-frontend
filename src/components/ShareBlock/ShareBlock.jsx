@@ -12,13 +12,16 @@ import {
   WhatsappIcon,
 } from 'react-share';
 import styles from './ShareBlock.module.scss';
+import { useTranslation } from 'react-i18next';
 
 const ShareBlock = () => {
   const shareUrl = window.location.href;
+  const { t, i18n } = useTranslation();
+
   return (
     <div className={styles.share_container}>
       <div className={styles.title}>
-        <p>Делитесь с друзьями:</p>
+        <p>{t('share.share')}:</p>
       </div>
       <div className={styles.icons_container}>
         <FacebookShareButton url={shareUrl}>

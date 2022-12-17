@@ -14,7 +14,7 @@ const Item = ({ el }) => {
       onClick={() => dispatch(actualSubcategoriesPageClean())}
     >
       <div className={styles.image_container}>
-        <img src={`${apiurl}/${el.dir_path}/${el.filename}`} alt='' />
+        <img src={`${apiurl}/static/category/${el.id}/${el.filename}`} alt='' />
       </div>
       <p className={styles.name}>{el.name}</p>
     </Link>

@@ -51,7 +51,9 @@ const DiscountItem = (item) => {
   };
 
   React.useEffect(() => {
-    fetchProductPhoto();
+    if (!image) {
+      fetchProductPhoto();
+    }
   }, []);
 
   return (
@@ -81,7 +83,7 @@ const DiscountItem = (item) => {
       <div className={styles.itemContainer}>
         <div className={styles.imageContainer}>
           {image ? (
-            <img src={image} alt='' />
+            <img src={`/static/${image}`} alt='' />
           ) : (
             <img
               src='https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTw0zKknEf_ExsMDMYCkGnkF4bvK-dRrBJb9FdYBJOO0vy5H15IsJSpMBSlVDz7bt6BKCk&usqp=CAU'

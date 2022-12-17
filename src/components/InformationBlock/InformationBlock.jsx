@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import styles from './InformationBlock.module.scss';
 
 const InformationBlock = ({ product }) => {
@@ -12,10 +12,19 @@ const InformationBlock = ({ product }) => {
     url,
     iso,
   } = product;
+
+  const location = useLocation();
+
   return (
     <Link to={`/tovar_${url}`}>
       <p className={styles.model_id}>{`#${product_id}`}</p>
-      <p className={styles.category}>{category_name}</p>
+      <p
+        className={`${styles.category} ${
+          location.pathname.includes('tovar') ? '' : styles.shadow
+        }`}
+      >
+        {category_name}
+      </p>
       <div className={styles.itemCategory}>
         <span className={styles.model}>{product_name}</span>
       </div>

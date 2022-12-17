@@ -3,8 +3,11 @@ import styles from './Footer.module.scss';
 import logo from '../../assets/logo.png';
 import { Link } from 'react-router-dom';
 import { BsFillTelephoneFill } from 'react-icons/bs';
+import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
+  const { t, i18n } = useTranslation();
+
   return (
     <div className={styles.footerContainer}>
       <div className={styles.container}>
@@ -20,24 +23,24 @@ const Footer = () => {
               </div>
               <div className={styles.footerLinks}>
                 <div className={styles.firstLinks}>
-                  <Link to='/about-us'>О нас</Link>
-                  <Link to='/contacts'>Контакты</Link>
-                  <Link to='/news'>Новости</Link>
-                  <Link to='/support'>Поддержка</Link>
-                  <Link to='/portfolio'>Портфолио</Link>
-                  <Link to='/brands'>Бренды</Link>
-                  <Link to='/cooperation'>Сотрудничество</Link>
+                  <Link to='/about-us'>{t('header.about_us')}</Link>
+                  <Link to='/contacts'>{t('header.contacts')}</Link>
+                  <Link to='/news'>{t('header.news')}</Link>
+                  <Link to='/support'>{t('header.support')}</Link>
+                  <Link to='/portfolio'>{t('header.portfolio')}</Link>
+                  <Link to='/brands'>{t('header.brands')}</Link>
+                  <Link to='/cooperation'>{t('header.cooperation')}</Link>
                 </div>
                 <div className={styles.secoundLinks}>
-                  <Link to='/about-us'>Контакты</Link>
-                  <Link to='/contacts'>Услуги</Link>
-                  <Link to='/news'>Бренды</Link>
-                  <Link to='/support'>Сотрудничество</Link>
+                  <Link to='/about-us'>{t('header.about_us')}</Link>
+                  <Link to='/services'>{t('footer.services')}</Link>
+                  <Link to='/news'>{t('header.brands')}</Link>
+                  <Link to='/support'>{t('header.cooperation')}</Link>
                 </div>
                 <div className={styles.thirdLinks}>
-                  <Link to='/about-us'>Оплата</Link>
-                  <Link to='/contacts'>Доставка</Link>
-                  <Link to='/news'>Гарантия</Link>
+                  <Link to='/about-us'>{t('header.payment')}</Link>
+                  <Link to='/contacts'>{t('header.delivery')}</Link>
+                  <Link to='/news'>{t('header.warranty')}</Link>
                 </div>
                 <div className={styles.payments}>
                   <Link to='/payment'>
@@ -46,11 +49,8 @@ const Footer = () => {
                 </div>
               </div>
             </div>
-            <p>ЧП "Мастер-1"</p>
-            <p>
-              Украина,г. Киев, пр-т. Леся Курбаса 2-Б (територия НПО «Сатурн»)
-              вн.тел 4-84, 6-68
-            </p>
+            <p>{t('footer.company')}</p>
+            <p>{t('footer.adres')}</p>
           </div>
           <div className={styles.right}>
             <div className={styles.firstNumberContainer}>

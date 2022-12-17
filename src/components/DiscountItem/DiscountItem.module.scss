@@ -76,6 +76,11 @@ a {
           font-size: 14px;
           line-height: 20px;
           font-weight: 100;
+
+          width: 100%;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
         }
       }
 
@@ -95,11 +100,6 @@ a {
         }
       }
     }
-
-    // .right {
-    //   width: 50%;
-    //   height: 100px;
-    // }
   }
 }
 

@@ -8,9 +8,11 @@ import { useDispatch, useSelector } from 'react-redux';
 import { BsFillTrashFill } from 'react-icons/bs';
 import { BiSave } from 'react-icons/bi';
 import { AiOutlineClear } from 'react-icons/ai';
+import { BsCheckLg } from 'react-icons/bs';
 import axios from 'axios';
 import {
   addRelationProduct,
+  changeMainPhoto,
   changeProductCharacteristicsValues,
   changeProductDescription,
   changeProductInformtion,
@@ -105,20 +107,26 @@ const UpdateProduct = () => {
     try {
       await axios.post(`/product/photos-delete/${id}`, productPhotos);
 
-      const formData = new FormData();
-      Object.values(files).forEach((file) => {
-        console.log(file);
-        formData.append('files', file);
-      });
+      if (files.length) {
+        const formData = new FormData();
+        Object.values(files).forEach((file) => {
+          console.log(file);
+          formData.append('files', file);
+        });
 
-      await axios.post(`/product/photos-upload/product/${id}`, formData, {
-        headers: {
-          'content-type': 'mulpipart/form-data',
-        },
-      });
+        await axios.post(`/product/photos-upload/product/${id}`, formData, {
+          headers: {
+            'content-type': 'mulpipart/form-data',
+          },
+        });
+      }
     } catch (error) {
       console.log(error);
     }
+  };
+
+  const handleChangeMainPhoto = (id) => {
+    dispatch(changeMainPhoto(id));
   };
 
   if (currentUser?.role !== 'admin' || !currentUser) {
@@ -323,13 +331,23 @@ const UpdateProduct = () => {
           <div className={styles.photos}>
             {productPhotos.length > 0 &&
               productPhotos.map((el) => (
-                <div className={styles.photo_block} key={el.filename}>
+                <div
+                  onClick={() => handleChangeMainPhoto(el.id)}
+                  className={styles.photo_block}
+                  key={el.filename}
+                >
                   <div
                     className={styles.delete_button}
                     onClick={() => dispatch(deletePhoto(el.filename))}
                   >
+                    {' '}
                     <BsFillTrashFill />
                   </div>
+                  {el.type === 'main' && (
+                    <div className={styles.main_button}>
+                      <BsCheckLg />
+                    </div>
+                  )}
                   <div className={styles.photo_container}>
                     <img src={`/static/product/${id}/${el.filename}`} alt='' />
                   </div>

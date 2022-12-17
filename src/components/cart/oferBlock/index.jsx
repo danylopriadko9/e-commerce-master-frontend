@@ -1,5 +1,6 @@
 import React from 'react';
 import { useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import styles from './Ofer.module.scss';
@@ -7,6 +8,7 @@ import styles from './Ofer.module.scss';
 const Ofer = () => {
   const { cartItems, totalPrice } = useSelector((state) => state.cart);
   const [qty, setQty] = React.useState(0);
+  const [product, setProduct] = React.useState(null);
 
   React.useEffect(() => {
     setQty(() => {
@@ -16,33 +18,38 @@ const Ofer = () => {
     });
   }, []);
 
+  React.useEffect(() => {
+    setProduct(() => {
+      return qty === '1' && qty !== '1'
+        ? t('ofer.product')
+        : qty >= 5 && qty <= 20
+        ? t('ofer.products')
+        : t('ofer.product2');
+    });
+  }, [qty]);
+
+  const { t, i18n } = useTranslation();
+
   return (
     <>
       <div className={styles.totalBlock}>
         <div className={styles.totalInformationContainer}>
-          <h3>ИТОГО: </h3>
+          <h3>{t('ofer.result')}: </h3>
           <p className={styles.totalPrice}>
-            {qty}{' '}
-            {qty === '1' && qty !== '1'
-              ? 'товар'
-              : qty >= 5 && qty <= 20
-              ? 'товаров'
-              : 'товара'}{' '}
-            на сумму: <span>{Math.ceil(totalPrice)} UAH</span>
+            {qty} {product} {t('ofer.sum')}:{' '}
+            <span>{Math.ceil(totalPrice)} UAH</span>
           </p>
           <p className={styles.deliveryPrice}>
-            Стоимость доставки: <span>1054 UAH</span>
+            {t('ofer.delivery_cost')}: <span>1054 UAH</span>
           </p>
           <p className={styles.priceWithDelivery}>
-            К оплате <span>105664 грн</span>
+            {t('ofer.to_pay')} <span>105664 грн</span>
           </p>
         </div>
         <div className={styles.buttonBlock}>
-          <button>Заказ подтверждаю</button>
-          <Link>
-            Подтверждая заказ, я принимаю <br />
-            условия пользовательского <br />
-            соглашения
+          <button>{t('ofer.confirm_ofer')}</button>
+          <Link className={styles.confirm_user_rules}>
+            {t('ofer.confirm_user')}
           </Link>
         </div>
       </div>
@@ -50,7 +57,7 @@ const Ofer = () => {
       <div className={styles.clientInfo}>
         <div className={styles.title}>
           <h2>
-            Контакты
+            {t('ofer.contacts')}
             <div className={styles.indikator}></div>
           </h2>
         </div>
@@ -68,7 +75,7 @@ const Ofer = () => {
       <div className={styles.clientInfo}>
         <div className={styles.title}>
           <h2>
-            Выбор способов доставки и оплаты
+            {t('ofer.chose_delivery_method')}
             <div className={styles.indikator}></div>
           </h2>
         </div>
@@ -82,9 +89,7 @@ const Ofer = () => {
                   name='contact'
                   value='email'
                 />
-                <label htmlFor='contactChoice1'>
-                  Самовывоз из нашего склада
-                </label>
+                <label htmlFor='contactChoice1'>{t('ofer.pickup')}</label>
               </div>
             </div>
 
@@ -95,7 +100,7 @@ const Ofer = () => {
                 name='contact'
                 value='phone'
               />
-              <label htmlFor='contactChoice2'>Самовывоз из Новой Почты</label>
+              <label htmlFor='contactChoice2'>{t('ofer.novaja_pochta')}</label>
             </div>
           </div>
           <input type='radio' id='contactChoice3' name='contact' value='mail' />
@@ -112,7 +117,7 @@ const Ofer = () => {
         <hr />
         <div className={styles.title}>
           <h2>
-            Оплата
+            {t('ofer.pay')}
             <div className={styles.indikator}></div>
           </h2>
         </div>
@@ -125,7 +130,7 @@ const Ofer = () => {
                 name='contact'
                 value='email'
               />
-              <label htmlFor='contactChoice1'>Наличными</label>
+              <label htmlFor='contactChoice1'>{t('ofer.cash')}</label>
             </div>
             <div>
               <input
@@ -134,7 +139,7 @@ const Ofer = () => {
                 name='contact'
                 value='email'
               />
-              <label htmlFor='contactChoice1'>Visa/MasterCard</label>
+              <label htmlFor='contactChoice1'>{t('ofer.pay_cart')}</label>
             </div>
             <div>
               <input
@@ -143,7 +148,7 @@ const Ofer = () => {
                 name='contact'
                 value='email'
               />
-              <label htmlFor='contactChoice1'>Приват24</label>
+              <label htmlFor='contactChoice1'>{t('ofer.privat24')}</label>
             </div>
             <div>
               <input
@@ -152,16 +157,14 @@ const Ofer = () => {
                 name='contact'
                 value='email'
               />
-              <label htmlFor='contactChoice1'>Безналичными</label>
+              <label htmlFor='contactChoice1'>{t('ofer.non_cash')}</label>
             </div>
           </div>
         </form>
       </div>
       <div className={styles.confirmation}>
-        <button>Подтверждаю</button>
-        <Link>
-          Подтверждая заказ, я принимаю условия пользовательского соглашения
-        </Link>
+        <button>{t('ofer.confirm')}</button>
+        <Link>{t('ofer.confirm_user')}</Link>
       </div>
     </>
   );

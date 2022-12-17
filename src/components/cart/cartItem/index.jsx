@@ -7,20 +7,22 @@ import {
   removeItemFromCart,
   subtractQuantityFromItem,
 } from '../../../redux/slices/cartSlice';
-import { apiurl } from '../../../axios';
+import axios from 'axios';
+import { useTranslation } from 'react-i18next';
 
 const CartItem = (item) => {
   const dispatch = useDispatch();
   const {
     product_name,
     category_name,
-    url,
     base_price,
     discount_percent,
     product_id,
     qty,
     iso,
   } = item;
+
+  const [image, setImage] = React.useState(null);
 
   const handelQtyConsole = () => {};
 
@@ -33,11 +35,26 @@ const CartItem = (item) => {
     dispatch(subtractQuantityFromItem(product_id));
   };
 
+  React.useEffect(() => {
+    if (!image) {
+      fetchProductPhoto();
+    }
+  }, []);
+
+  const fetchProductPhoto = async () => {
+    const { data } = await axios.get(
+      `http://localhost:8000/product/photo/${product_id}`
+    );
+    setImage(data);
+  };
+
+  const { t, i18n } = useTranslation();
+
   return (
     <div className={styles.cartItemContainer}>
       <div className={styles.infoContainer}>
         <div className={styles.imageContainer}>
-          <img src={`${apiurl}/product/photo/${product_id}`} />
+          <img src={`/static/${image}`} />
         </div>
         <div className={styles.infoBlock}>
           <p className={styles.id}>{`#${product_id}`}</p>
@@ -78,7 +95,7 @@ const CartItem = (item) => {
         </button>
       </div>
       <div className={styles.priceBlock}>
-        <p className={styles.sum}>Сумма:</p>
+        <p className={styles.sum}>{t('cart.sum')}:</p>
         <p className={styles.price}>
           {discount_percent
             ? (

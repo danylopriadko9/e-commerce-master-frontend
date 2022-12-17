@@ -18,6 +18,7 @@ import Pagination from '../../components/Pagination /Pagination';
 import FilterBlock from '../../components/FilterBlock/FilterBlock';
 import { Helmet } from 'react-helmet';
 import { apiurl } from '../../axios';
+import { useTranslation } from 'react-i18next';
 
 const Categories = () => {
   const dispatch = useDispatch();
@@ -57,6 +58,8 @@ const Categories = () => {
 
     window.scrollTo(0, 0);
   }, [actualPage, location.pathname]);
+
+  const { t, i18n } = useTranslation();
 
   if (location.pathname.includes('categories')) {
     return (
@@ -141,7 +144,7 @@ const Categories = () => {
         </div>
         {!productsCategory.data ||
           (!productsCategory.data.length && (
-            <h2>По данному запросу продуктов не найдено...</h2>
+            <h2>{t('category_page.no_result')}</h2>
           ))}
       </div>
       {productsCategory.numberOfPages > 1 && (

@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import InformationBlock from '../InformationBlock/InformationBlock';
 import { addCompartisonProduct } from '../../redux/slices/comparisonSlice';
+import { useTranslation } from 'react-i18next';
 
 const ItemsInfo = ({ product }) => {
   const dispatch = useDispatch();
@@ -24,6 +25,9 @@ const ItemsInfo = ({ product }) => {
   const handleAddToComprasion = (item) => {
     dispatch(addCompartisonProduct(item));
   };
+
+  const { t, i18n } = useTranslation();
+
   return (
     <>
       <div className={styles.productInfo}>
@@ -31,11 +35,11 @@ const ItemsInfo = ({ product }) => {
         <div className={styles.buttons_container}>
           <button onClick={() => handleAddItemToCart(product)}>
             <BsCartFill />
-            <span>Добавить в корзину</span>
+            <span>{t('items_info.add_to_cart')}</span>
           </button>
           <Link to='/compare' onClick={() => handleAddToComprasion(product)}>
             <GrAddCircle />
-            <span>Добавить к сравнению</span>
+            <span>{t('items_info.add_to_compare')}</span>
           </Link>
         </div>
       </div>

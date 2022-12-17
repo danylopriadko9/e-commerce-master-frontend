@@ -153,6 +153,21 @@
       cursor: pointer;
     }
 
+    .main_button {
+      position: absolute;
+      width: 15px;
+      height: 15px;
+      display: flex;
+      left: 80px;
+      top: 30px;
+      color: blue;
+      font-size: 15px;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      border-radius: 50%;
+    }
+
     .photo_container {
       width: 70px;
       height: 70px;

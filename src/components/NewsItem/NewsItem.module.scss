@@ -24,6 +24,25 @@
     margin-bottom: 10px;
     color: #68696a;
     font-weight: 300;
+    overflow: hidden;
+    position: relative;
+    height: 62px;
+
+    &::after {
+      content: '';
+      text-align: right;
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      height: 2em;
+      background: linear-gradient(
+        to bottom,
+        rgba(255, 255, 255, 0),
+        white 100%
+      );
+      pointer-events: none;
+    }
   }
 
   a {

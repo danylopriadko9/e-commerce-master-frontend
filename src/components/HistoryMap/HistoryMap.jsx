@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Link, useLocation } from 'react-router-dom';
 import { fetchHistory } from '../../redux/slices/historyMap';
 import styles from './HistoryMap.module.scss';
+import { useTranslation } from 'react-i18next';
 
 const HistoryMap = () => {
   const location = useLocation();
@@ -16,16 +17,18 @@ const HistoryMap = () => {
 
   const { history } = useSelector((state) => state.history);
 
+  const { t, i18n } = useTranslation();
+
   if (location.pathname.includes('categories')) {
     return (
       <div className={styles.container}>
         <p>
           <span>
-            <Link to={`/`}>Главная</Link>
+            <Link to={`/`}>{t('history.main')}</Link>
             <div className={styles.indefikator}></div>
           </span>
           <span>
-            <Link to={`/categories`}>Каталог</Link>
+            <Link to={`/categories`}>{t('history.catalog')}</Link>
             <div className={styles.indefikator}></div>
           </span>
         </p>
@@ -38,23 +41,23 @@ const HistoryMap = () => {
       {location.pathname.includes('search') ? (
         <p>
           <span>
-            <Link to={`/`}>Главная</Link>
+            <Link to={`/`}>{t('history.main')}</Link>
             <div className={styles.indefikator}></div>
           </span>
           <span>
-            <Link>Поиск</Link>
+            <Link>{t('history.search')}</Link>
           </span>
         </p>
       ) : (
         <p>
           <span>
-            <Link to={`/`}>Главная</Link>
+            <Link to={`/`}>{t('history.main')}</Link>
             <div className={styles.indefikator}></div>
           </span>
           {history.parent_name && (
             <>
               <span>
-                <Link to={`/categories`}>Категории</Link>
+                <Link to={`/categories`}>{t('history.catalog')}</Link>
                 <div className={styles.indefikator}></div>
               </span>
 
@@ -69,7 +72,7 @@ const HistoryMap = () => {
           {history.category_name && !history.parent_name && (
             <>
               <span>
-                <Link to={`/categories`}>Категории</Link>
+                <Link to={`/categories`}>{t('history.catalog')}</Link>
                 <div className={styles.indefikator}></div>
               </span>
               <span>

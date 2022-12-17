@@ -80,7 +80,7 @@ const UpdateCategory = () => {
 
   const handleUpdateCategory = async (el, photo) => {
     try {
-      const { data } = await axios.put(`/category/${el.id}`, el);
+      await axios.put(`/category/${el.id}`, el);
 
       if (photo) {
         const image = new FormData();

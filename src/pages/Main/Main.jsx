@@ -14,6 +14,7 @@ import {
 } from '../../redux/slices/productsSlice';
 import { fetchNews } from '../../redux/slices/newsSlice';
 import { Helmet } from 'react-helmet';
+import { useTranslation } from 'react-i18next';
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -34,6 +35,9 @@ const Main = () => {
 
   const { news, newsStatus } = useSelector((state) => state.news);
   const { watchedProducts } = useSelector((state) => state.products);
+
+  const { t, i18n } = useTranslation();
+
   return (
     <>
       <Helmet>
@@ -58,20 +62,23 @@ const Main = () => {
           items={discountProducts}
           status={discountProductsStatus}
           type={'products'}
-          title={'Акции'}
+          title={t('sliders_titles.discounts')}
         />
         <Items
           items={newProducts}
           status={newProductsStatus}
           type={'products'}
-          title={'Новинки'}
+          title={t('sliders_titles.new_products')}
         />
-        <PropertysProducts products={watchedProducts} title={'Просмотренные'} />
+        <PropertysProducts
+          products={watchedProducts}
+          title={t('sliders_titles.watched')}
+        />
         <Items
           items={news}
           status={newsStatus}
           type={'news'}
-          title={'Новости'}
+          title={t('sliders_titles.news')}
         />
       </div>
       <InfoBlock />

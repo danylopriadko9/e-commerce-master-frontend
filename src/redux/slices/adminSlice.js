@@ -133,7 +133,6 @@ export const adminSlice = createSlice({
           values: action.payload.value,
           property_id: Number(action.payload.property_id),
         });
-        console.log('s');
       }
 
       state.productCharacteristicsValues =
@@ -142,6 +141,14 @@ export const adminSlice = createSlice({
             ? { ...el, value: action.payload.value }
             : el
         );
+    },
+
+    changeMainPhoto: (state, action) => {
+      state.productPhotos = state.productPhotos.map((el) =>
+        el.id === action.payload
+          ? { ...el, type: 'main' }
+          : { ...el, type: 'general' }
+      );
     },
 
     productClear: (state, action) => {
@@ -251,5 +258,6 @@ export const {
   changeProductDescription,
   changeProductCharacteristicsValues,
   productClear,
+  changeMainPhoto,
 } = adminSlice.actions;
 export default adminSlice.reducer;

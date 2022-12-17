@@ -15,6 +15,7 @@ import {
 } from '../../redux/slices/filtrationSlice';
 import axios from 'axios';
 import { BsCheckLg } from 'react-icons/bs';
+import { useTranslation } from 'react-i18next';
 
 const FilterBlock = () => {
   const location = useLocation();
@@ -71,11 +72,13 @@ const FilterBlock = () => {
     }
   };
 
+  const { t, i18n } = useTranslation();
+
   return (
     <>
       <div className={styles.container}>
         <div className={styles.brends_choise}>
-          <p className={styles.subtitle}>Бренд:</p>
+          <p className={styles.subtitle}>{t('filtration.brand')}:</p>
           <div>
             {filterStatus === 'success' &&
               filterParams.map((el) => (
@@ -96,26 +99,26 @@ const FilterBlock = () => {
               ))}
           </div>
           <div className={styles.price}>
-            <p className={styles.subtitle}>Цена:</p>
+            <p className={styles.subtitle}>{t('filtration.price')}:</p>
             <p>
-              От
+              {t('filtration.from')}
               <input
                 value={price.min ? price.min : ''}
                 name='min'
                 onChange={handlePriceChange}
                 type='number'
               />
-              грн
+              UAH
             </p>
             <p>
-              До
+              {t('filtration.to')}
               <input
                 value={price.max ? price.max : ''}
                 name='max'
                 onChange={handlePriceChange}
                 type='number'
               />
-              грн
+              UAH
             </p>
           </div>
         </div>

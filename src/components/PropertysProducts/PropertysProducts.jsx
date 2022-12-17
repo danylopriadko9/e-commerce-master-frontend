@@ -4,7 +4,7 @@ import Items from '../ItemsSlider/Items';
 import TitleComponent from '../TitleComponent/TitleComponent';
 import styles from './PropertysProducts.module.scss';
 
-const PropertysProducts = ({ id, title, products, status }) => {
+const PropertysProducts = ({ title, products, status }) => {
   return (
     <>
       {products.length > 0 &&
