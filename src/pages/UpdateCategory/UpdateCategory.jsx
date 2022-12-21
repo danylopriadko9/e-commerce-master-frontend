@@ -1,15 +1,31 @@
 import axios from 'axios';
 import React from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './UpdateCategory.module.scss';
+import { AiOutlineDelete } from 'react-icons/ai';
+import { BsPlusLg } from 'react-icons/bs';
+import {
+  deleteSubcategoryCharacteristic,
+  fetchSubcategoryCharacteristics,
+  changeSubcategoryCharacteristic,
+  createSubcategoryCharacteristic,
+} from '../../redux/slices/adminSlice';
 
 const UpdateCategory = () => {
+  const dispatch = useDispatch();
+
+  const { characteristicsSubcategory } = useSelector((state) => state.admin);
+
   const [updateCategoryFile, setUpdateCategoryFile] = React.useState(null);
   const [addSubcategoryFile, setAddSubcategoryFile] = React.useState(null);
+  const [newCharacteristic, setNewCharacteristic] = React.useState({
+    characteristic: '',
+  });
 
   const [actualCategory, setActualCategory] = React.useState({});
   const [actualCategoryToAddSub, setActualCategoryToAddSub] =
     React.useState(null);
+
   const [actualSubcategory, setActualSubcategory] = React.useState(null);
 
   const [newCategory, setNewCategory] = React.useState({
@@ -92,6 +108,29 @@ const UpdateCategory = () => {
           },
         });
       }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  React.useEffect(() => {
+    if (actualSubcategory) {
+      dispatch(fetchSubcategoryCharacteristics(actualSubcategory.id));
+    }
+  }, [actualSubcategory]);
+
+  const createNewCharacteristic = () => {
+    dispatch(createSubcategoryCharacteristic(newCharacteristic));
+    setNewCharacteristic({ characteristic: '' });
+  };
+
+  const submitCharacteristics = async () => {
+    try {
+      const { data } = await axios.post(
+        `/category/characteristics/${actualSubcategory.id}`,
+        characteristicsSubcategory
+      );
+      console.log(data);
     } catch (error) {
       console.log(error);
     }
@@ -362,6 +401,45 @@ const UpdateCategory = () => {
               >
                 Update
               </button>
+              <h3>Update Characteristics</h3>
+              {characteristicsSubcategory.map((el, i) => (
+                <div key={i} className={styles.input_char}>
+                  <input
+                    value={el.characteristic}
+                    onChange={(e) =>
+                      dispatch(
+                        changeSubcategoryCharacteristic({
+                          name: i,
+                          value: e.target.value,
+                        })
+                      )
+                    }
+                    type='text'
+                  />
+                  <button
+                    onClick={() => dispatch(deleteSubcategoryCharacteristic(i))}
+                  >
+                    <AiOutlineDelete />
+                  </button>
+                </div>
+              ))}
+              <div className={styles.add_characteristic}>
+                <input
+                  value={newCharacteristic.characteristic}
+                  onChange={(e) =>
+                    setNewCharacteristic((prev) => ({
+                      ...prev,
+                      characteristic: e.target.value,
+                    }))
+                  }
+                  className={styles.add_chr}
+                  type='text'
+                />
+                <button onClick={createNewCharacteristic}>
+                  <BsPlusLg />
+                </button>
+              </div>
+              <button onClick={submitCharacteristics}>Update</button>
             </div>
           )}
         </div>

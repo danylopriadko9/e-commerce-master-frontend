@@ -9,6 +9,7 @@ import searchReducer from './slices/searchSlice';
 import filtrationReducer from './slices/filtrationSlice';
 import productsReducer from './slices/productsSlice';
 import adminReducer from './slices/adminSlice';
+import languageReducer from './slices/languageSlice';
 
 export const store = configureStore({
   reducer: {
@@ -22,6 +23,7 @@ export const store = configureStore({
     filter: filtrationReducer,
     products: productsReducer,
     admin: adminReducer,
+    language: languageReducer,
   },
 });
 

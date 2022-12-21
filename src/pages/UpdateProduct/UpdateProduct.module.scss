@@ -19,7 +19,9 @@
         cursor: pointer;
 
         &:hover {
-          border: 1px solid red;
+          background-color: red;
+          color: #fff;
+          border: 1px solid white;
         }
       }
     }

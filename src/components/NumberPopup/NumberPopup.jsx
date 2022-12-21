@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { useTranslation } from 'react-i18next';
+import { useDispatch } from 'react-redux';
+import { setLanguage } from '../../redux/slices/languageSlice';
 import styles from './NumberPopup.module.scss';
 
 const NumberPopup = () => {
   //const [numberHover, setNumberHover] = useState(false);
+  const dispatch = useDispatch();
 
   const onClickNumber = () => {
     //setNumberHover(!numberHover);
@@ -13,6 +16,8 @@ const NumberPopup = () => {
 
   const changeLanguage = (lan) => {
     i18n.changeLanguage(lan);
+    const language = localStorage.getItem('i18nextLng');
+    dispatch(setLanguage(language));
   };
 
   return (

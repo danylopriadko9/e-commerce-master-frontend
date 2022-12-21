@@ -52,6 +52,14 @@ export const fetchProductCharacteristicsValues = createAsyncThunk(
   }
 );
 
+export const fetchSubcategoryCharacteristics = createAsyncThunk(
+  'admin/fetchSubcategoryCharacteristics',
+  async (id) => {
+    const { data } = await axios.get(`/category/characteristics/id/${id}`);
+    return data;
+  }
+);
+
 const initialState = {
   product: {
     product_name: '',
@@ -73,6 +81,7 @@ const initialState = {
   manufacturers: [],
   categoryCharacteristics: [],
   productCharacteristicsValues: [],
+  characteristicsSubcategory: [],
   error: null,
   photosStatus: null,
   relationStatus: null,
@@ -80,17 +89,41 @@ const initialState = {
   productStatus: null,
   categoryCharacteristicsStatus: null,
   productCharacteristicsValuesStatus: null,
+  characteristicsSubcategoryStatus: null,
 };
 
 export const adminSlice = createSlice({
   name: 'admin',
   initialState,
   reducers: {
+    createSubcategoryCharacteristic: (state, action) => {
+      state.characteristicsSubcategory = [
+        ...state.characteristicsSubcategory,
+        action.payload,
+      ];
+    },
+
+    changeSubcategoryCharacteristic: (state, action) => {
+      state.characteristicsSubcategory = state.characteristicsSubcategory.map(
+        (el, i) =>
+          i === action.payload.name
+            ? { ...el, characteristic: action.payload.value }
+            : el
+      );
+    },
+
+    deleteSubcategoryCharacteristic: (state, action) => {
+      state.characteristicsSubcategory =
+        state.characteristicsSubcategory.filter(
+          (el, i) => i !== action.payload
+        );
+    },
     addRelationProduct: (state, action) => {
       if (
         !state.relationProducts.find(
           (el) => el.product_id == action.payload.product_id
-        )
+        ) &&
+        action.payload.product_id
       ) {
         state.relationProducts = [...state.relationProducts, action.payload];
       }
@@ -247,6 +280,18 @@ export const adminSlice = createSlice({
     [fetchProductCharacteristicsValues.rejected]: (state, action) => {
       state.productCharacteristicsValuesStatus = 'error';
     },
+    // ---------- get product characteristics values
+    [fetchSubcategoryCharacteristics.pending]: (state, action) => {
+      state.error = null;
+      state.characteristicsSubcategoryStatus = 'loading';
+    },
+    [fetchSubcategoryCharacteristics.fulfilled]: (state, action) => {
+      state.characteristicsSubcategory = action.payload;
+      state.characteristicsSubcategoryStatus = 'success';
+    },
+    [fetchSubcategoryCharacteristics.rejected]: (state, action) => {
+      state.characteristicsSubcategoryStatus = 'error';
+    },
   },
 });
 
@@ -259,5 +304,8 @@ export const {
   changeProductCharacteristicsValues,
   productClear,
   changeMainPhoto,
+  deleteSubcategoryCharacteristic,
+  changeSubcategoryCharacteristic,
+  createSubcategoryCharacteristic,
 } = adminSlice.actions;
 export default adminSlice.reducer;

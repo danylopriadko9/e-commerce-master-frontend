@@ -129,6 +129,30 @@ const UpdateProduct = () => {
     dispatch(changeMainPhoto(id));
   };
 
+  const handleRelationProductsChange = async () => {
+    try {
+      const { data } = await axios.post(
+        `/product/relation/${id}`,
+        relationProducts
+      );
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleCharacteristicsUpload = async () => {
+    try {
+      const { data } = await axios.post(
+        `/product/characteristics/${id}`,
+        productCharacteristicsValues
+      );
+      console.log(data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   if (currentUser?.role !== 'admin' || !currentUser) {
     return (
       <div className={styles.container}>
@@ -300,6 +324,7 @@ const UpdateProduct = () => {
                   />
                 </div>
               ))}
+            <button onClick={handleCharacteristicsUpload}>Upload</button>
 
             <div className={styles.relation_block}>
               <h3>Product relation products:</h3>
@@ -326,6 +351,7 @@ const UpdateProduct = () => {
                 placeholder='Type id of product'
               />
               <button onClick={handleAddRelation}>Add</button>
+              <button onClick={handleRelationProductsChange}>Upload</button>
             </div>
           </div>
           <div className={styles.photos}>
