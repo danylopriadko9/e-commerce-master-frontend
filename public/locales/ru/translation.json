@@ -1,5 +1,6 @@
 {
   "header": {
+    "main": "Главная",
     "about_us": "О нас",
     "contacts": "Контакты",
     "news": "Новости",
@@ -12,7 +13,8 @@
     "warranty": "Гарантия",
     "search": "Найти",
     "catalog": "Каталог",
-    "login": "Вход"
+    "login": "Вход",
+    "logout": "Выйти"
   },
 
   "cart": {

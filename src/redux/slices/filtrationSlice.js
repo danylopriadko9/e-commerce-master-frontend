@@ -4,8 +4,9 @@ import axios from '../../axios';
 export const fetchCategoryParams = createAsyncThunk(
   'filtration/fetchCategoryParams',
   async (category_url) => {
+    const language = localStorage.getItem('i18nextLng');
     const { data } = await axios.get(
-      `/category/filter/category/${category_url}`
+      `/category/filter/category/${category_url}?lan=${language}`
     );
     return data;
   }

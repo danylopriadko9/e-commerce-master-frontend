@@ -20,7 +20,8 @@ export const fetchProductPhotos = createAsyncThunk(
 export const fetchManufacturers = createAsyncThunk(
   'admin/fetchManufacturers',
   async () => {
-    const { data } = await axios.get('/product/manufacturers');
+    const language = localStorage.getItem('i18nextLng');
+    const { data } = await axios.get(`/product/manufacturers?lan=${language}`);
     const result = data.sort((a, b) => a.name.localeCompare(b.name));
     return result;
   }
@@ -29,7 +30,8 @@ export const fetchManufacturers = createAsyncThunk(
 export const fetchProduct = createAsyncThunk(
   'admin/fetchProduct',
   async (id) => {
-    const { data } = await axios.get(`/product/id/${id}`);
+    const language = localStorage.getItem('i18nextLng');
+    const { data } = await axios.get(`/product/id/${id}?lan=${language}`);
     return data[0];
   }
 );
@@ -37,9 +39,11 @@ export const fetchProduct = createAsyncThunk(
 export const fetchCategoryCharacteristics = createAsyncThunk(
   'admin/fetchCategoryCharacteristics',
   async (category_id) => {
+    const language = localStorage.getItem('i18nextLng');
     const { data } = await axios.get(
-      `/category/characteristics/id/${category_id}`
+      `/category/characteristics/id/${category_id}?lan=${language}`
     );
+    console.log(data, category_id);
     return data;
   }
 );
@@ -47,7 +51,8 @@ export const fetchCategoryCharacteristics = createAsyncThunk(
 export const fetchProductCharacteristicsValues = createAsyncThunk(
   'admin/fetchProductCharacteristicsValues',
   async (id) => {
-    const { data } = await axios.get(`/product/compare/${id}`);
+    const language = localStorage.getItem('i18nextLng');
+    const { data } = await axios.get(`/product/compare/${id}?lan=${language}`);
     return data[id];
   }
 );
@@ -55,7 +60,10 @@ export const fetchProductCharacteristicsValues = createAsyncThunk(
 export const fetchSubcategoryCharacteristics = createAsyncThunk(
   'admin/fetchSubcategoryCharacteristics',
   async (id) => {
-    const { data } = await axios.get(`/category/characteristics/id/${id}`);
+    const language = localStorage.getItem('i18nextLng');
+    const { data } = await axios.get(
+      `/category/characteristics/id/${id}?lan=${language}`
+    );
     return data;
   }
 );

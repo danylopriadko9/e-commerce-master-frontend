@@ -4,13 +4,16 @@ import axios from '../../axios';
 export const fetchSearchItems = createAsyncThunk(
   'search/fetchSearchItems',
   async ({ searchValue, groupUrl, page }) => {
+    const language = localStorage.getItem('i18nextLng');
     if (groupUrl) {
       const { data } = await axios.get(
-        `search/${groupUrl}/${searchValue}/${page}`
+        `search/${groupUrl}/${searchValue}/${page}?lan=${language}`
       );
       return data;
     } else {
-      const { data } = await axios.get(`search/${searchValue}/${page}`);
+      const { data } = await axios.get(
+        `search/${searchValue}/${page}?lan=${language}`
+      );
       return data;
     }
   }

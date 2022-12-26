@@ -11,12 +11,13 @@ import {
   createSubcategoryCharacteristic,
 } from '../../redux/slices/adminSlice';
 
+import Inputs from './inputs';
+
 const UpdateCategory = () => {
   const dispatch = useDispatch();
 
   const { characteristicsSubcategory } = useSelector((state) => state.admin);
 
-  const [updateCategoryFile, setUpdateCategoryFile] = React.useState(null);
   const [addSubcategoryFile, setAddSubcategoryFile] = React.useState(null);
   const [newCharacteristic, setNewCharacteristic] = React.useState({
     characteristic: '',
@@ -28,21 +29,10 @@ const UpdateCategory = () => {
 
   const [actualSubcategory, setActualSubcategory] = React.useState(null);
 
-  const [newCategory, setNewCategory] = React.useState({
-    name: '',
-    url: '',
-    meta_title: '',
-    meta_description: '',
-    meta_keywords: '',
-    file: null,
-  });
-
-  const handleChangeNewCategoryInformation = (e) => {
-    setNewCategory((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
+  const { language } = useSelector((state) => state.language);
 
   const handleSubmiNewCategory = async (el) => {
-    const { data } = await axios.post('/category/create', el);
+    const { data } = await axios.post(`/category/create?lan=${language}`, el);
     console.log(data);
   };
 
@@ -55,10 +45,6 @@ const UpdateCategory = () => {
     file: null,
     parent_id: null,
   });
-
-  const handleChangeNewSubcategoryInformation = (e) => {
-    setNewSubcategory((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
 
   const { categories } = useSelector((state) => state.category);
 
@@ -82,10 +68,6 @@ const UpdateCategory = () => {
       }));
     }
   }, [actualCategoryToAddSub]);
-
-  const handleChangeCategoryInformation = (e) => {
-    setActualCategory((prev) => ({ ...prev, [e.target.name]: e.target.value }));
-  };
 
   const handleChangeActualSubcategoryInfo = (e) => {
     setActualSubcategory((prev) => ({
@@ -127,7 +109,7 @@ const UpdateCategory = () => {
   const submitCharacteristics = async () => {
     try {
       const { data } = await axios.post(
-        `/category/characteristics/${actualSubcategory.id}`,
+        `/category/characteristics/${actualSubcategory.id}?lan=${language}`,
         characteristicsSubcategory
       );
       console.log(data);
@@ -142,72 +124,7 @@ const UpdateCategory = () => {
       <div className={styles.content_container}>
         <div className={styles.create_inputs}>
           <h2>Create new category</h2>
-
-          <div className={styles.inputs_block}>
-            <div className={styles.input_label}>
-              <label>Name: </label>
-              <input
-                name='name'
-                onChange={handleChangeNewCategoryInformation}
-                type='text'
-                id='username'
-              />
-            </div>
-            <div className={styles.input_label}>
-              <label>Url: </label>
-              <input
-                name='url'
-                onChange={handleChangeNewCategoryInformation}
-                type='text'
-                id='username'
-              />
-            </div>
-            <div className={styles.input_label}>
-              <label>meta_title: </label>
-              <input
-                name='meta_title'
-                onChange={handleChangeNewCategoryInformation}
-                type='text'
-                id='username'
-              />
-            </div>
-            <div className={styles.input_label}>
-              <label>meta_keywords: </label>
-              <input
-                name='meta_keywords'
-                onChange={handleChangeNewCategoryInformation}
-                type='text'
-                id='username'
-              />
-            </div>
-            <div className={styles.input_label}>
-              <label>meta_description: </label>
-              <input
-                name='meta_description'
-                onChange={handleChangeNewCategoryInformation}
-                type='text'
-                id='username'
-              />
-            </div>
-          </div>
-
-          <div className={styles.photo_block}>
-            <label className={styles.photo_button} htmlFor='newCategoryFile'>
-              Add image
-            </label>
-            <input
-              id='newCategoryFile'
-              style={{ display: 'none' }}
-              type='file'
-              onChange={(e) =>
-                setNewCategory((prev) => ({ ...prev, file: e.target.files[0] }))
-              }
-            />
-            <span>{newCategory.file?.name}</span>
-          </div>
-          <button onClick={() => handleSubmiNewCategory(newCategory)}>
-            Create
-          </button>
+          <Inputs cb={handleSubmiNewCategory} />
         </div>
         <div className={styles.update_ategory}>
           <h2>Update category</h2>
@@ -216,6 +133,9 @@ const UpdateCategory = () => {
             id='category'
             onChange={handleChangeActualCategory}
           >
+            <option key={0} value={0}>
+              none
+            </option>
             {categories &&
               categories
                 .filter((el) => el.parent_id === 0)
@@ -225,80 +145,7 @@ const UpdateCategory = () => {
                   </option>
                 ))}
           </select>
-          <div className={styles.inputs_block}>
-            <div className={styles.input_label}>
-              <label>Name: </label>
-              <input
-                value={actualCategory?.name}
-                type='text'
-                id='name'
-                name='name'
-                onChange={handleChangeCategoryInformation}
-              />
-            </div>
-            <div className={styles.input_label}>
-              <label>Url: </label>
-              <input
-                onChange={handleChangeCategoryInformation}
-                value={actualCategory?.url}
-                type='text'
-                name='url'
-                id='url'
-              />
-            </div>
-            <div className={styles.input_label}>
-              <label>meta_title: </label>
-              <input
-                value={actualCategory?.meta_title}
-                onChange={handleChangeActualCategory}
-                name='meta_title'
-                type='text'
-                id='username'
-              />
-            </div>
-            <div className={styles.input_label}>
-              <label>meta_keywords: </label>
-              <input
-                value={actualCategory?.meta_keywords}
-                onChange={handleChangeActualCategory}
-                name='meta_keywords'
-                type='text'
-                id='username'
-              />
-            </div>
-            <div className={styles.input_label}>
-              <label>meta_description: </label>
-              <input
-                name='meta_description'
-                value={actualCategory?.meta_description}
-                onChange={handleChangeActualCategory}
-                type='text'
-                id='username'
-              />
-            </div>
-            <div className={styles.photo_block}>
-              <label
-                className={styles.photo_button}
-                htmlFor='updateCategoryFile'
-              >
-                Add image
-              </label>
-              <input
-                id='updateCategoryFile'
-                style={{ display: 'none' }}
-                type='file'
-                onChange={(e) => setUpdateCategoryFile(e.target.files[0])}
-              />
-              <span>{updateCategoryFile?.name}</span>
-            </div>
-            <button
-              onClick={() =>
-                handleUpdateCategory(actualCategory, updateCategoryFile)
-              }
-            >
-              Create
-            </button>
-          </div>
+          <Inputs data={actualCategory} cb={handleUpdateCategory} />
         </div>
         <div className={styles.addSubcategory}>
           <h2>Update subcategory in category</h2>
@@ -444,81 +291,10 @@ const UpdateCategory = () => {
           )}
         </div>
         {actualCategoryToAddSub && (
-          <div>
+          <>
             <h2>Create subcategory for {actualCategoryToAddSub?.name} </h2>
-            <div className={styles.inputs_block}>
-              <div className={styles.input_label}>
-                <label>Name: </label>
-                <input
-                  onChange={handleChangeNewSubcategoryInformation}
-                  name='name'
-                  value={newSubcategory.name}
-                  type='text'
-                  id='username'
-                />
-              </div>
-              <div className={styles.input_label}>
-                <label>Url: </label>
-                <input
-                  onChange={handleChangeNewSubcategoryInformation}
-                  value={newSubcategory.url}
-                  name='url'
-                  type='text'
-                  id='username'
-                />
-              </div>
-              <div className={styles.input_label}>
-                <label>meta_title: </label>
-                <input
-                  onChange={handleChangeNewSubcategoryInformation}
-                  name='meta_title'
-                  type='text'
-                  id='username'
-                />
-              </div>
-              <div className={styles.input_label}>
-                <label>meta_keywords: </label>
-                <input
-                  onChange={handleChangeNewSubcategoryInformation}
-                  name='meta_keywords'
-                  type='text'
-                  id='username'
-                />
-              </div>
-              <div className={styles.input_label}>
-                <label>meta_description: </label>
-                <input
-                  onChange={handleChangeNewSubcategoryInformation}
-                  name='meta_description'
-                  type='text'
-                  id='username'
-                />
-              </div>
-              <div className={styles.photo_block}>
-                <label
-                  className={styles.photo_button}
-                  htmlFor='updateSubcategoryFile'
-                >
-                  Add image
-                </label>
-                <input
-                  id='updateSubcategoryFile'
-                  style={{ display: 'none' }}
-                  type='file'
-                  onChange={(e) =>
-                    setNewSubcategory((prev) => ({
-                      ...prev,
-                      file: e.target.files[0],
-                    }))
-                  }
-                />
-                <span>{newSubcategory.file?.name}</span>
-              </div>
-              <button onClick={() => handleSubmiNewCategory(newSubcategory)}>
-                Create
-              </button>
-            </div>
-          </div>
+            <Inputs cb={handleSubmiNewCategory} />
+          </>
         )}
       </div>
     </div>

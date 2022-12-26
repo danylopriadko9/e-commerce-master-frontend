@@ -58,6 +58,7 @@ const FilterBlock = () => {
 
   const handleSubmitFiltration = async () => {
     try {
+      const language = localStorage.getItem('i18nextLng');
       const result = {
         min: price.min,
         max: price.max,
@@ -65,7 +66,10 @@ const FilterBlock = () => {
         brands: submitParams.brands,
       };
 
-      const { data } = await axios.post(`/category/test/${groupurl}`, result);
+      const { data } = await axios.post(
+        `/category/test/${groupurl}?lan=${language}`,
+        result
+      );
       dispatch(setActualProducts({ data: data }));
     } catch (error) {
       console.log(error);

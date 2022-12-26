@@ -7,7 +7,6 @@ import {
 } from '../../redux/slices/productPageSlice';
 import styles from './PhotoBlock.module.scss';
 import noimg from '../../assets/noimg.jpeg';
-import { apiurl } from '../../axios';
 
 const PhotoBlock = ({ id }) => {
   const dispatch = useDispatch();
@@ -25,10 +24,7 @@ const PhotoBlock = ({ id }) => {
     <div className={styles.imageBlock}>
       <div className={styles.image_container}>
         {id && status === 'success' && photos.length > 0 ? (
-          <img
-            src={`${apiurl}/static/product/${id}/${photos[actualPhoto]}`}
-            alt=''
-          />
+          <img src={`/static/product/${id}/${photos[actualPhoto]}`} alt='' />
         ) : (
           <img src={noimg} alt='' />
         )}
@@ -45,9 +41,7 @@ const PhotoBlock = ({ id }) => {
             onMouseOver={() => handlePhotoChange(i)}
           >
             <div className={styles.overlay}></div>
-            {id && (
-              <img src={`${apiurl}/static/product/${id}/${photos[i]}`} alt='' />
-            )}
+            {id && <img src={`/static/product/${id}/${photos[i]}`} alt='' />}
           </div>
         ))}
       </div>

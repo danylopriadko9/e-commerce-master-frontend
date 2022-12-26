@@ -4,7 +4,8 @@ import axios from '../../axios';
 export const fetchCategories = createAsyncThunk(
   'category/fetchCategories',
   async () => {
-    const { data } = await axios.get('/category');
+    const language = localStorage.getItem('i18nextLng');
+    const { data } = await axios.get(`/category?lan=${language}`);
     return data;
   }
 );
@@ -13,8 +14,9 @@ export const fetchProductsCategory = createAsyncThunk(
   'category/fetchProducsCategory',
   async (params) => {
     const { url, page } = params;
+    const language = localStorage.getItem('i18nextLng');
     const { data } = await axios.get(
-      `/category/page/${url.replace('/group_', '')}/${page}`
+      `/category/page/${url.replace('/group_', '')}/${page}?lan=${language}`
     );
     return data;
   }
@@ -23,7 +25,10 @@ export const fetchProductsCategory = createAsyncThunk(
 export const getSubcategoriesInformation = createAsyncThunk(
   'category/getSubcategoriesInformation',
   async (url) => {
-    const { data } = await axios.get(`/category/subcategories/${url}`);
+    const language = localStorage.getItem('i18nextLng');
+    const { data } = await axios.get(
+      `/category/subcategories/${url}?lan=${language}`
+    );
     return data;
   }
 );
@@ -31,7 +36,10 @@ export const getSubcategoriesInformation = createAsyncThunk(
 export const getSubcategoriesFilterParams = createAsyncThunk(
   'category/getSubcategoriesFilterParams',
   async (url) => {
-    const { data } = await axios.get(`/category/manufacturers/${url}`);
+    const language = localStorage.getItem('i18nextLng');
+    const { data } = await axios.get(
+      `/category/manufacturers/${url}?lan=${language}`
+    );
     return data;
   }
 );

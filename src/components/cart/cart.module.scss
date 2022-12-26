@@ -1,3 +1,5 @@
+@import '../../styles/variables.scss';
+
 .main_container {
   position: absolute;
   width: 900px;
@@ -35,6 +37,23 @@
       &:hover {
         cursor: pointer;
       }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-lg) {
+  .main_container {
+    width: $breakpoint-md;
+    left: calc(50% - 415px);
+
+    header {
+      button {
+        right: -98px;
+      }
+    }
+
+    header {
+      width: 700px;
     }
   }
 }

@@ -1,10 +1,25 @@
+@import '../../styles/variables';
+
 .container {
   width: 760px;
   margin: 20px auto;
   display: flex;
   gap: 10px;
 
-  a:hover {
-    text-decoration: underline;
+  a {
+    padding: 10px 15px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    transition: 0.2s all;
+
+    &:hover {
+      background-color: rgba(204, 204, 204, 0.716);
+    }
+  }
+}
+
+@media (max-width: $breakpoint-lg) {
+  .container {
+    margin-top: 100px;
   }
 }

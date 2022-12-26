@@ -19,6 +19,8 @@ const SearchPage = () => {
   const params = useParams();
   const dispatch = useDispatch();
 
+  const { language } = useSelector((state) => state.language);
+
   const { actualPage } = useSelector((state) => state.category);
 
   React.useEffect(() => {
@@ -29,7 +31,7 @@ const SearchPage = () => {
         page: actualPage,
       })
     );
-  }, [location, actualPage]);
+  }, [location, actualPage, language]);
 
   const { actualSearchItems, status, searchValue } = useSelector(
     (state) => state.search

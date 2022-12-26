@@ -13,7 +13,8 @@ const items =
 export const fetchNewProducts = createAsyncThunk(
   'newProducts/fetchNewProducts',
   async () => {
-    const { data } = await axios.get('/product/new');
+    const language = localStorage.getItem('i18nextLng');
+    const { data } = await axios.get(`/product/new?lan=${language}`);
     return data;
   }
 );
@@ -21,7 +22,8 @@ export const fetchNewProducts = createAsyncThunk(
 export const fetchDiscountProducts = createAsyncThunk(
   'discountProducts/fetchDiscountProducts',
   async () => {
-    const { data } = await axios.get('/product/discount');
+    const language = localStorage.getItem('i18nextLng');
+    const { data } = await axios.get(`/product/discount?lan=${language}`);
     return data;
   }
 );
@@ -44,6 +46,11 @@ export const productsSlice = createSlice({
   name: 'newProducts',
   initialState,
   reducers: {
+    clearProducts: (state, action) => {
+      state.discountProducts = [];
+      state.newProducts = [];
+    },
+
     addViewedProducts: (state, action) => {
       state.viewedProducts = [...state.viewedProducts, action.payload];
     },
@@ -96,5 +103,6 @@ export const {
   addComparisonProducts,
   deleteComparisonProducts,
   addToWachedProducts,
+  clearProducts,
 } = productsSlice.actions;
 export default productsSlice.reducer;

@@ -14,6 +14,8 @@ import { useTranslation } from 'react-i18next';
 const Compare = () => {
   const dispatch = useDispatch();
 
+  const { language } = useSelector((state) => state.language);
+
   const {
     compartisonProducts,
     categories,
@@ -30,7 +32,7 @@ const Compare = () => {
       dispatch(fetchActualCategoryCharacteristics(categories[0].category_url));
     }
     window.scrollTo(0, 0);
-  }, []);
+  }, [language]);
 
   React.useEffect(() => {
     if (categories.length > 0) {
@@ -41,7 +43,7 @@ const Compare = () => {
 
   React.useEffect(() => {
     dispatch(fetchActualProductsProperties(resultOfFilter));
-  }, [resultOfFilter]);
+  }, [resultOfFilter, language]);
 
   const handleChangeActualCategory = (category) => {
     setActualCategory(category);

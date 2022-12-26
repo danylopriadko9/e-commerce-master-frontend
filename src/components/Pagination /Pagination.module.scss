@@ -1,5 +1,7 @@
+@import '../../styles/variables.scss';
+
 .pagination_container {
-  width: 960px;
+  width: $container-width;
   margin: 30px auto 0;
   display: flex;
   height: 100px;
@@ -55,5 +57,12 @@
 
   &:hover {
     border: none;
+  }
+}
+
+@media (max-width: $breakpoint-lg) {
+  .pagination_container {
+    display: flex;
+    justify-content: center;
   }
 }

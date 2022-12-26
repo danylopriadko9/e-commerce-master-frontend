@@ -1,5 +1,7 @@
+@import '../styles/variables.scss';
+
 .container,
 .content_container {
-  width: 960px;
+  width: $container-width;
   margin: 0 auto;
 }

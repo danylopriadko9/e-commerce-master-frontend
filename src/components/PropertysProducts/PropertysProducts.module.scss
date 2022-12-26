@@ -1,5 +1,7 @@
+@import '../../styles/variables.scss';
+
 .slider_container {
-  width: 960px;
+  width: $container-width;
   margin: 70px auto 0;
 
   h2 {
@@ -23,7 +25,7 @@
 }
 
 .property_item_container {
-  width: 960px;
+  width: $container-width;
   margin: 100px auto 0;
 
   .list_of_items {
@@ -51,5 +53,11 @@
 
   .item_container {
     width: 220px;
+  }
+}
+
+@media (max-width: $breakpoint-lg) {
+  .slider_container {
+    width: $full-screen;
   }
 }

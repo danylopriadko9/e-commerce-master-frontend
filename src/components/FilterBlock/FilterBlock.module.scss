@@ -1,3 +1,5 @@
+@import '../../styles/_variables.scss';
+
 .container {
   width: 100%;
   height: 240px;
@@ -14,7 +16,7 @@
 }
 
 .subtitle {
-  font-size: 13px;
+  font-size: $font-size-small;
   color: #999999;
   font-weight: 400;
 }
@@ -24,7 +26,7 @@
   display: flex;
   align-items: center;
   color: #333333;
-  font-size: 13px;
+  font-size: $font-size-small;
   font-weight: 400;
 
   input {
@@ -33,7 +35,7 @@
 }
 
 .price {
-  font-size: 13px;
+  font-size: $font-size-small;
   color: #333333;
   font-weight: 400;
   margin-top: 20px;
@@ -64,7 +66,7 @@
     justify-content: space-between;
     gap: 0;
     p {
-      font-size: 13px;
+      font-size: $font-size-small;
       color: #333333;
       font-weight: 400;
     }
@@ -95,7 +97,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 15px;
+    font-size: $font-size-medium;
     color: #9c9c9c;
     transition: 0.2s all;
 

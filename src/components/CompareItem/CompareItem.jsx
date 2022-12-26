@@ -7,18 +7,19 @@ import {
   deleteCompartisonProduct,
   fetchActualProductsCharacteristicsValue,
 } from '../../redux/slices/comparisonSlice';
-import { apiurl } from '../../axios';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 
 const CompareItem = ({ el }) => {
   const dispatch = useDispatch();
 
+  const { language } = useSelector((state) => state.language);
+
   const { product_id } = el;
 
   React.useEffect(() => {
     dispatch(fetchActualProductsCharacteristicsValue(product_id));
-  }, []);
+  }, [language]);
 
   const deleteProsuctFromCompare = (el) => {
     dispatch(deleteCompartisonProduct(el));

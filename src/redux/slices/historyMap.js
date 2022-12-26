@@ -4,15 +4,16 @@ import axios from '../../axios';
 export const fetchHistory = createAsyncThunk(
   'news/fetchHistory',
   async (url) => {
+    const language = localStorage.getItem('i18nextLng');
     if (url.includes('tovar_')) {
       const { data } = await axios.get(
-        `/history/product/${url.replace('tovar_', '')}`
+        `/history/product/${url.replace('tovar_', '')}?lan=${language}`
       );
       return data;
     }
     if (url.includes('group_')) {
       const { data } = await axios.get(
-        `/history/group/${url.replace('group_', '')}`
+        `/history/group/${url.replace('group_', '')}?lan=${language}`
       );
       return data;
     }

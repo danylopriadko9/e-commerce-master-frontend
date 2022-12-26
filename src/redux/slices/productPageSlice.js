@@ -4,7 +4,8 @@ import axios from '../../axios';
 export const fetchActualProduct = createAsyncThunk(
   'product/fetchProduct',
   async (url) => {
-    const { data } = await axios(`/product/one/${url}`);
+    const language = localStorage.getItem('i18nextLng');
+    const { data } = await axios(`/product/one/${url}?lan=${language}`);
     return data;
   }
 );
@@ -20,7 +21,8 @@ export const fetchPhotos = createAsyncThunk(
 export const fetchReationProducts = createAsyncThunk(
   'product/fetchReationProducts',
   async (id) => {
-    const { data } = await axios(`/product/properties/${id}`);
+    const language = localStorage.getItem('i18nextLng');
+    const { data } = await axios(`/product/properties/${id}?lan=${language}`);
     return data;
   }
 );
@@ -28,7 +30,10 @@ export const fetchReationProducts = createAsyncThunk(
 export const fetchProductCharacteristics = createAsyncThunk(
   'product/fetchProductCharacteristics',
   async (id) => {
-    const { data } = await axios(`/product/characteristics/${id}`);
+    const language = localStorage.getItem('i18nextLng');
+    const { data } = await axios(
+      `/product/characteristics/${id}?lan=${language}`
+    );
     return data;
   }
 );

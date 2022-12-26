@@ -10,19 +10,19 @@ import styles from './Categories.module.scss';
 import CategoryItemSkeleton from '../../components/Skeleton/CategoryItemSkeleton';
 import Item from './Item/Item';
 import { Link, useLocation } from 'react-router-dom';
-
 import InfoBlock from '../../components/InfoBlock/InfoBlock';
 import CategorySkeleton from '../../components/Skeleton/CategorySkeleton';
 import HistoryMap from '../../components/HistoryMap/HistoryMap';
 import Pagination from '../../components/Pagination /Pagination';
 import FilterBlock from '../../components/FilterBlock/FilterBlock';
 import { Helmet } from 'react-helmet';
-import { apiurl } from '../../axios';
 import { useTranslation } from 'react-i18next';
 
 const Categories = () => {
   const dispatch = useDispatch();
   const location = useLocation();
+
+  const { language } = useSelector((state) => state.language);
 
   const [meta, setMeta] = React.useState(null);
 
@@ -57,7 +57,7 @@ const Categories = () => {
     }
 
     window.scrollTo(0, 0);
-  }, [actualPage, location.pathname]);
+  }, [actualPage, location.pathname, language]);
 
   const { t, i18n } = useTranslation();
 
@@ -66,23 +66,25 @@ const Categories = () => {
       <>
         <div className={styles.container}>
           <HistoryMap />
-          <div className={styles.items_container}>
-            {categories &&
-              categories
-                .filter((el) => el.parent_id === 0)
-                .map((el) => (
-                  <Link
-                    className={styles.categoryBlock}
-                    to={`/group_${el.url}`}
-                    key={el.url}
-                  >
-                    <div className={styles.img_container}>
-                      <img src={`${apiurl}/category/photo/${el.id}`} alt='' />
-                    </div>
-                    <div className={styles.indikator}></div>
-                    <p>{el.name}</p>
-                  </Link>
-                ))}
+          <div className={styles.wrapper}>
+            <div className={styles.items_container}>
+              {categories &&
+                categories
+                  .filter((el) => el.parent_id === 0)
+                  .map((el) => (
+                    <Link
+                      className={styles.categoryBlock}
+                      to={`/group_${el.url}`}
+                      key={el.url}
+                    >
+                      <div className={styles.img_container}>
+                        <img src={`/category/photo/${el.id}`} alt='' />
+                      </div>
+                      <div className={styles.indikator}></div>
+                      <p>{el.name}</p>
+                    </Link>
+                  ))}
+            </div>
           </div>
         </div>
       </>
@@ -106,12 +108,14 @@ const Categories = () => {
 
         <div className={styles.container}>
           <HistoryMap />
-          <div className={styles.items_container}>
-            {actualSubcategoriesPageStatus === 'loading'
-              ? [...new Array(8)].map((_, i) => <CategorySkeleton key={i} />)
-              : actualSubcategoriesPage.map((el) => (
-                  <Item el={el} key={el.url} />
-                ))}
+          <div className={styles.wrapper}>
+            <div className={styles.items_container}>
+              {actualSubcategoriesPageStatus === 'loading'
+                ? [...new Array(8)].map((_, i) => <CategorySkeleton key={i} />)
+                : actualSubcategoriesPage.map((el) => (
+                    <Item el={el} key={el.url} />
+                  ))}
+            </div>
           </div>
         </div>
       </>
@@ -131,21 +135,23 @@ const Categories = () => {
       <div className={styles.container}>
         <HistoryMap />
         <FilterBlock />
-        <div className={styles.items_container}>
-          {productsCategoryStatus === 'loading' &&
-            [1, 2, 3, 4, 5, 6, 7, 8].map((_, i) => (
-              <CategoryItemSkeleton key={i} />
-            ))}
-          {productsCategoryStatus === 'success' &&
-            productsCategory.data &&
-            productsCategory.data.map((el) => (
-              <CategoryProductBlock item={el} key={el.url} />
+        <div className={styles.wrapper}>
+          <div className={styles.items_container}>
+            {productsCategoryStatus === 'loading' &&
+              [1, 2, 3, 4, 5, 6, 7, 8].map((_, i) => (
+                <CategoryItemSkeleton key={i} />
+              ))}
+            {productsCategoryStatus === 'success' &&
+              productsCategory.data &&
+              productsCategory.data.map((el) => (
+                <CategoryProductBlock item={el} key={el.url} />
+              ))}
+          </div>
+          {!productsCategory.data ||
+            (!productsCategory.data.length && (
+              <h2>{t('category_page.no_result')}</h2>
             ))}
         </div>
-        {!productsCategory.data ||
-          (!productsCategory.data.length && (
-            <h2>{t('category_page.no_result')}</h2>
-          ))}
       </div>
       {productsCategory.numberOfPages > 1 && (
         <Pagination numberOfPages={productsCategory.numberOfPages} />

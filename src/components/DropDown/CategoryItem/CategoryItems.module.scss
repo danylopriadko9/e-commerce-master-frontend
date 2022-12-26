@@ -1,7 +1,9 @@
+@import '../../styles/_variables.scss';
+
 a {
   text-decoration: none;
   color: #666666;
-  font-size: 13px;
+  font-size: $font-size-small;
   transition: 0.2s all;
   width: 100%;
   text-indent: 10px;

@@ -4,7 +4,10 @@ import axios from '../../axios';
 export const fetchActualProductsCharacteristicsValue = createAsyncThunk(
   'compare/fetchActualProductsCharacteristicsValue',
   async (product_id) => {
-    const { data } = await axios.get(`/product/compare/${product_id}`);
+    const language = localStorage.getItem('i18nextLng');
+    const { data } = await axios.get(
+      `/product/compare/${product_id}?lan=${language}`
+    );
     return data;
   }
 );
@@ -12,8 +15,9 @@ export const fetchActualProductsCharacteristicsValue = createAsyncThunk(
 export const fetchActualCategoryCharacteristics = createAsyncThunk(
   'compare/fetchActualCategoryCharacteristics',
   async (category_url) => {
+    const language = localStorage.getItem('i18nextLng');
     const { data } = await axios.get(
-      `/category/characteristics/${category_url}`
+      `/category/characteristics/${category_url}?lan=${language}`
     );
     return data;
   }
@@ -22,12 +26,16 @@ export const fetchActualCategoryCharacteristics = createAsyncThunk(
 export const fetchActualProductsProperties = createAsyncThunk(
   'compare/fetchActualProductsProperties',
   async (actual_filter_products) => {
-    const { data } = await axios.post('/product/property-compare-products', {
-      data: actual_filter_products.reduce((acc, val) => {
-        acc.push(val.product_id);
-        return acc;
-      }, []),
-    });
+    const language = localStorage.getItem('i18nextLng');
+    const { data } = await axios.post(
+      `/product/property-compare-products?lan=${language}`,
+      {
+        data: actual_filter_products.reduce((acc, val) => {
+          acc.push(val.product_id);
+          return acc;
+        }, []),
+      }
+    );
     return data;
   }
 );

@@ -1,10 +1,12 @@
+@import '../../styles/variables.scss';
+
 .footerContainer {
   width: 100%;
   display: flex;
   justify-content: center;
 
   .container {
-    width: 960px;
+    width: $container-width;
     padding: 100px 0 20px;
     background-color: white;
 
@@ -19,7 +21,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      font-size: 35px;
+      font-size: $font-size-h1;
       color: white;
       right: 0;
       top: -35px;
@@ -42,7 +44,7 @@
 
 .leftContainer {
   p {
-    font-size: 13px;
+    font-size: $font-size-small;
     line-height: 20px;
     color: #999999;
     font-weight: 400;
@@ -54,14 +56,14 @@
   .footerLinks {
     margin-top: 10px;
     margin-left: 50px;
-    font-size: 15px;
+    font-size: $font-size-medium;
     font-weight: 400;
 
     a {
       text-decoration: none;
       margin-right: 20px;
 
-      font-size: 13px;
+      font-size: $font-size-small;
       line-height: 30px;
 
       font-weight: 400;
@@ -106,7 +108,7 @@
     margin-bottom: 20px;
   }
   .firstNumber {
-    font-size: 30px;
+    font-size: $font-size-large;
     line-height: 30px;
     color: #0066cc;
     font-weight: 400;
@@ -135,8 +137,21 @@
   margin-top: 30px;
   padding-top: 15px;
   text-align: center;
-  font-size: 13px;
+  font-size: $font-size-small;
   line-height: 30px;
   color: #999999;
   font-weight: 400;
+}
+
+@media (max-width: $breakpoint-lg) {
+  .footerContentContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 }

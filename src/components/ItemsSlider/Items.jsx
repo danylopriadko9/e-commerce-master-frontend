@@ -20,6 +20,31 @@ const Items = ({ items, status, type, title }) => {
     autoplaySpeed: 5000,
     nextArrow: <AiOutlineRight />,
     prevArrow: <AiOutlineLeft />,
+    responsive: [
+      {
+        breakpoint: 992,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 2,
+          slidesToScroll: 2,
+        },
+      },
+    ],
   };
 
   if (type === 'news')

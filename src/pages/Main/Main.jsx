@@ -17,14 +17,16 @@ import { Helmet } from 'react-helmet';
 import { useTranslation } from 'react-i18next';
 
 const Main = () => {
+  const { language } = useSelector((state) => state.language);
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(cleanActualProduct());
     dispatch(cleanActualPhotos());
-    if (discountProductsStatus !== 'success') dispatch(fetchDiscountProducts());
-    if (newProductsStatus !== 'success') dispatch(fetchNewProducts());
-    if (newProductsStatus !== 'success') dispatch(fetchNews());
-  }, []);
+    dispatch(fetchDiscountProducts());
+    dispatch(fetchNewProducts());
+    dispatch(fetchNews());
+  }, [language]);
 
   const {
     newProducts,

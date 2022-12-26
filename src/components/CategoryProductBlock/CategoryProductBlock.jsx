@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import ItemsInfo from '../ItemsInfoBlock/ItemsInfo';
 import styles from './CategoryProductBlock.module.scss';
-import { apiurl } from '../../axios';
 import axios from 'axios';
 
 const CategoryProductBlock = ({ item }) => {

@@ -1,3 +1,5 @@
+@import '../../styles/variables.scss';
+
 .container {
   position: relative;
   margin-top: 10px;
@@ -12,7 +14,7 @@
   }
 
   .sliderContainer {
-    width: 960px;
+    width: $container-width;
     display: flex;
     overflow: hidden;
   }
@@ -23,14 +25,14 @@
     transition: 0.5s all;
 
     .imageContainer {
-      width: 960px;
+      width: $container-width;
       height: 500px;
       overflow: hidden;
       position: relative;
 
       img {
         min-height: 500px;
-        min-width: 960px;
+        min-width: $container-width;
       }
 
       .description {
@@ -58,6 +60,26 @@
           border: none;
           background-color: red;
           color: white;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-lg) {
+  .container {
+    .sliderContainer {
+      width: 100%;
+
+      .slide {
+        width: 100%;
+        .imageContainer {
+          width: $full-screen;
+
+          img {
+            min-height: none;
+            width: 100%;
+          }
         }
       }
     }

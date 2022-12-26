@@ -1,3 +1,5 @@
+@import '../../../styles/variables';
+
 .cartItemContainer {
   width: 100%;
   padding-bottom: 20px;
@@ -108,5 +110,25 @@
     font-size: 23px;
     color: #a3a3a3;
     font-weight: 300;
+  }
+}
+
+@media (max-width: $breakpoint-lg) {
+  .cartItemContainer {
+    justify-content: space-around;
+  }
+  .infoContainer {
+    min-width: none;
+    .imageContainer {
+      width: 100px;
+      height: 100px;
+      margin-right: 20px;
+    }
+  }
+
+  .priceBlock {
+    .price {
+      font-size: 16px;
+    }
   }
 }

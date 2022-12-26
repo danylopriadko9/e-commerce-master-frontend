@@ -2,7 +2,8 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from '../../axios';
 
 export const fetchNews = createAsyncThunk('news/fetchNews', async () => {
-  const { data } = await axios.get('/news');
+  const language = localStorage.getItem('i18nextLng');
+  const { data } = await axios.get(`/news?lan=${language}`);
   return data;
 });
 
@@ -15,8 +16,13 @@ const initialState = {
 export const newsSlice = createSlice({
   name: 'news',
   initialState,
+  reducers: {
+    clearNews: (state) => {
+      state.news = [];
+    },
+  },
   extraReducers: {
-    [fetchNews.pending]: (state, action) => {
+    [fetchNews.pending]: (state) => {
       state.newsStatus = 'loading';
       state.error = null;
     },
@@ -24,10 +30,11 @@ export const newsSlice = createSlice({
       state.newsStatus = 'success';
       state.news = action.payload;
     },
-    [fetchNews.rejected]: (state, action) => {
+    [fetchNews.rejected]: (state) => {
       state.newsStatus = 'error';
     },
   },
 });
 
+export const { clearNews } = newsSlice.actions;
 export default newsSlice.reducer;

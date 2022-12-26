@@ -29,6 +29,8 @@ import {
 
 const UpdateProduct = () => {
   const { categories } = useSelector((state) => state.category);
+  const { language } = useSelector((state) => state.language);
+
   const { currentUser } = React.useContext(AuthContext);
   const { id } = useParams();
   const navigate = useNavigate();
@@ -56,7 +58,7 @@ const UpdateProduct = () => {
       dispatch(productClear());
     }
     dispatch(fetchManufacturers());
-  }, [id]);
+  }, [id, language]);
 
   const hangleChangeDescription = (e) => {
     dispatch(changeProductDescription({ value: e }));
@@ -79,13 +81,14 @@ const UpdateProduct = () => {
   }, [product?.category_id]);
 
   const handleProductUpdate = async () => {
+    const language = localStorage.getItem('i18nextLng');
     if (id) {
-      axios.put(`/product/${id}`, {
+      axios.put(`/product/${id}?lan=${language}`, {
         product,
       });
       navigate(`/tovar_${product.url}`);
     } else {
-      await axios.post('/product/create', product);
+      await axios.post(`/product/create?lan=${language}`, product);
     }
   };
 
@@ -143,8 +146,10 @@ const UpdateProduct = () => {
 
   const handleCharacteristicsUpload = async () => {
     try {
+      const language = localStorage.getItem('i18nextLng');
+
       const { data } = await axios.post(
-        `/product/characteristics/${id}`,
+        `/product/characteristics/${id}?lan=${language}`,
         productCharacteristicsValues
       );
       console.log(data);

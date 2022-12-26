@@ -12,8 +12,12 @@ import React from 'react';
 import { setSearchValue } from '../../redux/slices/searchSlice';
 import { AuthContext } from '../../context/authContext';
 import { useTranslation } from 'react-i18next';
+import { HamburgerMenu } from '../hamburgerMenu';
+import { FiShoppingCart } from 'react-icons/fi';
 
 const Header = () => {
+  const [cartQty, setCartQty] = React.useState(0);
+
   const dispatch = useDispatch();
   const searchInput = React.useRef(null);
   const navigate = useNavigate();
@@ -21,7 +25,7 @@ const Header = () => {
 
   const { currentUser, logout } = React.useContext(AuthContext);
 
-  const { totalPrice } = useSelector((state) => state.cart);
+  const { totalPrice, cartItems } = useSelector((state) => state.cart);
 
   const handleCartOpen = () => {
     dispatch(handelShowStatus());
@@ -47,13 +51,17 @@ const Header = () => {
 
   const { t, i18n } = useTranslation();
 
+  React.useEffect(() => {
+    const qty = cartItems.reduce((acc, el) => acc + el.qty, 0);
+    setCartQty(qty);
+  }, [cartItems]);
+
   return (
     <div className={styles.header}>
-      <div className={styles.logoContainer}>
-        <Link to='/'>
-          <img className={styles.logoImage} src={logo} alt='logo' />
-        </Link>
-      </div>
+      <Link className={styles.logoContainer} to='/'>
+        <img className={styles.logoImage} src={logo} alt='logo' />
+      </Link>
+
       <div className={styles.center}>
         <div className={styles.navbar}>
           <Link to='/about-us'>{t('header.about_us')}</Link>
@@ -78,17 +86,28 @@ const Header = () => {
         </div>
       </div>
       <div className={styles.right}>
-        <div className={styles.links}>
-          <Link to='/payment'>{t('header.payment')}</Link>
-          <Link to='/delivery'>{t('header.delivery')}</Link>
-          <Link to='/warranty'>{t('header.warranty')}</Link>
+        <div className={styles.nav}>
+          <div className={styles.links}>
+            <Link to='/payment'>{t('header.payment')}</Link>
+            <Link to='/delivery'>{t('header.delivery')}</Link>
+            <Link to='/warranty'>{t('header.warranty')}</Link>
+          </div>
+          <div className={styles.phoneNumber}>
+            <NumberPopup />
+            <Link to='https://www.facebook.com/'>
+              <FaFacebookSquare
+                style={{ color: '#0058CF', fontSize: '20px' }}
+              />
+            </Link>
+          </div>
         </div>
-        <div className={styles.phoneNumber}>
-          <NumberPopup />
-          <Link to='https://www.facebook.com/'>
-            <FaFacebookSquare style={{ color: '#0058CF', fontSize: '20px' }} />
-          </Link>
+      </div>
+      <div className={styles.navMobile}>
+        <div onClick={handleCartOpen} className={styles.cart}>
+          <div className={styles.items_qty}>{cartQty}</div>
+          <FiShoppingCart />
         </div>
+        <HamburgerMenu />
       </div>
       <div className={styles.footer}>
         <div className={styles.catalogMenu}>

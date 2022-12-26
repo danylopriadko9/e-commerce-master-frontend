@@ -1,7 +1,10 @@
+@import '../../styles/variables.scss';
+
 .title {
   color: #cbccce;
   position: relative;
   margin-bottom: 30px;
+  width: 100%;
 
   .indicator {
     position: absolute;
@@ -11,5 +14,15 @@
     left: 0;
     background-color: red;
     margin-bottom: 20px;
+  }
+}
+
+@media (max-width: $breakpoint-lg) {
+  .title {
+    padding-left: 20px;
+
+    .indicator {
+      left: 20px;
+    }
   }
 }

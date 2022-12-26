@@ -3,7 +3,8 @@ import styles from './Slider.module.scss';
 import { data } from './sliderData';
 
 const Slider = () => {
-  const [index, setIndex] = useState(0);
+  const [index, setIndex] = React.useState(0);
+  const [screenWidth, setScreenWidth] = React.useState(0);
   const timeoutRef = useRef(null);
 
   const delay = 5000;
@@ -13,6 +14,22 @@ const Slider = () => {
       clearTimeout(timeoutRef.current);
     }
   }
+
+  React.useEffect(() => {
+    if (window.outerWidth < 992) {
+      setScreenWidth(window.outerWidth);
+    } else {
+      setScreenWidth(960);
+    }
+  }, []);
+
+  React.useEffect(() => {
+    if (window.outerWidth < 992) {
+      setScreenWidth(window.outerWidth);
+    } else {
+      setScreenWidth(960);
+    }
+  }, [window.outerWidth]);
 
   useEffect(() => {
     resetTimeout();
@@ -38,7 +55,7 @@ const Slider = () => {
         {data.map((el, i) => (
           <div
             className={styles.slide}
-            style={{ transform: `translateX(${index * -960}px)` }}
+            style={{ transform: `translateX(${index * -screenWidth}px)` }}
             key={i}
           >
             <div className={styles.imageContainer}>

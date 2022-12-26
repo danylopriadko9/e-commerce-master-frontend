@@ -28,12 +28,14 @@ const ProductPage = () => {
   const location = useLocation();
   const { currentUser } = React.useContext(AuthContext);
 
+  const { language } = useSelector((state) => state.language);
+
   React.useEffect(() => {
     dispatch(cleanActualProduct());
     dispatch(cleanActualPhotos());
     dispatch(fetchActualProduct(location.pathname.replace('/tovar_', '')));
     window.scrollTo(0, 0);
-  }, [location.pathname]);
+  }, [location.pathname, language]);
 
   const { actualProduct, characteristics } = useSelector(
     (state) => state.actualProduct
@@ -48,7 +50,10 @@ const ProductPage = () => {
       dispatch(fetchReationProducts(product.product_id));
       if (product.description)
         descriptionBlock.current.innerHTML = product.description;
-      else descriptionBlock.current.innerHTML = `<h4>Отсутствует</h4>`;
+      else
+        descriptionBlock.current.innerHTML = `<h4>${t(
+          'product_page.empty'
+        )}</h4>`;
     }
   }, [product]);
 
