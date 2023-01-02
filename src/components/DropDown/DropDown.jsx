@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import React from 'react';
 import styles from './DropDown.module.scss';
 import { BiCategoryAlt } from 'react-icons/bi';
 import { Link } from 'react-router-dom';
@@ -15,11 +15,11 @@ const DropDown = () => {
     (state) => state.category
   );
 
-  useEffect(() => {
-    if (!categories.length) {
-      dispatch(fetchCategories());
-    }
-  }, []);
+  const { language } = useSelector((state) => state.language);
+
+  React.useEffect(() => {
+    dispatch(fetchCategories());
+  }, [language]);
 
   const categoryMouseEnter = (id) => {
     dispatch(searchActualCategory(id));

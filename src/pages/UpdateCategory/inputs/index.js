@@ -11,8 +11,6 @@ const Index = (props) => {
   // редактирование различных языков для категорий
   // обновление dropdown при изменении языка
   // сделать адаптив для страницы продукта, главной страницы под мобилки
-  // найти бургер менюшку и вставить ее для мобилок и планшетов
-  // оформление заказа (отображение цены, к-ва товаров, кликабельность и запись данных отправки и платежа)
 
   const [file, setFile] = React.useState(null);
   const [category, setCategory] = React.useState({});
@@ -37,21 +35,7 @@ const Index = (props) => {
 
   const handleSubmit = async () => {
     try {
-      const res = await cb(category, file);
-      const category_id = data?.id ? data.id : res.data;
-
-      console.log(category_id);
-
-      if (file) {
-        const image = new FormData();
-        image.append('avatar', file);
-
-        await axios.post(`/upload/category/${category_id}`, file, {
-          headers: {
-            'content-type': 'mulpipart/form-data',
-          },
-        });
-      }
+      await cb(category, file);
     } catch (error) {
       console.log(error);
     }

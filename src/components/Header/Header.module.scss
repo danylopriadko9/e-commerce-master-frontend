@@ -11,6 +11,14 @@
   background-color: white;
   gap: 20px;
 
+  .nav_search {
+    display: none;
+  }
+
+  .logoMobileContainer {
+    display: none;
+  }
+
   .logoContainer {
     margin-top: 25px;
     width: 75px;
@@ -38,6 +46,10 @@
       }
     }
 
+    .inputConteinerMobile {
+      display: none;
+    }
+
     .inputConteiner {
       width: 100%;
       display: flex;
@@ -58,6 +70,7 @@
         border: none;
         color: #c1c2c3;
         transition: 0.2s all;
+        height: 100%;
 
         &:hover {
           background-color: #d4d6d8;
@@ -110,8 +123,6 @@
 
     left: -50px;
     bottom: 50px;
-
-    ///
   }
 
   .cartAndLogin {
@@ -168,7 +179,7 @@
 
 @media (max-width: $breakpoint-lg) {
   .header {
-    width: $full-screen;
+    width: 100%;
     align-items: center;
     justify-content: space-around;
     position: fixed;
@@ -226,6 +237,71 @@
 
     .footer {
       display: none;
+    }
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .header {
+    .nav_search {
+      display: flex;
+    }
+
+    width: $full-screen;
+    .center {
+      .inputConteiner {
+        display: none;
+      }
+
+      .inputConteinerMobile {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        margin-top: 20px;
+
+        input {
+          width: 200px;
+          border: none;
+          border-bottom: 1px solid #ecedee;
+          height: 40px;
+          outline: none;
+        }
+
+        button {
+          width: 70px;
+          background-color: #f4f5f6;
+          border: none;
+          color: #c1c2c3;
+          transition: 0.2s all;
+          height: 100%;
+
+          &:hover {
+            background-color: #d4d6d8;
+            color: #8d8d8d;
+            cursor: pointer;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .header {
+    width: $full-screen;
+
+    .logoContainer {
+      display: none;
+    }
+
+    .logoMobileContainer {
+      display: flex;
+      margin-top: 25px;
+      width: 50px;
+
+      img {
+        width: 100%;
+      }
     }
   }
 }

@@ -7,7 +7,7 @@ import {
   fetchActualProductsProperties,
   setActualProductsCompartison,
 } from '../../redux/slices/comparisonSlice';
-import CompareItem from '../../components/CompareItem/CompareItem';
+import CompareItem from './CompareItem/CompareItem';
 import PropertysProducts from '../../components/PropertysProducts/PropertysProducts';
 import { useTranslation } from 'react-i18next';
 
@@ -24,8 +24,10 @@ const Compare = () => {
     propertyProducts,
     propertyProductsStatus,
   } = useSelector((state) => state.compartison);
+
   const [actualCategory, setActualCategory] = React.useState(categories[0]);
 
+  // отслеживаем изменение языка и первичную отгрузку данных
   React.useEffect(() => {
     if (categories.length) {
       dispatch(setActualProductsCompartison(categories[0].category_id));
@@ -34,21 +36,25 @@ const Compare = () => {
     window.scrollTo(0, 0);
   }, [language]);
 
+  // при добавлении новой категории
   React.useEffect(() => {
     if (categories.length > 0) {
-      handleChangeActualCategory(categories[categories.length - 1]);
+      handleChangeActualCategory(categories[0]);
     }
-    dispatch(fetchActualProductsProperties());
+    dispatch(fetchActualProductsProperties(resultOfFilter));
   }, [categories.length]);
 
+  // поиск продуктов которые покупают вместе с выбраными айтемами
   React.useEffect(() => {
     dispatch(fetchActualProductsProperties(resultOfFilter));
   }, [resultOfFilter, language]);
 
-  const handleChangeActualCategory = (category) => {
-    setActualCategory(category);
-    dispatch(setActualProductsCompartison(category.category_id));
-    dispatch(fetchActualCategoryCharacteristics(category.category_url));
+  // функция которая меняет х-ки актуальной категории и ищет продукты из этой категории
+  const handleChangeActualCategory = ({ category_id, category_url }) => {
+    setActualCategory({ category_id });
+    dispatch(setActualProductsCompartison(category_id));
+    dispatch(fetchActualCategoryCharacteristics(category_url));
+    dispatch(fetchActualProductsProperties(resultOfFilter));
   };
 
   const { t, i18n } = useTranslation();

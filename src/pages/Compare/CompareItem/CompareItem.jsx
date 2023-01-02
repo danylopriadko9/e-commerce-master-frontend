@@ -1,12 +1,12 @@
 import React from 'react';
 import styles from './CompareItem.module.scss';
-import InformationBlock from '../InformationBlock/InformationBlock';
+import InformationBlock from '../../../components/InformationBlock/InformationBlock';
 import { RiCloseFill } from 'react-icons/ri';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   deleteCompartisonProduct,
   fetchActualProductsCharacteristicsValue,
-} from '../../redux/slices/comparisonSlice';
+} from '../../../redux/slices/comparisonSlice';
 import { useTranslation } from 'react-i18next';
 import axios from 'axios';
 
@@ -37,9 +37,7 @@ const CompareItem = ({ el }) => {
   const [image, setImage] = React.useState(null);
 
   const fetchProductPhoto = async () => {
-    const { data } = await axios.get(
-      `http://localhost:8000/product/photo/${product_id}`
-    );
+    const { data } = await axios.get(`/product/photo/${product_id}`);
     setImage(data);
   };
 
@@ -98,7 +96,11 @@ const CompareItem = ({ el }) => {
         actualProductsValues[product_id] ? (
           <p>
             {actualProductsValues[product_id][0] &&
-              actualProductsValues[product_id][0].guarantee}{' '}
+            actualProductsValues[product_id][0].guarantee ? (
+              actualProductsValues[product_id][0].guarantee
+            ) : (
+              <p>Отсутствует</p>
+            )}
           </p>
         ) : (
           <></>

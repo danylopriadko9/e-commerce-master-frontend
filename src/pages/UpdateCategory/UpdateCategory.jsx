@@ -242,9 +242,9 @@ const UpdateCategory = () => {
                 <span>{addSubcategoryFile?.name}</span>
               </div>
               <button
-                onClick={() =>
-                  handleUpdateCategory(actualSubcategory, addSubcategoryFile)
-                }
+              // onClick={() =>
+              //   handleUpdateCategory(actualSubcategory, addSubcategoryFile)
+              // }
               >
                 Update
               </button>

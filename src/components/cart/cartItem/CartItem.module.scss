@@ -132,3 +132,15 @@
     }
   }
 }
+
+@media (max-width: $breakpoint-sm) {
+  .infoContainer {
+    flex-direction: column;
+    gap: 10px;
+    min-width: auto;
+  }
+
+  .cartItemContainer {
+    justify-content: space-evenly;
+  }
+}

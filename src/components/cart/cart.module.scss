@@ -9,6 +9,10 @@
   display: flex;
   margin: 80px 0;
 
+  .container {
+    width: 100%;
+  }
+
   header {
     position: relative;
     width: 900px;
@@ -19,6 +23,8 @@
     }
 
     .indikator {
+      top: -10px;
+      position: absolute;
       width: 45px;
       height: 4px;
       background-color: red;
@@ -47,13 +53,41 @@
     left: calc(50% - 415px);
 
     header {
+      width: 100%;
+
       button {
-        right: -98px;
+        right: 0;
+        top: -20px;
       }
+    }
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .main_container {
+    position: relative;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    margin-top: 0;
+    padding: 30px 0;
+
+    .container {
+      width: 90%;
+      margin: 10px auto;
     }
 
     header {
-      width: 700px;
+      width: 100%;
+      max-width: 100%;
+      position: relative;
+
+      button {
+        right: 0;
+        top: 0;
+      }
     }
   }
 }

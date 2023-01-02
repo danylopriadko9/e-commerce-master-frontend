@@ -2,7 +2,7 @@ import styles from './Header.module.scss';
 import logo from '../../assets/logo.png';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { FaFacebookSquare } from 'react-icons/fa';
-import { AiOutlineShoppingCart } from 'react-icons/ai';
+import { AiOutlineShoppingCart, AiOutlineSearch } from 'react-icons/ai';
 import { RiAccountCircleLine } from 'react-icons/ri';
 import DropDown from '../DropDown/DropDown';
 import NumberPopup from '../NumberPopup/NumberPopup';
@@ -17,6 +17,12 @@ import { FiShoppingCart } from 'react-icons/fi';
 
 const Header = () => {
   const [cartQty, setCartQty] = React.useState(0);
+  const [inputStatus, setInputStatus] = React.useState(false);
+  const [windowWidth, setWindowWidth] = React.useState(0);
+
+  React.useEffect(() => {
+    setWindowWidth(window.outerWidth);
+  }, [window.outerWidth]);
 
   const dispatch = useDispatch();
   const searchInput = React.useRef(null);
@@ -30,6 +36,10 @@ const Header = () => {
   const handleCartOpen = () => {
     dispatch(handelShowStatus());
   };
+
+  React.useEffect(() => {
+    console.log(inputStatus);
+  }, [inputStatus]);
 
   const handleSearch = (e) => {
     if (!e.current.value.trim().length) {
@@ -62,6 +72,12 @@ const Header = () => {
         <img className={styles.logoImage} src={logo} alt='logo' />
       </Link>
 
+      {!inputStatus && (
+        <Link className={styles.logoMobileContainer} to='/'>
+          <img className={styles.logoImage} src={logo} alt='logo' />
+        </Link>
+      )}
+
       <div className={styles.center}>
         <div className={styles.navbar}>
           <Link to='/about-us'>{t('header.about_us')}</Link>
@@ -73,17 +89,35 @@ const Header = () => {
           <Link to='/cooperation'>{t('header.cooperation')}</Link>
         </div>
         <div className={styles.inputConteiner}>
-          <input
-            ref={searchInput}
-            type='text'
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') handleSearch(searchInput);
-            }}
-          />
-          <button onClick={() => handleSearch(searchInput)}>
-            {t('header.search')}
-          </button>
+          <div>
+            <input
+              ref={searchInput}
+              type='text'
+              onKeyDown={(e) => {
+                if (e.key === 'Enter') handleSearch(searchInput);
+              }}
+            />
+            <button onClick={() => handleSearch(searchInput)}>
+              {t('header.search')}
+            </button>
+          </div>
         </div>
+        {inputStatus && (
+          <div className={styles.inputConteinerMobile}>
+            <div>
+              <input
+                ref={searchInput}
+                type='text'
+                onKeyDown={(e) => {
+                  if (e.key === 'Enter') handleSearch(searchInput);
+                }}
+              />
+              <button onClick={() => handleSearch(searchInput)}>
+                {t('header.search')}
+              </button>
+            </div>
+          </div>
+        )}
       </div>
       <div className={styles.right}>
         <div className={styles.nav}>
@@ -103,6 +137,12 @@ const Header = () => {
         </div>
       </div>
       <div className={styles.navMobile}>
+        <div
+          onClick={() => setInputStatus((prev) => !prev)}
+          className={`${styles.cart} ${styles.nav_search}`}
+        >
+          <AiOutlineSearch />
+        </div>
         <div onClick={handleCartOpen} className={styles.cart}>
           <div className={styles.items_qty}>{cartQty}</div>
           <FiShoppingCart />

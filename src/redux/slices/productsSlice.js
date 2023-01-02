@@ -40,6 +40,7 @@ const initialState = {
   comparisonProducts: [],
   // -----Просмотренные продукты
   watchedProducts: items,
+  watchedProductsIds: [],
 };
 
 export const productsSlice = createSlice({

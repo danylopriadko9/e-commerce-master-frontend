@@ -1,3 +1,5 @@
+@import '../../../styles/variables';
+
 .itemsContainer {
   width: 100%;
 
@@ -54,5 +56,15 @@ footer {
         margin-left: 5px;
       }
     }
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  footer {
+    flex-direction: column;
+    padding: 0;
+    gap: 20px;
+    padding-top: 20px;
+    min-width: 100%;
   }
 }

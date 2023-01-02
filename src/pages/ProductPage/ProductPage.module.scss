@@ -109,15 +109,38 @@
       }
     }
   }
-
-  // .characteristics {
-  // }
 }
 
 @media (max-width: $breakpoint-lg) {
+  .container {
+    width: 100%;
+  }
   .text_container {
     max-width: 100%;
     width: 100%;
     padding: 0 30px;
+  }
+}
+
+@media (max-width: $breakpoint-sm) {
+  .container {
+    width: 100%;
+  }
+  .text_container {
+    flex-direction: column;
+    gap: 80px;
+  }
+
+  .information_container {
+    width: 80%;
+    margin: 0 auto;
+  }
+
+  .informationContainer {
+    flex-direction: column;
+
+    .informationBlock {
+      width: 100%;
+    }
   }
 }
