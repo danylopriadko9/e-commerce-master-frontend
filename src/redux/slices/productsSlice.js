@@ -28,6 +28,16 @@ export const fetchDiscountProducts = createAsyncThunk(
   }
 );
 
+export const fetchProductsByIds = createAsyncThunk(
+  `product/fetchProductsByIds`,
+  async (ids) => {
+    const language = localStorage.getItem('i18nextLng');
+    console.log(language);
+    const { data } = await axios.post(`/product?lan=${language}`, { ids: ids });
+    return data;
+  }
+);
+
 const initialState = {
   //----Новые продукты
   newProducts: [],
@@ -39,8 +49,9 @@ const initialState = {
   viewedProducts: [],
   comparisonProducts: [],
   // -----Просмотренные продукты
-  watchedProducts: items,
-  watchedProductsIds: [],
+  watchedProducts: [],
+  watchedProductsIds: items,
+  watchedProductsStatus: null,
 };
 
 export const productsSlice = createSlice({
@@ -63,10 +74,11 @@ export const productsSlice = createSlice({
         (el) => el.id !== action.payload
       );
     },
+
     addToWachedProducts: (state, action) => {
-      if (!state.watchedProducts.find((el) => el.url === action.payload.url)) {
-        state.watchedProducts.push(action.payload);
-        setItemsFunction(state.watchedProducts.map((item) => item));
+      if (!state.watchedProductsIds.find((el) => el === action.payload)) {
+        state.watchedProductsIds.push(action.payload);
+        setItemsFunction(state.watchedProductsIds.map((item) => item));
       }
     },
   },
@@ -95,6 +107,18 @@ export const productsSlice = createSlice({
     },
     [fetchDiscountProducts.rejected]: (state, action) => {
       state.discountProductsStatus = 'error';
+    },
+    //---------------- Просмотренные продукты
+    [fetchProductsByIds.pending]: (state, action) => {
+      state.watchedProductsStatus = 'loading';
+      state.error = null;
+    },
+    [fetchProductsByIds.fulfilled]: (state, action) => {
+      state.watchedProductsStatus = 'success';
+      state.watchedProducts = action.payload;
+    },
+    [fetchProductsByIds.rejected]: (state, action) => {
+      state.watchedProductsStatus = 'error';
     },
   },
 });

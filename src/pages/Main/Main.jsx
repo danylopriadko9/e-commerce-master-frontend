@@ -11,6 +11,7 @@ import Items from '../../components/ItemsSlider/Items';
 import {
   fetchNewProducts,
   fetchDiscountProducts,
+  fetchProductsByIds,
 } from '../../redux/slices/productsSlice';
 import { fetchNews } from '../../redux/slices/newsSlice';
 import { Helmet } from 'react-helmet';
@@ -19,6 +20,10 @@ import { useTranslation } from 'react-i18next';
 const Main = () => {
   const { language } = useSelector((state) => state.language);
 
+  const { watchedProductsIds, watchedProducts } = useSelector(
+    (state) => state.products
+  );
+
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(cleanActualProduct());
@@ -26,6 +31,7 @@ const Main = () => {
     dispatch(fetchDiscountProducts());
     dispatch(fetchNewProducts());
     dispatch(fetchNews());
+    dispatch(fetchProductsByIds(watchedProductsIds));
   }, [language]);
 
   const {
@@ -36,7 +42,6 @@ const Main = () => {
   } = useSelector((state) => state.products);
 
   const { news, newsStatus } = useSelector((state) => state.news);
-  const { watchedProducts } = useSelector((state) => state.products);
 
   const { t, i18n } = useTranslation();
 

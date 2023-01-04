@@ -36,7 +36,8 @@ const DiscountItem = (item) => {
   };
 
   const handleWatchedProducts = (item) => {
-    dispatch(addToWachedProducts(item));
+    const { product_id } = item;
+    dispatch(addToWachedProducts(product_id));
   };
 
   const handleAddToComprasion = (item) => {
